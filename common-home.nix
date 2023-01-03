@@ -67,9 +67,9 @@
         "hm-activate=host" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(hostname).activationPackage)/activate";
         "hm-update-user" = "home-manager switch --flake ~/.dotfiles#$(whoami)";
         "hm-update-host" = "home-manager switch --flake ~/.dotfiles#$(hostname)";
-        "hm-build" = "hm-build-host || hm-build-user";
-        "hm-activate" = "hm-activate-host || hm-activate-user";
-        "hm-update" = "hm-update-host || hm-update-user";
+        "hm-build" = "hm-build-host 2>/dev/null || hm-build-user 2>/dev/null";
+        "hm-activate" = "hm-activate-host 2>/dev/null || hm-activate-user 2>/dev/null";
+        "hm-update" = "hm-update-host 2>/dev/null || hm-update-user 2>/dev/null";
       };
       oh-my-zsh = {
         enable = true;
