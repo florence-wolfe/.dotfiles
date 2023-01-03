@@ -43,7 +43,7 @@
       userEmail = "frankie.robert+github@gmail.com";
       userName = "Frank Robert";
       # signing = {
-        # signByDefault = true;
+      # signByDefault = true;
       # };
 
       extraConfig = {
@@ -123,7 +123,7 @@
         italic-text = "always";
       };
     };
-    
+
     dircolors = {
       enable = true;
       enableZshIntegration = true;
@@ -163,10 +163,6 @@
         enable = true;
         frequency = "weekly";
       };
-    };
-
-    spotifyd = {
-      enable = true;
     };
   };
 }

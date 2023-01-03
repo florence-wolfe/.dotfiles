@@ -14,12 +14,11 @@
   outputs = { nixpkgs, home-manager, nix-colors, ... }:
     let
       system = [ "x86_64-linux" "x86_64-darwin" ];
-      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
       homeConfigurations = {
         DS720plus = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
           modules = [ ./nas-home.nix ];
@@ -28,11 +27,11 @@
           # to pass through arguments to home.nix
         };
 
-        mac = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        jroberfr = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-darwin;
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
-          modules = [ ./nas-home.nix ];
+          modules = [ ./mac-home.nix ];
           extraSpecialArgs = { inherit nix-colors; };
           # Optionally use extraSpecialArgs
           # to pass through arguments to home.nix
