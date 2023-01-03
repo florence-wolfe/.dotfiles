@@ -13,7 +13,6 @@
     ];
     packages = [
       pkgs.spotify-tui
-      pkgs.glibcLocalesUtf8
     ];
 
     shellAliases = {
@@ -62,9 +61,15 @@
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       shellAliases = {
-        "hm-build" = "nix build --no-link ~/.dotfiles#homeConfigurations.$(hostname).activationPackage";
-        "hm-activate" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(hostname).activationPackage)/activate";
-        "hm-update" = "home-manager switch --flake ~/.dotfiles#$(hostname)";
+        "hm-build-user" = "nix build --no-link ~/.dotfiles#homeConfigurations.$(whoami).activationPackage";
+        "hm-build-host" = "nix build --no-link ~/.dotfiles#homeConfigurations.$(hostname).activationPackage";
+        "hm-activate-user" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(whoami).activationPackage)/activate";
+        "hm-activate=host" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(hostname).activationPackage)/activate";
+        "hm-update-user" = "home-manager switch --flake ~/.dotfiles#$(whoami)";
+        "hm-update-host" = "home-manager switch --flake ~/.dotfiles#$(hostname)";
+        "hm-build" = "hm-build-host || hm-build-user";
+        "hm-activate" = "hm-activate-host || hm-activate-user";
+        "hm-update" = "hm-update-host || hm-update-user";
       };
       oh-my-zsh = {
         enable = true;
@@ -99,8 +104,8 @@
       # Configuration written to ~/.config/starship.toml
       settings = {
         character = {
-          success_symbol = "[➜](bold #${config.colorScheme.colors.base0B}) ";
-          error_symbol = "[✖](bold #${config.colorScheme.colors.base08}) ";
+          success_symbol = "[➜](bold #${config.colorScheme.colors.base0B})";
+          error_symbol = "[✖](bold #${config.colorScheme.colors.base08})";
         };
         username = {
           style_user = "bold dimmed #${config.colorScheme.colors.base03}";
@@ -155,14 +160,5 @@
     };
 
     ### END OF PROGRAMS
-  };
-
-  services = {
-    home-manager = {
-      autoUpgrade = {
-        enable = true;
-        frequency = "weekly";
-      };
-    };
   };
 }
