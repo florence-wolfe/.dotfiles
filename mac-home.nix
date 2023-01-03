@@ -6,5 +6,6 @@
   # paths it should manage.
   home = {
     username = "jroberfr";
+    homeDirectory = "$HOME";
   };
 }
