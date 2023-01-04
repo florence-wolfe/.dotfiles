@@ -4,7 +4,26 @@
   imports = [
     nix-colors.homeManagerModule
   ];
+
   colorScheme = nix-colors.colorSchemes.nord;
+  # :root {
+  #   --base00: #2E3440;
+  #   --base01: #3B4252;
+  #   --base02: #434C5E;
+  #   --base03: #4C566A;
+  #   --base04: #D8DEE9;
+  #   --base05: #E5E9F0;
+  #   --base06: #ECEFF4;
+  #   --base07: #8FBCBB;
+  #   --base08: #BF616A;
+  #   --base09: #D08770;
+  #   --base0A: #EBCB8B;
+  #   --base0B: #A3BE8C;
+  #   --base0C: #88C0D0;
+  #   --base0D: #81A1C1;
+  #   --base0E: #B48EAD;
+  #   --base0F: #5E81AC;
+  # }
 
   home = {
     stateVersion = "22.11";
@@ -55,52 +74,59 @@
       };
     };
 
-    zsh = {
-      enable = true;
-      enableAutosuggestions = true;
-      enableCompletion = true;
-      enableSyntaxHighlighting = true;
-      shellAliases = {
-        "hm-build-user" = "nix build --no-link ~/.dotfiles#homeConfigurations.$(whoami).activationPackage";
-        "hm-build-host" = "nix build --no-link ~/.dotfiles#homeConfigurations.$(hostname).activationPackage";
-        "hm-activate-user" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(whoami).activationPackage)/activate";
-        "hm-activate=host" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(hostname).activationPackage)/activate";
-        "hm-update-user" = "home-manager switch --flake ~/.dotfiles#$(whoami)";
-        "hm-update-host" = "home-manager switch --flake ~/.dotfiles#$(hostname)";
-        "hm-build" = "hm-build-host 2>/dev/null || hm-build-user 2>/dev/null";
-        "hm-activate" = "hm-activate-host 2>/dev/null || hm-activate-user 2>/dev/null";
-        "hm-update" = "hm-update-host 2>/dev/null || hm-update-user 2>/dev/null";
-      };
-      oh-my-zsh = {
-        enable = true;
-      };
-      initExtra = "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#${config.colorScheme.colors.base04}'";
-    };
-
-    # fish = {
+    # zsh = {
     #   enable = true;
+    #   enableAutosuggestions = true;
+    #   enableCompletion = true;
+    #   enableSyntaxHighlighting = true;
     #   shellAliases = {
-    #     "hm-build" = "nix build --no-link ~/.dotfiles#homeConfigurations.(hostname).activationPackage";
-    #     "hm-activate" = "(nix path-info ~/.dotfiles#homeConfigurations.(hostname).activationPackage)/activate";
-    #     "hm-update" = "home-manager switch --flake ~/.dotfiles#(hostname)";
+    #     "hm-build-user" = "nix build --no-link ~/.dotfiles#homeConfigurations.$(whoami).activationPackage";
+    #     "hm-build-host" = "nix build --no-link ~/.dotfiles#homeConfigurations.$(hostname).activationPackage";
+    #     "hm-activate-user" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(whoami).activationPackage)/activate";
+    #     "hm-activate=host" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(hostname).activationPackage)/activate";
+    #     "hm-update-user" = "home-manager switch --flake ~/.dotfiles#$(whoami)";
+    #     "hm-update-host" = "home-manager switch --flake ~/.dotfiles#$(hostname)";
+    #     "hm-build" = "hm-build-host || hm-build-user";
+    #     "hm-activate" = "hm-activate-host || hm-activate-user";
+    #     "hm-update" = "hm-update-host || hm-update-user";
     #   };
-    #   plugins = [
-    #     {
-    #       name = "foreign-env";
-    #       src = pkgs.fetchFromGitHub {
-    #         owner = "oh-my-fish";
-    #         repo = "plugin-foreign-env";
-    #         rev = "b3dd471bcc885b597c3922e4de836e06415e52dd";
-    #         sha256 = "3h03WQrBZmTXZLkQh1oVyhv6zlyYsSDS7HTHr+7WjY8=";
-    #       };
-    #     }
-    #   ];
+    #   oh-my-zsh = {
+    #     enable = true;
+    #   };
+    #   initExtra = "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#${config.colorScheme.colors.base04}'";
     # };
+
+    fish = {
+      enable = true;
+      shellInit = "bass source ~/.profile";
+      shellAliases = {
+        "hm-build-user" = "nix build --no-link ~/.dotfiles#homeConfigurations.(whoami).activationPackage";
+        "hm-build-host" = "nix build --no-link ~/.dotfiles#homeConfigurations.(hostname).activationPackage";
+        "hm-activate-user" = "(nix path-info ~/.dotfiles#homeConfigurations.(whoami).activationPackage)/activate";
+        "hm-activate=host" = "(nix path-info ~/.dotfiles#homeConfigurations.(hostname).activationPackage)/activate";
+        "hm-update-user" = "home-manager switch --flake ~/.dotfiles#(whoami)";
+        "hm-update-host" = "home-manager switch --flake ~/.dotfiles#(hostname)";
+        "hm-build" = "hm-build-host || hm-build-user";
+        "hm-activate" = "hm-activate-host || hm-activate-user";
+        "hm-update" = "hm-update-host || hm-update-user";
+      };
+      plugins = [
+        {
+          name = "bass";
+          src = pkgs.fetchFromGitHub {
+            owner = "edc";
+            repo = "bass";
+            rev = "2fd3d2157d5271ca3575b13daec975ca4c10577a";
+            sha256 = "fl4/Pgtkojk5AE52wpGDnuLajQxHoVqyphE90IIPYFU=";
+          };
+        }
+      ];
+    };
 
     starship = {
       enable = true;
-      enableZshIntegration = true;
-      # enableFishIntegration = true;
+      # enableZshIntegration = true;
+      enableFishIntegration = true;
       # Configuration written to ~/.config/starship.toml
       settings = {
         character = {
@@ -108,14 +134,14 @@
           error_symbol = "[✖](bold #${config.colorScheme.colors.base08})";
         };
         username = {
-          style_user = "bold dimmed #${config.colorScheme.colors.base03}";
+          style_user = "bold #${config.colorScheme.colors.base0D}";
           show_always = false;
         };
         hostname = {
           ssh_only = false;
           format = "<$hostname>";
           trim_at = "-";
-          style = "bold dimmed #${config.colorScheme.colors.base04}";
+          style = "bold #${config.colorScheme.colors.base0F}";
           disabled = true;
         };
       };
@@ -131,14 +157,14 @@
 
     dircolors = {
       enable = true;
-      enableZshIntegration = true;
-      # enableFishIntegration = true;
+      # enableZshIntegration = true;
+      enableFishIntegration = true;
     };
 
     fzf = {
       enable = true;
-      enableZshIntegration = true;
-      # enableFishIntegration = true;
+      # enableZshIntegration = true;
+      enableFishIntegration = true;
     };
 
     jq = {
@@ -159,6 +185,13 @@
       defaultEditor = true;
     };
 
+    rbw = {
+      enable = true;
+      settings = {
+        email = "frankie.robert@gmail.com";
+        base_url = "https://bitwarden.simbojimbo.com";
+      };
+    };
     ### END OF PROGRAMS
   };
 }
