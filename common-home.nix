@@ -33,7 +33,7 @@
     packages = [
       pkgs.spotify-tui
     ];
-
+    file.".profile".source = ./system/.profile;
     shellAliases = {
       # With line numbers
       ccat = "bat --paging=never";
