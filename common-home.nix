@@ -73,7 +73,10 @@
         };
       };
     };
-
+    gh = {
+      enable = true;
+      enableGitCredentialHelper = true;
+    };
     # zsh = {
     #   enable = true;
     #   enableAutosuggestions = true;
