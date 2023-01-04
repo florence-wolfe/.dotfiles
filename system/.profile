@@ -11,6 +11,9 @@ shells=("$(which bash)" "$(which zsh)" "$(which fish)")
 
 # Loop through the array of shell names
 for shell in "${shells[@]}"; do
+  if [[ -n "$KEEP_SHELL" ]]; then
+    break
+  fi
   # Check if the current shell is available, executable, and has "nix" in its output
   if which "$shell" >/dev/null && [[ -x "$(which "$shell")" ]] && which "$shell" | grep -q nix -; then
     # Exit the loop if the current shell is already assigned
