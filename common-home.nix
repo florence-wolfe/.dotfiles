@@ -1,4 +1,4 @@
-{ config, pkgs, nix-colors, ... }:
+{ config, pkgs, nix-colors, lib, ... }:
 
 {
   imports = [
@@ -26,6 +26,9 @@
   # }
 
   home = {
+    sessionVariables = {
+      ACTIVE_SHELL = "fish";
+    };
     stateVersion = "22.11";
     sessionPath = [
       "$HOME/.local/bin"
@@ -101,18 +104,21 @@
 
     fish = {
       enable = true;
-      shellInit = "bass source ~/.profile";
       shellAliases = {
-        "hm-build-user" = "nix build --no-link ~/.dotfiles#homeConfigurations.(whoami).activationPackage";
-        "hm-build-host" = "nix build --no-link ~/.dotfiles#homeConfigurations.(hostname).activationPackage";
-        "hm-activate-user" = "(nix path-info ~/.dotfiles#homeConfigurations.(whoami).activationPackage)/activate";
-        "hm-activate=host" = "(nix path-info ~/.dotfiles#homeConfigurations.(hostname).activationPackage)/activate";
-        "hm-update-user" = "home-manager switch --flake ~/.dotfiles#(whoami)";
-        "hm-update-host" = "home-manager switch --flake ~/.dotfiles#(hostname)";
+        "fsource" = "bass source";
+      };
+      functions = {
+        "hm-build-user" = "nix build --no-link \"$HOME/.dotfiles#homeConfigurations.$(whoami).activationPackage\"";
+        "hm-build-host" = "nix build --no-link \"$HOME/.dotfiles#homeConfigurations.$(hostname).activationPackage\"";
+        "hm-activate-user" = "(nix path-info \"$HOME/.dotfiles#homeConfigurations.$(whoami).activationPackage)/activate\")";
+        "hm-activate-host" = "(nix path-info \"$HOME/.dotfiles#homeConfigurations.$(hostname).activationPackage)/activate\")";
+        "hm-update-user" = "home-manager switch --flake \"$HOME/.dotfiles#$(whoami)\"";
+        "hm-update-host" = "home-manager switch --flake \"$HOME/.dotfiles#$(hostname)\"";
         "hm-build" = "hm-build-host || hm-build-user";
         "hm-activate" = "hm-activate-host || hm-activate-user";
         "hm-update" = "hm-update-host || hm-update-user";
       };
+
       plugins = [
         {
           name = "bass";
@@ -195,6 +201,16 @@
         base_url = "https://bitwarden.simbojimbo.com";
       };
     };
+
+    wezterm = {
+      enable = true;
+      extraConfig = ''
+        return {
+          color_scheme = '${lib.strings.toLower config.colorScheme.name}'
+        }
+      '';
+    };
+
     ### END OF PROGRAMS
   };
 }

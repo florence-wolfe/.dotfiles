@@ -1,15 +1,31 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
+let
+  username = "jroberfr";
+  homeDirectory = "/Users/${username}";
+in
 {
   imports = [ ./common-home.nix ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
+
   home = {
-    username = "jroberfr";
-    homeDirectory = "/Users/jroberfr";
+    inherit username homeDirectory;
     packages = [
       pkgs.spotifyd
     ];
+    sessionVariables = {
+      TMPDIR = "/tmp";
+    };
+    file."Applications/Home Manager Apps".source =
+      let
+        apps = pkgs.buildEnv {
+          name = "home-manager-applications";
+          paths = config.home.packages;
+          pathsToLink = "/Applications";
+        };
+      in
+      "${apps}/Applications";
   };
 
   launchd = {
@@ -20,13 +36,15 @@
         config = {
           Label = "rustlang.spotifyd";
           ProgramArguments = [
-            "spotifyd"
-            "--config-path=/Users/jroberfr/.config/spotifyd/spotifyd.conf"
+            "${homeDirectory}/.nix-profile/bin/spotifyd"
+            "--config-path=${homeDirectory}/.config/spotifyd/spotifyd.conf"
             "--no-daemon"
           ];
-          UserName = "jroberfr";
+          UserName = username;
           KeepAlive = true;
           ThrottleInterval = 30;
+          StandardErrorPath = "/tmp/rustlang.spotifyd.err";
+          StandardOutPath = "/tmp/rustlang.spotifyd.out";
         };
       };
     };
