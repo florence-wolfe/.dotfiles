@@ -35,6 +35,7 @@
     ];
     packages = [
       pkgs.spotify-tui
+      pkgs.nodejs
     ];
     file.".profile".source = ./system/.profile;
     shellAliases = {
@@ -127,6 +128,15 @@
             repo = "bass";
             rev = "2fd3d2157d5271ca3575b13daec975ca4c10577a";
             sha256 = "fl4/Pgtkojk5AE52wpGDnuLajQxHoVqyphE90IIPYFU=";
+          };
+        }
+        {
+          name = "fish-docker-compose";
+          src = pkgs.fetchFromGitHub {
+            owner = "brgmnn";
+            repo = "fish-docker-compose";
+            rev = "44a9a5ad593f05ac77e4c5024cfe4a8c55db31e3";
+            sha256 = "VMBVLWCwW7/eXEedJrbcby0PjNWYe7MORR7hj+ZEmWg=";
           };
         }
       ];
