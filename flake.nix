@@ -2,39 +2,40 @@
   description = "Frank's Home Manager configuration";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-colors.url = "github:misterio77/nix-colors";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    homeage = {
+      url = "github:jordanisaacs/homeage";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, nix-colors, ... }:
+  outputs = { self, nixpkgs, home-manager, nix-colors, homeage, ... }:
     let
-      system = [ "x86_64-linux" "x86_64-darwin" ];
+      commonModules = [ ./modules/lazyvim.nix ];
     in
     {
       homeConfigurations = {
-        DS720plus = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [ ./nas-home.nix ];
-          extraSpecialArgs = { inherit nix-colors; };
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
+        "frank.robert@DS720plus" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          modules = commonModules ++ [ ./nas-home.nix ];
+          extraSpecialArgs = { inherit nix-colors homeage; };
         };
 
-        jroberfr = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-darwin;
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [ ./mac-home.nix ];
-          extraSpecialArgs = { inherit nix-colors; };
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
+        "jroberfr@88665a49c72f.ant.amazon.com" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-darwin";
+            config.allowUnfree = true;
+          };
+          modules = commonModules ++ [ ./mac-home.nix ];
+          extraSpecialArgs = { inherit nix-colors homeage; };
         };
       };
     };

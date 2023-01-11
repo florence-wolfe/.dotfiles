@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+os="$(uname)"
+
+case $os in
+"Darwin")
+  export PVIM=$(dirname $(readlink -f -- "$0"))
+  if [ -f $PVIM/nvim-macos/bin/nvim ]; then
+    NV="$PVIM/nvim-macos/bin/nvim"
+  elif command -v nvim >/dev/null; then
+    NV="nvim"
+  else
+    $PVIM/pvim-update-darwin
+    NV="$PVIM/nvim-macos/bin/nvim"
+  fi
+  ;;
+
+*)
+  export PVIM=$(dirname $(readlink -e -- "$0"))
+  if [ -f $PVIM/nvim.appimage ]; then
+    NV="$PVIM/nvim.appimage"
+  elif command -v nvim >/dev/null; then
+    NV="nvim"
+  else
+    $PVIM/pvim-update
+    NV="$PVIM/nvim.appimage"
+  fi
+  ;;
+esac
+
+#run Neovim with the local files
+exec $NV --clean -i "$PVIM/clutter/shada/state" -u "$PVIM/pvim.lua" $@

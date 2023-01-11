@@ -5,7 +5,7 @@ if [[ -n $SSH_LOGIN || -z $ENV ]]; then
 fi
 
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
+if [[ -f $HOME/.cargo/bin ]]; then . $HOME/.cargo/bin; fi
 # Define an array of shell names to check
 shells=("$(which bash)" "$(which zsh)" "$(which fish)")
 

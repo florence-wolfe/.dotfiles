@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   imports = [ ./common-home.nix ];
   # Home Manager needs a bit of information about you and the
@@ -15,6 +14,8 @@
     };
     packages = [
       pkgs.glibcLocalesUtf8
+      pkgs.cargo
+      pkgs.rustc
     ];
   };
 
@@ -28,6 +29,14 @@
 
     spotifyd = {
       enable = true;
+    };
+  };
+  systemd = {
+    tmpfiles = {
+      rules = [
+        "L+ /lib/${builtins.baseNameOf pkgs.stdenv.cc.bintools.dynamicLinker} - - - - ${pkgs.stdenv.cc.bintools.dynamicLinker}"
+        "L+ /lib64 - - - - /lib"
+      ];
     };
   };
 }

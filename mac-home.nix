@@ -6,9 +6,6 @@ let
 in
 {
   imports = [ ./common-home.nix ];
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-
   home = {
     inherit username homeDirectory;
     packages = [
@@ -27,12 +24,25 @@ in
       in
       "${apps}/Applications";
   };
-
+  targets.darwin = {
+    currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
+  };
+  homeage = {
+    identityPaths = [ "~/.ssh/id_rsa" ];
+    file = {
+      "spotifyd-mac" = {
+        source = "${homeDirectory}/.dotfiles/secrets/spotifyd-mac.age";
+        symlinks = [ "${homeDirectory}/.config/spotifyd/spotifyd.conf" ];
+      };
+    };
+    installationType = "activation";
+    mount = "${homeDirectory}/secrets";
+  };
   launchd = {
-    enable = true;
+    enable = false;
     agents = {
       spotifyd = {
-        enable = true;
+        enable = false;
         config = {
           Label = "rustlang.spotifyd";
           ProgramArguments = [

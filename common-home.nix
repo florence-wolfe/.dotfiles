@@ -1,33 +1,32 @@
-{ config, pkgs, nix-colors, lib, ... }:
-
+{ config, pkgs, nix-colors, homeage, lib, ... }:
+let
+  utils = import ./utilities.nix { inherit config; };
+in
 {
+  lib = {
+    inherit utils;
+  };
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   imports = [
     nix-colors.homeManagerModule
+    homeage.homeManagerModules.homeage
+    ./config/atuin.conf.nix
+    ./config/git.conf.nix
+    # ./config/fish.conf.nix
+    ./config/starship.conf.nix
+    ./config/tools.conf.nix
+    ./config/wezterm.conf.nix
+    ./config/zsh.conf.nix
+    ./_neovim
   ];
-
   colorScheme = nix-colors.colorSchemes.nord;
-  # :root {
-  #   --base00: #2E3440;
-  #   --base01: #3B4252;
-  #   --base02: #434C5E;
-  #   --base03: #4C566A;
-  #   --base04: #D8DEE9;
-  #   --base05: #E5E9F0;
-  #   --base06: #ECEFF4;
-  #   --base07: #8FBCBB;
-  #   --base08: #BF616A;
-  #   --base09: #D08770;
-  #   --base0A: #EBCB8B;
-  #   --base0B: #A3BE8C;
-  #   --base0C: #88C0D0;
-  #   --base0D: #81A1C1;
-  #   --base0E: #B48EAD;
-  #   --base0F: #5E81AC;
-  # }
 
   home = {
     sessionVariables = {
-      ACTIVE_SHELL = "fish";
+      ACTIVE_SHELL = "zsh";
+      # Home-Manager uses this for quite a few programs and services but it's not always defined on every machine.
     };
     stateVersion = "22.11";
     sessionPath = [
@@ -36,8 +35,20 @@
     packages = [
       pkgs.spotify-tui
       pkgs.nodejs
+      pkgs.age
+      pkgs.jetbrains-mono
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     ];
-    file.".profile".source = ./system/.profile;
+    file = {
+      ".profile" = {
+        source = ./system/.profile;
+      };
+      "lunarvim-config" = {
+        source = ./system/lvim-config.lua;
+        # relative to $HOME
+        target = ".config/lvim/config.lua";
+      };
+    };
     shellAliases = {
       # With line numbers
       ccat = "bat --paging=never";
@@ -51,159 +62,12 @@
       enable = true;
       path = "$HOME/.dotfiles";
     };
-    gpg.enable = true;
-    git = {
-      enable = true;
-      delta = {
-        enable = true;
-        options = {
-          navigate = true;
-          line-numbers = true;
-          syntax-theme = "${config.colorScheme.name}";
-        };
-      };
-      userEmail = "frankie.robert+github@gmail.com";
-      userName = "Frank Robert";
-      # signing = {
-      # signByDefault = true;
-      # };
 
-      extraConfig = {
-        init = {
-          defaultBranch = "main";
-        };
-        advice = {
-          addIgnoredFile = false;
-        };
-      };
-    };
-    gh = {
-      enable = true;
-      enableGitCredentialHelper = true;
-    };
-    # zsh = {
-    #   enable = true;
-    #   enableAutosuggestions = true;
-    #   enableCompletion = true;
-    #   enableSyntaxHighlighting = true;
-    #   shellAliases = {
-    #     "hm-build-user" = "nix build --no-link ~/.dotfiles#homeConfigurations.$(whoami).activationPackage";
-    #     "hm-build-host" = "nix build --no-link ~/.dotfiles#homeConfigurations.$(hostname).activationPackage";
-    #     "hm-activate-user" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(whoami).activationPackage)/activate";
-    #     "hm-activate=host" = "$(nix path-info ~/.dotfiles#homeConfigurations.$(hostname).activationPackage)/activate";
-    #     "hm-update-user" = "home-manager switch --flake ~/.dotfiles#$(whoami)";
-    #     "hm-update-host" = "home-manager switch --flake ~/.dotfiles#$(hostname)";
-    #     "hm-build" = "hm-build-host || hm-build-user";
-    #     "hm-activate" = "hm-activate-host || hm-activate-user";
-    #     "hm-update" = "hm-update-host || hm-update-user";
-    #   };
-    #   oh-my-zsh = {
-    #     enable = true;
-    #   };
-    #   initExtra = "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#${config.colorScheme.colors.base04}'";
-    # };
-
-    fish = {
-      enable = true;
-      shellAliases = {
-        "fsource" = "bass source";
-      };
-      functions = {
-        "hm-build-user" = "nix build --no-link \"$HOME/.dotfiles#homeConfigurations.$(whoami).activationPackage\"";
-        "hm-build-host" = "nix build --no-link \"$HOME/.dotfiles#homeConfigurations.$(hostname).activationPackage\"";
-        "hm-activate-user" = "(nix path-info \"$HOME/.dotfiles#homeConfigurations.$(whoami).activationPackage)/activate\")";
-        "hm-activate-host" = "(nix path-info \"$HOME/.dotfiles#homeConfigurations.$(hostname).activationPackage)/activate\")";
-        "hm-update-user" = "home-manager switch --flake \"$HOME/.dotfiles#$(whoami)\"";
-        "hm-update-host" = "home-manager switch --flake \"$HOME/.dotfiles#$(hostname)\"";
-        "hm-build" = "hm-build-host || hm-build-user";
-        "hm-activate" = "hm-activate-host || hm-activate-user";
-        "hm-update" = "hm-update-host || hm-update-user";
-      };
-
-      plugins = [
-        {
-          name = "bass";
-          src = pkgs.fetchFromGitHub {
-            owner = "edc";
-            repo = "bass";
-            rev = "2fd3d2157d5271ca3575b13daec975ca4c10577a";
-            sha256 = "fl4/Pgtkojk5AE52wpGDnuLajQxHoVqyphE90IIPYFU=";
-          };
-        }
-        {
-          name = "fish-docker-compose";
-          src = pkgs.fetchFromGitHub {
-            owner = "brgmnn";
-            repo = "fish-docker-compose";
-            rev = "44a9a5ad593f05ac77e4c5024cfe4a8c55db31e3";
-            sha256 = "VMBVLWCwW7/eXEedJrbcby0PjNWYe7MORR7hj+ZEmWg=";
-          };
-        }
-      ];
+    lazyvim = {
+      enable = false;
     };
 
-    starship = {
-      enable = true;
-      # enableZshIntegration = true;
-      enableFishIntegration = true;
-      # Configuration written to ~/.config/starship.toml
-      settings = {
-        character = {
-          success_symbol = "[➜](bold #${config.colorScheme.colors.base0B})";
-          error_symbol = "[✖](bold #${config.colorScheme.colors.base08})";
-        };
-        username = {
-          style_user = "bold #${config.colorScheme.colors.base0D}";
-          show_always = false;
-        };
-        hostname = {
-          ssh_only = false;
-          format = "<$hostname>";
-          trim_at = "-";
-          style = "bold #${config.colorScheme.colors.base0F}";
-          disabled = true;
-        };
-      };
-    };
-
-    bat = {
-      enable = true;
-      config = {
-        theme = "${config.colorScheme.name}";
-        italic-text = "always";
-      };
-    };
-
-    dircolors = {
-      enable = true;
-      # enableZshIntegration = true;
-      enableFishIntegration = true;
-    };
-
-    fzf = {
-      enable = true;
-      # enableZshIntegration = true;
-      enableFishIntegration = true;
-    };
-
-    jq = {
-      enable = true;
-    };
-
-    lazygit = {
-      enable = true;
-    };
-
-    man = {
-      enable = true;
-      generateCaches = true;
-    };
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
-
+    ### END OF PROGRAMS
     rbw = {
       enable = true;
       settings = {
@@ -212,15 +76,9 @@
       };
     };
 
-    wezterm = {
-      enable = true;
-      extraConfig = ''
-        return {
-          color_scheme = '${lib.strings.toLower config.colorScheme.name}'
-        }
-      '';
+    discocss = {
+      enable = false;
+      css = ''@import url("https://raw.githubusercontent.com/YottaGitHub/Nord-Glasscord/master/nord-glasscord.theme.css");'';
     };
-
-    ### END OF PROGRAMS
   };
 }
