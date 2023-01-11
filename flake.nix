@@ -16,7 +16,7 @@
 
   outputs = { self, nixpkgs, home-manager, nix-colors, homeage, ... }:
     let
-      commonModules = [ ./modules/lazyvim.nix ];
+      commonModules = [ ./modules/lazyvim.nix ./modules/pvim.nix ];
     in
     {
       homeConfigurations = {

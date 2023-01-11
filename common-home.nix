@@ -19,7 +19,6 @@ in
     ./config/tools.conf.nix
     ./config/wezterm.conf.nix
     ./config/zsh.conf.nix
-    ./_neovim
   ];
   colorScheme = nix-colors.colorSchemes.nord;
 
@@ -65,6 +64,10 @@ in
 
     lazyvim = {
       enable = false;
+    };
+
+    pvim = {
+      enable = true;
     };
 
     ### END OF PROGRAMS
