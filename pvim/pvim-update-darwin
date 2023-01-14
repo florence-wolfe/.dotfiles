@@ -3,7 +3,8 @@
 DIR=$(dirname $(readlink -f -- "$0"))
 
 echo "Downloading latest Neovim"
-[ -f $DIR/nvim-macos/bin/nvim ] && rm $DIR//nvim-macos/bin/nvim
-curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
-tar xzf nvim-macos.tar.gz
+
+[ -f $DIR/nvim-macos/bin/nvim ] && rm $DIR/nvim-macos/bin/nvim
+curl -o $DIR/nvim-macos.tar.gz -LJO https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
+tar xzf $DIR/nvim-macos.tar.gz
 rm $DIR/nvim-macos.tar.gz

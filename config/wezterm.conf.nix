@@ -4,13 +4,13 @@
     wezterm =
       with config.lib.utils;
       let
-        FONT_DIRS = replacementStruct "'$FONT_DIRS'" ''
+        FONT_DIRS = replacementStruct ''"$FONT_DIRS"'' ''
           '${config.home.homeDirectory}/.nix-profile/share/fonts/truetype',
           '${config.home.homeDirectory}/.nix-profile/share/fonts/truetype/NerdFonts',
           '${config.home.homeDirectory}/.nix-profile/share/fonts/opentype/NerdFonts'
         '';
         COLOR = replacementStruct "$COLOR" "${lib.strings.toLower config.colorScheme.name}";
-        FONTS = replacementStruct "'$FONTS'" ''
+        FONTS = replacementStruct ''"$FONTS"'' ''
           'JetBrains Mono',
           'Fira Code',
           'Anonymous Pro' 

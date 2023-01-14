@@ -1,4 +1,4 @@
-if [[ -n $SSH_LOGIN || -z $ENV ]]; then
+if [ -n "$SSH_LOGIN" ] || [ -z "$ENV" ]; then
   # Put here login initialization code
   unset SSH_LOGIN
   ENV=~/.profile
@@ -6,20 +6,20 @@ fi
 
 export PATH="$HOME/.local/bin:$PATH"
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-if [[ -f $HOME/.cargo/bin ]]; then . $HOME/.cargo/bin; fi
+if [ -f $HOME/.cargo/bin ]; then . $HOME/.cargo/bin; fi
 # Define an array of shell names to check
-shells=("$(which bash)" "$(which zsh)" "$(which fish)")
+shells=("$(command -v bash)" "$(command -v zsh)" "$(command -v fish)")
 
 # Loop through the array of shell names
 for shell in "${shells[@]}"; do
-  if [[ -n "$KEEP_SHELL" ]]; then
+  if [ -n "$KEEP_SHELL" ]; then
     break
   fi
   # Check if the current shell is available, executable, and has "nix" in its output
-  if which "$shell" >/dev/null && [[ -x "$(which "$shell")" ]] && which "$shell" | grep -q nix -; then
+  if command -v "$shell" >/dev/null && [ -x "$(command -v "$shell")" ] && command -v "$shell" | grep -q nix -; then
     # Exit the loop if the current shell is already assigned
-    if [[ "$(which "$shell")" == "$SHELL" ]]; then break; fi
-    export SHELL=$(which "$shell")
+    if [ "$(command -v "$shell")" == "$SHELL" ]; then break; fi
+    export SHELL=$(command -v "$shell")
     echo "Welcome to $SHELL!"
     exec "$SHELL"
     # Exit the loop if the condition is true

@@ -15,6 +15,7 @@ in
     ./config/atuin.conf.nix
     ./config/git.conf.nix
     # ./config/fish.conf.nix
+    # ./neovim
     ./config/starship.conf.nix
     ./config/tools.conf.nix
     ./config/wezterm.conf.nix
@@ -32,6 +33,8 @@ in
       "$HOME/.local/bin"
     ];
     packages = [
+      pkgs.nixpkgs-fmt
+      pkgs.rnix-lsp
       pkgs.spotify-tui
       pkgs.nodejs
       pkgs.age
@@ -61,10 +64,12 @@ in
       enable = true;
       path = "$HOME/.dotfiles";
     };
-
-    lazyvim = {
-      enable = false;
+    vscode = {
+      enable = true;
     };
+    # lazyvim = {
+    #   enable = false;
+    # };
 
     pvim = {
       enable = true;

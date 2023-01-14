@@ -5,6 +5,15 @@
         "lvim",
         "packer_plugins",
         "reload",
-        "wezterm"
+        "wezterm",
+        "ngx"
+    ],
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.workspace.library": [
+        "${3rd}/skynet/library",
+        "${3rd}/luassert/library",
+        "${3rd}/lovr/library",
+        "${3rd}/OpenResty/library",
+        "${3rd}/love2d/library"
     ]
 }

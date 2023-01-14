@@ -2,7 +2,7 @@
 {
   programs = {
     git = {
-      enable = true;
+      enable = false;
       delta = {
         enable = true;
         options = {
@@ -11,8 +11,6 @@
           syntax-theme = "${config.colorScheme.name}";
         };
       };
-      userEmail = "frankie.robert+github@gmail.com";
-      userName = "Frank Robert";
       # signing = {
       # signByDefault = true;
       # };

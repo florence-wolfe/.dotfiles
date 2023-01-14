@@ -28,7 +28,7 @@ in
     currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
   };
   homeage = {
-    identityPaths = [ "~/.ssh/id_rsa" ];
+    identityPaths = [ "~/.ssh/id_rsa_hm" ];
     file = {
       "spotifyd-mac" = {
         source = "${homeDirectory}/.dotfiles/secrets/spotifyd-mac.age";

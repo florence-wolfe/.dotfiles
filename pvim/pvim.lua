@@ -1,7 +1,13 @@
 local dir = os.getenv("PVIM")
 local on_windows = vim.loop.os_uname().version:match 'Windows'
-local function join_paths(...) -- Function from nvim-lspconfig
+local function join_paths(...)
   local path_sep = on_windows and '\\' or '/'
+  for i, v in ipairs({ ... }) do
+    if v == nil then
+      print("Error: argument " .. i .. " passed to join_paths is nil")
+      return ""
+    end
+  end
   local result = table.concat({ ... }, path_sep)
   return result
 end

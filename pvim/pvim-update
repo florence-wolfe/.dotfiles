@@ -1,7 +1,29 @@
 #!/usr/bin/env sh
 
-DIR=$(dirname $(readlink -e -- "$0"))
+# initialize darwin flag to false
+darwin=false
 
-echo "Downloading latest Neovim"
-[ -f $DIR/nvim.appimage ] && rm $DIR/nvim.appimage
-curl -Lo $DIR/nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && chmod u+x $DIR/nvim.appimage
+# check for --darwin flag
+while [ "$1" != "" ]; do
+  case $1 in
+  --darwin)
+    darwin=true
+    ;;
+  *)
+    echo "Invalid option: $1"
+    exit 1
+    ;;
+  esac
+  shift
+done
+
+# add custom behavior based on darwin flag
+if [ "$darwin" = true ]; then
+  PVIM=$(dirname $(readlink -f -- "$0"))
+  echo "Updating for Darwin..."
+  $PVIM/pvim-update-darwin
+else
+  PVIM=$(dirname $(readlink -e -- "$0"))
+  echo "Updating for Linux..."
+  $PVIM/pvim-update-linux
+fi
