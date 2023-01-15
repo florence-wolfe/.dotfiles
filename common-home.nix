@@ -33,6 +33,7 @@ in
       "$HOME/.local/bin"
     ];
     packages = [
+      pkgs.go
       pkgs.nixpkgs-fmt
       pkgs.rnix-lsp
       pkgs.spotify-tui
@@ -63,9 +64,6 @@ in
     home-manager = {
       enable = true;
       path = "$HOME/.dotfiles";
-    };
-    vscode = {
-      enable = true;
     };
     # lazyvim = {
     #   enable = false;

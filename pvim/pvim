@@ -23,7 +23,6 @@ else
 fi
 
 set_nv() {
-  echo "bin path $PVIM$BIN"
   if [ -f $PVIM$BIN ]; then
     NV="$PVIM$BIN"
   elif command -v nvim >/dev/null && [ "$(readlink -f $(which nvim))" != "$PVIM/pvim" ]; then

@@ -16,11 +16,11 @@
           show_always = false;
         };
         hostname = {
-          ssh_only = false;
+          ssh_only = true;
           format = "<$hostname>";
           trim_at = "-";
           style = "bold #${config.colorScheme.colors.base0F}";
-          disabled = true;
+          disabled = false;
         };
       };
     };

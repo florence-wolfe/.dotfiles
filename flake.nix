@@ -14,7 +14,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-colors, homeage, ... }:
+  outputs =
+    { self
+    , nixpkgs
+    , home-manager
+    , nix-colors
+    , homeage
+    , ...
+    }:
     let
       commonModules = [ ./modules/lazyvim.nix ./modules/pvim.nix ];
     in
@@ -35,6 +42,14 @@
             config.allowUnfree = true;
           };
           modules = commonModules ++ [ ./mac-home.nix ];
+          extraSpecialArgs = { inherit nix-colors homeage; };
+        };
+        "frank@LAPTOP-OTHG7ALT" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          modules = commonModules ++ [ ./linux-home.nix ];
           extraSpecialArgs = { inherit nix-colors homeage; };
         };
       };

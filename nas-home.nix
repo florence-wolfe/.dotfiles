@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ./common-home.nix ];
+  imports = [ ./common-linux.nix ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
@@ -13,30 +13,15 @@
       TMPDIR = "/tmp-nix";
     };
     packages = [
+      pkgs.sumneko-lua-language-server
+      pkgs.netcat
+      pkgs.unzip
+      pkgs.gcc12
+      pkgs.cmake
+      pkgs.luajitPackages.luarocks
       pkgs.glibcLocalesUtf8
       pkgs.cargo
       pkgs.rustc
     ];
-  };
-
-  services = {
-    home-manager = {
-      autoUpgrade = {
-        enable = true;
-        frequency = "weekly";
-      };
-    };
-
-    spotifyd = {
-      enable = true;
-    };
-  };
-  systemd = {
-    tmpfiles = {
-      rules = [
-        "L+ /lib/${builtins.baseNameOf pkgs.stdenv.cc.bintools.dynamicLinker} - - - - ${pkgs.stdenv.cc.bintools.dynamicLinker}"
-        "L+ /lib64 - - - - /lib"
-      ];
-    };
   };
 }

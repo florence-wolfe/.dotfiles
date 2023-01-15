@@ -23,6 +23,11 @@ in
         };
       in
       "${apps}/Applications";
+    programs = {
+      vscode = {
+        enable = true;
+      };
+    };
   };
   targets.darwin = {
     currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;

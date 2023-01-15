@@ -22,11 +22,41 @@ return {
       opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
     end,
   },
-
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+          hide_dotfiles = false,
+          hide_gitignored = true,
+        },
+      },
+    },
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    opts = {
+      size = 20,
+      open_mapping = [[<c-\>]],
+      start_in_insert = true,
+      persist_size = true,
+      persist_mode = true,
+      direction = "float",
+      close_on_exit = true,
+      auto_scroll = true,
+    },
+    keys = {
+      { "<leader>\\", "<cmd>ToggleTerm<cr>", desc = "Toggle Term" },
+    },
+  },
   -- change some telescope options and add telescope-fzf-native
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
+    dependencies = {
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "debugloop/telescope-undo.nvim" },
+    },
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
@@ -34,6 +64,11 @@ return {
         "<leader>fp",
         function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
         desc = "Find Plugin File",
+      },
+      {
+        "<leader>U",
+        "<cmd>Telescope undo<cr>",
+        desc = "Telescope undo",
       },
     },
     -- change some options
@@ -44,15 +79,36 @@ return {
         sorting_strategy = "ascending",
         winblend = 0,
       },
+      extensions = {
+        undo = {
+          use_delta = true,
+          side_by_side = true,
+          use_custom_command = { "bash", "-c", "echo '$DIFF' | delta" },
+          layout_strategy = "vertical",
+          layout_config = {
+            preview_height = 0.8,
+          },
+        },
+      },
     },
     -- apply the config and additionally load fzf-native
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
       telescope.load_extension("fzf")
+      telescope.load_extension("undo")
     end,
   },
-
+  {
+    "mbbill/undotree",
+    keys = {
+      {
+        "<leader>R",
+        "<cmd>UndotreeToggle<CR>",
+        desc = "Undo Tree",
+      },
+    },
+  },
   -- add pyright and setup tsserver with typescript.nvim
   {
     "neovim/nvim-lspconfig",
@@ -118,22 +174,6 @@ return {
     },
   },
 
-  -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
-  -- would overwrite `ensure_installed` with the ne value.
-  -- If you'd rather extend the default config, use the code below instead:
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, {
-        -- add tsx and treesitter
-        ensure_installed = {
-          "tsx",
-          "typescript",
-        },
-      })
-    end,
-  },
-
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -157,6 +197,7 @@ return {
   -- add jsonls and schemastore ans setup treesitter for json, json5 and jsonc
   { import = "lazyvim.plugins.extras.lang.json" },
 
+  { "LnL7/vim-nix" },
   -- add any tools you want to have installed below
   {
     "williamboman/mason.nvim",
