@@ -5,7 +5,7 @@ let
   homeDirectory = "/Users/${username}";
 in
 {
-  imports = [ ../../common-home.nix ];
+  imports = [ ../home/common.nix ];
   home = {
     inherit username;
     packages = [

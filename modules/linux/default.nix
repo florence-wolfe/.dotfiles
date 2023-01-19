@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ./common-home.nix ];
+  imports = [ ../home/common.nix ];
   services = {
     home-manager = {
       autoUpgrade = {

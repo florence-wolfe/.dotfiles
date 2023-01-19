@@ -64,7 +64,7 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
-          modules = commonModules ++ [ ./nas-home.nix ];
+          modules = commonModules ++ [ ./modules/home/nas.nix ];
           extraSpecialArgs = { inherit nix-colors homeage; };
         };
 
