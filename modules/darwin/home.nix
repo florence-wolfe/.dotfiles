@@ -5,9 +5,9 @@ let
   homeDirectory = "/Users/${username}";
 in
 {
-  imports = [ ./common-home.nix ];
+  imports = [ ../../common-home.nix ];
   home = {
-    inherit username homeDirectory;
+    inherit username;
     packages = [
       pkgs.spotifyd
     ];
@@ -23,10 +23,8 @@ in
         };
       in
       "${apps}/Applications";
-    programs = {
-      vscode = {
-        enable = true;
-      };
+    file.".config/karabiner/assets/complex_modifications/spotify.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/.dotfiles/system/karabiner/spotify.json";
     };
   };
   targets.darwin = {
@@ -43,25 +41,7 @@ in
     installationType = "activation";
     mount = "${homeDirectory}/secrets";
   };
-  launchd = {
-    enable = false;
-    agents = {
-      spotifyd = {
-        enable = false;
-        config = {
-          Label = "rustlang.spotifyd";
-          ProgramArguments = [
-            "${homeDirectory}/.nix-profile/bin/spotifyd"
-            "--config-path=${homeDirectory}/.config/spotifyd/spotifyd.conf"
-            "--no-daemon"
-          ];
-          UserName = username;
-          KeepAlive = true;
-          ThrottleInterval = 30;
-          StandardErrorPath = "/tmp/rustlang.spotifyd.err";
-          StandardOutPath = "/tmp/rustlang.spotifyd.out";
-        };
-      };
-    };
+  programs = {
+    vscode.enable = true;
   };
 }

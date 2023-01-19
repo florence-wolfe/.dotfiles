@@ -12,14 +12,56 @@ return {
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
     config = true,
   },
-  -- override nvim-cmp and add cmp-emoji
+  -- Use <tab> for completion and snippets (supertab)
+  -- first: disable default <tab> and <s-tab> behavior in LuaSnip
+  {
+    "L3MON4D3/LuaSnip",
+    keys = function()
+      return {}
+    end,
+  },
+  -- then: setup supertab in cmp
   {
     "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
+    dependencies = {
+      "hrsh7th/cmp-emoji",
+    },
+    ---@diagnostic disable-next-line: undefined-doc-name
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
+      local has_words_before = function()
+        unpack = unpack or table.unpack
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+      end
+
+      local luasnip = require("luasnip")
       local cmp = require("cmp")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
+
+      opts.mapping = vim.tbl_extend("force", opts.mapping, {
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+            -- they way you will only jump inside the snippet region
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          elseif has_words_before() then
+            cmp.complete()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+      })
     end,
   },
   {
@@ -34,20 +76,36 @@ return {
       },
     },
   },
+  -- {
+  --   "folke/which-key.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     plugins = { spelling = true },
+  --   },
+  --   config = function(_, opts)
+  --     local wk = require("which-key")
+  --     wk.setup(opts)
+  --     wk.register({
+  --       ["<leader>t"] = { name = "+terminal" },
+  --     })
+  --   end,
+  -- },
   {
     "akinsho/toggleterm.nvim",
+    cmd = "ToggleTerm",
     opts = {
       size = 20,
       open_mapping = [[<c-\>]],
       start_in_insert = true,
       persist_size = true,
       persist_mode = true,
-      direction = "float",
       close_on_exit = true,
       auto_scroll = true,
     },
     keys = {
-      { "<leader>\\", "<cmd>ToggleTerm<cr>", desc = "Toggle Term" },
+      { "<leader>t\\", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle Term (float)" },
+      { "<leader>t|", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Toggle Term (horizontal)" },
+      { "<leader>t-", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Toggle Term (vertical)" },
     },
   },
   -- change some telescope options and add telescope-fzf-native
@@ -56,13 +114,23 @@ return {
     dependencies = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       { "debugloop/telescope-undo.nvim" },
+      { "nvim-telescope/telescope-frecency.nvim", dependencies = { "kkharji/sqlite.lua" } },
     },
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
       {
+        "<leader><space>",
+        function()
+          require('telescope').extensions.frecency.frecency({ workspace = 'CWD' })
+        end,
+        desc = "Find Files (root dir) #frecency",
+      },
+      {
         "<leader>fp",
-        function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
+        function()
+          require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
+        end,
         desc = "Find Plugin File",
       },
       {
@@ -88,6 +156,12 @@ return {
           layout_config = {
             preview_height = 0.8,
           },
+        },
+        frecency = {
+          workspaces = {
+            CWD = require("lazy.core.config").options.root,
+          },
+          show_scores = true,
         },
       },
     },
@@ -139,7 +213,6 @@ return {
           require("typescript").setup({ server = opts })
           return true
         end,
-        -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
     },
@@ -207,6 +280,7 @@ return {
         "shellcheck",
         "shfmt",
         "flake8",
+        "nil",
       },
     },
   },

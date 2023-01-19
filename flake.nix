@@ -12,6 +12,10 @@
       url = "github:jordanisaacs/homeage";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -20,12 +24,40 @@
     , home-manager
     , nix-colors
     , homeage
+    , darwin
     , ...
     }:
     let
-      commonModules = [ ./modules/lazyvim.nix ./modules/pvim.nix ];
+      commonModules = [ ./modules/custom/lazyvim.nix ./modules/custom/pvim.nix ];
     in
     {
+      darwinConfigurations = {
+        "jroberfr@88665a49c72f.ant.amazon.com" =
+          let
+            system = "x86_64-darwin";
+          in
+          darwin.lib.darwinSystem
+            {
+              inherit system;
+              pkgs = import nixpkgs {
+                inherit system;
+                config.allowUnfree = true;
+                config.allowUnsupportedSystem = true;
+              };
+              modules = [
+                ./modules/darwin
+                home-manager.darwinModules.home-manager
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users.jroberfr = { ... }: {
+                    imports = commonModules ++ [ ./modules/darwin/home.nix ];
+                  };
+                  home-manager.extraSpecialArgs = { inherit nix-colors homeage; };
+                }
+              ];
+            };
+      };
       homeConfigurations = {
         "frank.robert@DS720plus" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
@@ -36,14 +68,6 @@
           extraSpecialArgs = { inherit nix-colors homeage; };
         };
 
-        "jroberfr@88665a49c72f.ant.amazon.com" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-darwin";
-            config.allowUnfree = true;
-          };
-          modules = commonModules ++ [ ./mac-home.nix ];
-          extraSpecialArgs = { inherit nix-colors homeage; };
-        };
         "frank@LAPTOP-OTHG7ALT" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";

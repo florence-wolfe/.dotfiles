@@ -8,7 +8,7 @@ export PATH="$HOME/.local/bin:$PATH"
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 if [ -f $HOME/.cargo/bin ]; then . $HOME/.cargo/bin; fi
 # Define an array of shell names to check
-shells=("$(command -v bash)" "$(command -v zsh)" "$(command -v fish)")
+shells=("$(command -v zsh)" "$(command -v fish)" "$(command -v bash)")
 
 # Loop through the array of shell names
 for shell in "${shells[@]}"; do
@@ -16,7 +16,7 @@ for shell in "${shells[@]}"; do
     break
   fi
   # Check if the current shell is available, executable, and has "nix" in its output
-  if command -v "$shell" >/dev/null && [ -x "$(command -v "$shell")" ] && command -v "$shell" | grep -q nix -; then
+  if command -v "$shell" >/dev/null && [ -x "$(command -v "$shell")" ] && realpath $(command -v "$shell") | grep -q nix -; then
     # Exit the loop if the current shell is already assigned
     if [ "$(command -v "$shell")" == "$SHELL" ]; then break; fi
     export SHELL=$(command -v "$shell")
