@@ -58,6 +58,32 @@
               ];
             };
       };
+      nixosConfigurations = {
+        "nixos@nixos" =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+              config.allowUnsupportedSystem = true;
+            };
+            modules = [
+              ./modules/nixos
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.nixos = { ... }: {
+                  imports = commonModules ++ [ ./modules/home/wsl.nix ];
+                };
+                home-manager.extraSpecialArgs = { inherit nix-colors homeage; };
+              }
+            ];
+          };
+      };
       homeConfigurations = {
         "frank.robert@DS720plus" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
@@ -65,15 +91,6 @@
             config.allowUnfree = true;
           };
           modules = commonModules ++ [ ./modules/home/nas.nix ];
-          extraSpecialArgs = { inherit nix-colors homeage; };
-        };
-
-        "frank@LAPTOP-OTHG7ALT" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-          modules = commonModules ++ [ ./linux-home.nix ];
           extraSpecialArgs = { inherit nix-colors homeage; };
         };
       };
