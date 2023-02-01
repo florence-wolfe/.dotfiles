@@ -9,6 +9,7 @@ in
   home = {
     inherit username;
     packages = [
+      pkgs.act
       pkgs.spotifyd
     ];
     sessionVariables = {

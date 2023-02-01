@@ -1,7 +1,10 @@
-{ pkgs, ... }:
-{
+{ pkgs, lib, ... }:
+rec {
   users.users.jroberfr.home = "/Users/jroberfr";
-  environment.loginShell = "zsh";
+  environment = {
+    loginShell = "zsh";
+    systemPath = [ "${users.users.jroberfr.home}/.toolbox/bin" ];
+  };
   security.pam.enableSudoTouchIdAuth = true;
   homebrew = {
     enable = true;

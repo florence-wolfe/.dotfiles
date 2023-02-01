@@ -1,3 +1,4 @@
+local Utils = require("utils")
 -- every spec file under config.plugins will be loaded automatically by lazy.nvim
 --
 -- In your plugin files, you can:
@@ -76,23 +77,12 @@ return {
       },
     },
   },
-  -- {
-  --   "folke/which-key.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     plugins = { spelling = true },
-  --   },
-  --   config = function(_, opts)
-  --     local wk = require("which-key")
-  --     wk.setup(opts)
-  --     wk.register({
-  --       ["<leader>t"] = { name = "+terminal" },
-  --     })
-  --   end,
-  -- },
   {
     "akinsho/toggleterm.nvim",
     cmd = "ToggleTerm",
+    init = function()
+      Utils.create_keymap_group("<leader>t", "+terminal")
+    end,
     opts = {
       size = 20,
       open_mapping = [[<c-\>]],
@@ -108,12 +98,16 @@ return {
       { "<leader>t-", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Toggle Term (vertical)" },
     },
   },
+  {
+    "fedepujol/move.nvim",
+    cmd = { "MoveLine", "MoveBlock" },
+  },
   -- change some telescope options and add telescope-fzf-native
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      { "debugloop/telescope-undo.nvim" },
+      { "nvim-telescope/telescope-file-browser.nvim" },
       { "nvim-telescope/telescope-frecency.nvim", dependencies = { "kkharji/sqlite.lua" } },
     },
     keys = {
@@ -133,11 +127,6 @@ return {
         end,
         desc = "Find Plugin File",
       },
-      {
-        "<leader>U",
-        "<cmd>Telescope undo<cr>",
-        desc = "Telescope undo",
-      },
     },
     -- change some options
     opts = {
@@ -148,20 +137,23 @@ return {
         winblend = 0,
       },
       extensions = {
-        undo = {
-          use_delta = true,
-          side_by_side = true,
-          use_custom_command = { "bash", "-c", "echo '$DIFF' | delta" },
-          layout_strategy = "vertical",
-          layout_config = {
-            preview_height = 0.8,
-          },
-        },
         frecency = {
           workspaces = {
             CWD = require("lazy.core.config").options.root,
           },
           show_scores = true,
+        },
+      },
+      pickers = {
+        live_grep = {
+          mappings = {
+            i = {
+              ["<C-f>"] = Utils.ts_select_dir_for_grep,
+            },
+            n = {
+              ["<C-f>"] = Utils.ts_select_dir_for_grep,
+            },
+          },
         },
       },
     },
@@ -170,18 +162,8 @@ return {
       local telescope = require("telescope")
       telescope.setup(opts)
       telescope.load_extension("fzf")
-      telescope.load_extension("undo")
+      telescope.load_extension("frecency")
     end,
-  },
-  {
-    "mbbill/undotree",
-    keys = {
-      {
-        "<leader>R",
-        "<cmd>UndotreeToggle<CR>",
-        desc = "Undo Tree",
-      },
-    },
   },
   -- add pyright and setup tsserver with typescript.nvim
   {

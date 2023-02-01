@@ -1,6 +1,6 @@
 { config, pkgs, nix-colors, homeage, lib, ... }:
 let
-  utils = import ./utilities.nix { inherit config; };
+  utils = import ../../utilities.nix { inherit config; };
 in
 {
   lib = {
@@ -12,14 +12,14 @@ in
   imports = [
     nix-colors.homeManagerModule
     homeage.homeManagerModules.homeage
-    ./config/atuin.conf.nix
-    ./config/git.conf.nix
+    ../../config/atuin.conf.nix
+    ../../config/git.conf.nix
     # ./config/fish.conf.nix
     # ./neovim
-    ./config/starship.conf.nix
-    ./config/tools.conf.nix
-    ./config/wezterm.conf.nix
-    ./config/zsh.conf.nix
+    ../../config/starship.conf.nix
+    ../../config/tools.conf.nix
+    ../../config/wezterm.conf.nix
+    ../../config/zsh.conf.nix
   ];
   colorScheme = nix-colors.colorSchemes.nord;
 
@@ -44,10 +44,10 @@ in
     ];
     file = {
       ".profile" = {
-        source = ./system/.profile;
+        source = ../../system/.profile;
       };
       "lunarvim-config" = {
-        source = ./system/lvim-config.lua;
+        source = ../../system/lvim-config.lua;
         # relative to $HOME
         target = ".config/lvim/config.lua";
       };
