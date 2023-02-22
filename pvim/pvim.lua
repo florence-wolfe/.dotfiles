@@ -59,7 +59,6 @@ if init_type then
       end
       vim.opt.rtp:prepend(lazypath)
       local lazy_defaults = real_require "lazy.core.config".defaults
-      local lazy_cache = real_require "lazy.core.cache".config
       lazy_defaults.root = join_paths(dir, "clutter", "lazy", "lazy")
       lazy_defaults.lockfile = join_paths(dir, "clutter", "lazy", "lazy-lock.json")
       lazy_defaults.performance.rtp.reset = false
@@ -67,8 +66,6 @@ if init_type then
         join_paths(dir, "clutter", "lazy", "lazy"),
       }
       lazy_defaults.readme.root = join_paths(dir, "clutter", "state", "lazy", "readme")
-      lazy_cache.enabled = false
-      lazy_cache.path = join_paths(dir, "clutter", "lazy", "cache")
     end,
     ["mason"] = function()
       real_require "mason".setup({

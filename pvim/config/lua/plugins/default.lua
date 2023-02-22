@@ -13,56 +13,16 @@ return {
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
     config = true,
   },
-  -- Use <tab> for completion and snippets (supertab)
-  -- first: disable default <tab> and <s-tab> behavior in LuaSnip
-  {
-    "L3MON4D3/LuaSnip",
-    keys = function()
-      return {}
-    end,
-  },
-  -- then: setup supertab in cmp
+
   {
     "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-emoji",
-    },
-    ---@diagnostic disable-next-line: undefined-doc-name
+    dependencies = { { "hrsh7th/cmp-emoji" }, { "hrsh7th/cmp-nvim-lua" } },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
-      local has_words_before = function()
-        unpack = unpack or table.unpack
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-
-      local luasnip = require("luasnip")
       local cmp = require("cmp")
-
-      opts.mapping = vim.tbl_extend("force", opts.mapping, {
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-            -- they way you will only jump inside the snippet region
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
-          elseif has_words_before() then
-            cmp.complete()
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-      })
+      opts.sources = cmp.config.sources(
+        vim.list_extend(opts.sources, { { name = "emoji" }, { name = "nvim_lua", include_deprecated = true } })
+      )
     end,
   },
   {
@@ -91,16 +51,80 @@ return {
       persist_mode = true,
       close_on_exit = true,
       auto_scroll = true,
+      shade_terminals = false,
+      -- highlights = {
+      --   Normal = {
+      --     guibg = require("catppuccin.palettes").get_palette().base,
+      --   },
+      -- },
     },
     keys = {
       { "<leader>t\\", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle Term (float)" },
-      { "<leader>t|", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Toggle Term (horizontal)" },
-      { "<leader>t-", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Toggle Term (vertical)" },
+      { "<leader>t-", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Toggle Term (horizontal)" },
+      { "<leader>t|", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Toggle Term (vertical)" },
     },
   },
   {
-    "fedepujol/move.nvim",
-    cmd = { "MoveLine", "MoveBlock" },
+    "echasnovski/mini.move",
+    version = false,
+    -- Taken from https://github.com/LazyVim/LazyVim/blob/8e84dcf85c8a73ebcf6ade6b7b77544f468f1dfa/lua/lazyvim/plugins/coding.lua#L97-L113
+    keys = function(_, keys)
+      -- Populate the keys based on the user's options
+      local plugin = require("lazy.core.config").spec.plugins["mini.move"]
+      local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+      local mappings = {
+        { opts.mappings.up, desc = "Move selection up", mode = { "v" } },
+        { opts.mappings.down, desc = "Move selection down", mode = { "v" } },
+        { opts.mappings.left, desc = "Move selection left", mode = { "v" } },
+        { opts.mappings.right, desc = "Move selection right", mode = { "v" } },
+        { opts.mappings.line_up, desc = "Move line up" },
+        { opts.mappings.line_down, desc = "Move line down" },
+        { opts.mappings.line_left, desc = "Move line left" },
+        { opts.mappings.line_right, desc = "Move line right" },
+      }
+      mappings = vim.tbl_filter(function(m)
+        return m[1] and #m[1] > 0
+      end, mappings)
+      return vim.list_extend(mappings, keys)
+    end,
+    opts = {
+      mappings = {
+        up = "<M-up>",
+        down = "<M-down>",
+        left = "<M-left>",
+        right = "<M-right>",
+        line_up = "<M-up>",
+        line_down = "<M-down>",
+        line_left = "<M-left>",
+        line_right = "<M-right>",
+      },
+    },
+    config = function(_, opts)
+      require("mini.move").setup(opts)
+    end,
+  },
+  {
+    "sindrets/diffview.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+    },
+    keys = {
+      {
+        "<leader>gd",
+        "<cmd>DiffviewOpen<cr>",
+        desc = "DiffviewOpen",
+      },
+      {
+        "<leader>gD",
+        "<cmd>DiffviewClose<cr>",
+        desc = "DiffviewClose",
+      },
+      {
+        "<leader>gH",
+        "<cmd>DiffviewFileHistory<cr>",
+        desc = "DiffviewFileHistory",
+      },
+    },
   },
   -- change some telescope options and add telescope-fzf-native
   {
@@ -109,6 +133,8 @@ return {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       { "nvim-telescope/telescope-file-browser.nvim" },
       { "nvim-telescope/telescope-frecency.nvim", dependencies = { "kkharji/sqlite.lua" } },
+      { "elianiva/telescope-npm.nvim" },
+      { "debugloop/telescope-undo.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     },
     keys = {
       -- add a keymap to browse plugin files
@@ -127,6 +153,22 @@ return {
         end,
         desc = "Find Plugin File",
       },
+      {
+        "<leader>fu",
+        "<cmd>Telescope undo<cr>",
+        desc = "Undo",
+      },
+      { "<A-p>", require("lazyvim.util").telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+      {
+        "<C-n>",
+        function()
+          local _, err = pcall(require("telescope").extensions.npm.scripts)
+          if err then
+            print("No package.json")
+          end
+        end,
+        desc = "Find NPM Scripts",
+      },
     },
     -- change some options
     opts = {
@@ -138,11 +180,13 @@ return {
       },
       extensions = {
         frecency = {
+          db_root = "$HOME/.dotfiles/pvim/clutter",
           workspaces = {
             CWD = require("lazy.core.config").options.root,
           },
           show_scores = true,
         },
+        undo = {},
       },
       pickers = {
         live_grep = {
@@ -163,11 +207,14 @@ return {
       telescope.setup(opts)
       telescope.load_extension("fzf")
       telescope.load_extension("frecency")
+      telescope.load_extension("npm")
+      telescope.load_extension("undo")
     end,
   },
-  -- add pyright and setup tsserver with typescript.nvim
+  { "luochen1990/rainbow" },
   {
     "neovim/nvim-lspconfig",
+    branch = "master",
     dependencies = {
       "jose-elias-alvarez/typescript.nvim",
       init = function()
@@ -195,7 +242,6 @@ return {
           require("typescript").setup({ server = opts })
           return true
         end,
-        -- ["*"] = function(server, opts) end,
       },
     },
   },
@@ -207,7 +253,13 @@ return {
   -- add more treesitter parsers
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = { "mrjones2014/nvim-ts-rainbow" },
     opts = {
+      rainbow = {
+        enable = true,
+        extended_mode = true,
+        max_file_lines = nil,
+      },
       ensure_installed = {
         "bash",
         "help",
@@ -228,11 +280,41 @@ return {
       },
     },
   },
-
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
+    },
+  },
   {
     "catppuccin/nvim",
     name = "catppuccin",
     event = "VeryLazy",
+    opts = {
+      custom_highlights = function(colors)
+        return {
+          VertSplit = { fg = colors.sapphire },
+        }
+      end,
+      term_colors = true,
+      integrations = {
+        cmp = true,
+        gitsigns = true,
+        illuminate = true,
+        leap = true,
+        mason = true,
+        mini = true,
+        noice = true,
+        notify = true,
+        nvimtree = true,
+        symbols_outline = true,
+        telescope = true,
+        treesitter = true,
+        treesitter_context = true,
+        ts_rainbow = true,
+        which_key = true,
+      },
+    },
   },
   {
     "shaunsingh/nord.nvim",
@@ -263,7 +345,23 @@ return {
         "shfmt",
         "flake8",
         "nil",
+        "json-lsp",
+        "lua-language-server",
+        "prettierd",
+        "pyright",
+        "rnix-lsp",
+        "typescript-language-server",
       },
     },
+  },
+  {
+    "karb94/neoscroll.nvim",
+    config = true,
+  },
+  {
+    "echasnovski/mini.bracketed",
+    init = function(_, opts)
+      require("mini.bracketed").setup({})
+    end,
   },
 }
