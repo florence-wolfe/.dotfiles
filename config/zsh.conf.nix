@@ -15,6 +15,7 @@
         #  "hm-activate" = "(nix path-info \"$HOME/.dotfiles#homeConfigurations.\"$(get-profile)\".activationPackage)/activate\")";
         "hm-update" = "home-manager switch --flake \"$HOME/.dotfiles\"";
         "d-update" = "darwin-rebuild switch --flake \"$HOME/.dotfiles#\\\"$(get-profile)\\\"\"";
+        "nvim-config" = "nvim ~/.dotfiles/pvim";
       };
       oh-my-zsh = {
         enable = true;

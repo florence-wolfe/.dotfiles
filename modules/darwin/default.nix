@@ -14,7 +14,7 @@ rec {
   };
   services = {
     nix-daemon.enable = true;
-    spotifyd.enable = true;
+    /* spotifyd.enable = true; */
     karabiner-elements.enable = true;
   };
   system.defaults.finder = {

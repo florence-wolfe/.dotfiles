@@ -10,7 +10,7 @@ in
     inherit username;
     packages = [
       pkgs.act
-      pkgs.spotifyd
+      /* pkgs.spotifyd */
     ];
     sessionVariables = {
       TMPDIR = "/tmp";
@@ -31,17 +31,17 @@ in
   targets.darwin = {
     currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
   };
-  homeage = {
-    identityPaths = [ "~/.ssh/id_rsa_hm" ];
-    file = {
-      "spotifyd-mac" = {
-        source = "${homeDirectory}/.dotfiles/secrets/spotifyd-mac.age";
-        symlinks = [ "${homeDirectory}/.config/spotifyd/spotifyd.conf" ];
-      };
-    };
-    installationType = "activation";
-    mount = "${homeDirectory}/secrets";
-  };
+  /* homeage = { */
+  /*   identityPaths = [ "~/.ssh/id_rsa_hm" ]; */
+  /*   file = { */
+  /*     "spotifyd-mac" = { */
+  /*       source = "${homeDirectory}/.dotfiles/secrets/spotifyd-mac.age"; */
+  /*       symlinks = [ "${homeDirectory}/.config/spotifyd/spotifyd.conf" ]; */
+  /*     }; */
+  /*   }; */
+  /*   installationType = "activation"; */
+  /*   mount = "${homeDirectory}/secrets"; */
+  /* }; */
   programs = {
     vscode.enable = true;
   };

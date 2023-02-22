@@ -33,9 +33,6 @@
       enable = true;
     };
 
-    lazygit = {
-      enable = true;
-    };
     lsd = {
       enable = true;
       # ls = "${pkgs.lsd}/bin/lsd";
