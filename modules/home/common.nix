@@ -1,14 +1,10 @@
 { config, pkgs, nix-colors, homeage, lib, ... }:
 let
+  extraNodePackages = import ./node/default.nix { };
   utils = import ../../utilities.nix { inherit config; };
-in
-{
-  lib = {
-    inherit utils;
-  };
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+in {
+  lib = { inherit utils; };
+  nixpkgs.config = { allowUnfree = true; };
   imports = [
     nix-colors.homeManagerModule
     homeage.homeManagerModules.homeage
@@ -29,9 +25,7 @@ in
       # Home-Manager uses this for quite a few programs and services but it's not always defined on every machine.
     };
     stateVersion = "22.11";
-    sessionPath = [
-      "$HOME/.local/bin"
-    ];
+    sessionPath = [ "$HOME/.local/bin" ];
     packages = [
       pkgs.go
       pkgs.nixpkgs-fmt
@@ -41,11 +35,17 @@ in
       pkgs.age
       pkgs.jetbrains-mono
       (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+      pkgs.bun
+      pkgs.nodePackages.tsun
+      pkgs.nodePackages.cspell
+      pkgs.nodePackages.typescript
+      pkgs.nixfmt
+      pkgs.deadnix
+      pkgs.node2nix
+      extraNodePackages.http-proxy-to-socks-
     ];
     file = {
-      ".profile" = {
-        source = ../../system/.profile;
-      };
+      ".profile" = { source = ../../system/.profile; };
       "lunarvim-config" = {
         source = ../../system/lvim-config.lua;
         # relative to $HOME
@@ -69,9 +69,7 @@ in
     #   enable = false;
     # };
 
-    pvim = {
-      enable = true;
-    };
+    pvim = { enable = true; };
 
     ### END OF PROGRAMS
     rbw = {
@@ -84,7 +82,8 @@ in
 
     discocss = {
       enable = false;
-      css = ''@import url("https://raw.githubusercontent.com/YottaGitHub/Nord-Glasscord/master/nord-glasscord.theme.css");'';
+      css = ''
+        @import url("https://raw.githubusercontent.com/YottaGitHub/Nord-Glasscord/master/nord-glasscord.theme.css");'';
     };
   };
 }
