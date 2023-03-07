@@ -1,3 +1,5 @@
+local LSPConfig = require("utils.lsp-config")
+
 return {
   { "LnL7/vim-nix" },
   {
@@ -38,34 +40,14 @@ return {
         desc = "Restart LSP",
       },
     },
-    dependencies = {
-      "jose-elias-alvarez/typescript.nvim",
-      init = function()
-        require("lazyvim.util").on_attach(function(_, buffer)
-          vim.keymap.set("n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
-          vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
-        end)
-      end,
-    },
-    ---@class PluginLspOpts
     opts = {
-      servers = {
-        pyright = {},
-        tsserver = {},
+      diagnostics = {
+        update_in_insert = true,
       },
-      setup = {
-        tsserver = function(_, opts)
-          require("typescript").setup({ server = opts })
-          return true
-        end,
-      },
+      servers = LSPConfig.servers,
+      setup = LSPConfig.setup
     },
   },
-
-  -- for typescript, LazyVim also includes extra specs to properly setup lspconfig,
-  -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
-  { import = "lazyvim.plugins.extras.lang.typescript" },
-
   {
     "williamboman/mason.nvim",
     opts = {

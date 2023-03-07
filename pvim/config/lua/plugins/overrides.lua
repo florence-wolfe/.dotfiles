@@ -1,15 +1,27 @@
 return {
   {
+    "L3MON4D3/LuaSnip",
+    keys = function()
+      return {}
+    end,
+  },
+  { "echasnovski/mini.pairs", enabled = false },
+  {
     "akinsho/bufferline.nvim",
     opts = {
       options = {
+        indicator = {
+          style = "underline"
+        },
+        diagnostics_update_in_insert = true,
         always_show_bufferline = true,
         show_tab_indicators = true,
         hover = {
           enabled = true,
-          delay = 200,
+          delay = 50,
           reveal = { "close" },
         },
+        separator_style = "slant"
       },
     },
   },
@@ -25,9 +37,8 @@ return {
       },
     },
   },
-  -- use mini.starter instead of alpha
-  { import = "lazyvim.plugins.extras.ui.mini-starter" },
-
-  -- add jsonls and schemastore ans setup treesitter for json, json5 and jsonc
-  { import = "lazyvim.plugins.extras.lang.json" },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    show_current_context = true,
+  }
 }

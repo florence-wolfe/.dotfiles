@@ -1,10 +1,15 @@
 return {
   {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
+    },
+  },
+  {
     "catppuccin/nvim",
     name = "catppuccin",
-    branch = "main",
+    lazy = false,
     version = false,
-    event = "VeryLazy",
     opts = {
       custom_highlights = function(colors)
         return {

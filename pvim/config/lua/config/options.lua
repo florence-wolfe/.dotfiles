@@ -8,3 +8,5 @@ vim.api.nvim_create_user_command("Wnf", "noa w", {})
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldenable = false
+vim.opt.mousemoveevent = true
+vim.opt.showtabline = 2

@@ -4,7 +4,13 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      { "nvim-telescope/telescope-fzf-native.nvim",  build = "make" },
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        config = function()
+          require("telescope").load_extension("fzf")
+        end
+      },
       { "nvim-telescope/telescope-file-browser.nvim" },
       { "nvim-telescope/telescope-frecency.nvim",    dependencies = { "kkharji/sqlite.lua" } },
       { "elianiva/telescope-npm.nvim" },
@@ -32,7 +38,7 @@ return {
         "<cmd>Telescope undo<cr>",
         desc = "Undo",
       },
-      { "<A-p>", require("lazyvim.util").telescope("files", { cwd = false, git_command = { "git", "ls-files", "--exclude-standard", "--cached", "--sort=cdate" } }), desc = "Find Files (cwd)" },
+      { "<A-p>", require("lazyvim.util").telescope("find_files", { cwd = false }), desc = "Find Files (cwd)" },
       {
         "<C-n>",
         function()
@@ -89,11 +95,9 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
-      telescope.load_extension("fzf")
       telescope.load_extension("frecency")
       telescope.load_extension("npm")
       telescope.load_extension("undo")
     end,
   },
-}
 }

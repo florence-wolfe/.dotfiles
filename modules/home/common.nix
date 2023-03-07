@@ -1,6 +1,6 @@
 { config, pkgs, nix-colors, homeage, lib, ... }:
 let
-  extraNodePackages = import ./node/default.nix { };
+  extraNodePackages = import ../../node/default.nix { };
   utils = import ../../utilities.nix { inherit config; };
 in {
   lib = { inherit utils; };
@@ -42,7 +42,7 @@ in {
       pkgs.nixfmt
       pkgs.deadnix
       pkgs.node2nix
-      extraNodePackages.http-proxy-to-socks-
+      extraNodePackages.http-proxy-to-socks
     ];
     file = {
       ".profile" = { source = ../../system/.profile; };

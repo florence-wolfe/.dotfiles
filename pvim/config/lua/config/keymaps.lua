@@ -68,3 +68,20 @@ vim.keymap.set("n", "<leader>xM", function()
   vim.api.nvim_put({ vim.fn.getreg("a") }, "b", true, true)
   vim.cmd("normal! gg")
 end, { desc = "Print all keybindings" })
+
+vim.keymap.set("n", "<leader>nl", function()
+  require("noice").cmd("last")
+end, { desc = "Noice last" })
+
+vim.keymap.set("n", "<leader>nh", function()
+  require("noice").cmd("history")
+end, { desc = "Noice history" })
+
+vim.keymap.set("n", "<leader>np", function()
+  require("noice").cmd("telescope")
+end, { desc = "Noice history" })
+
+vim.keymap.set("n", "[<Tab>", "<cmd>tabprevious<cr>")
+vim.keymap.set("n", "[<S-Tab>", "<cmd>tabfirst<cr>")
+vim.keymap.set("n", "]<Tab>", "<cmd>tabnext<cr>")
+vim.keymap.set("n", "]<S-Tab>", "<cmd>tablast<cr>")
