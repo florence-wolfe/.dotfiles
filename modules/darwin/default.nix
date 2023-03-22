@@ -2,12 +2,13 @@
   users.users.jroberfr.home = "/Users/jroberfr";
   environment = {
     loginShell = "zsh";
-    systemPath = [ "${users.users.jroberfr.home}/.toolbox/bin" ];
+    systemPath = [ "${users.users.jroberfr.home}/" ];
   };
   security.pam.enableSudoTouchIdAuth = true;
   homebrew = {
     enable = true;
-    casks = [{ name = "keycastr"; }];
+    casks = [{ name = "keycastr"; } { name = "wezterm-nightly"; }];
+    brews = [{ name = "nvm"; }];
   };
   services = {
     nix-daemon.enable = true;

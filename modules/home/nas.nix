@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   imports = [ ../linux ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -22,6 +21,10 @@
       pkgs.glibcLocalesUtf8
       pkgs.cargo
       pkgs.rustc
+      pkgs.nodejs
+      pkgs.nodePackages.tsun
+      pkgs.nodePackages.cspell
+      pkgs.nodePackages.typescript
     ];
   };
 }

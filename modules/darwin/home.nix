@@ -23,6 +23,7 @@ in {
       source = config.lib.file.mkOutOfStoreSymlink
         "${homeDirectory}/.dotfiles/system/karabiner/spotify.json";
     };
+    # file.".workrc" = { source = ../../system/work.rc; };
   };
   targets.darwin = {
     currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
@@ -39,4 +40,5 @@ in {
   # mount = "${homeDirectory}/secrets";
   # };
   programs = { vscode.enable = true; };
+  programs.zsh.initExtra = builtins.readFile ../../system/work.rc;
 }

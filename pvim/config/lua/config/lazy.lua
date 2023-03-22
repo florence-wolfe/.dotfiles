@@ -12,12 +12,12 @@ require("lazy").setup({
     -- import LazyVim plugins
     {
       "LazyVim/LazyVim",
-      import = "lazyvim.plugins"
+      import = "lazyvim.plugins",
     },
 
     -- import/override with your plugins
     { import = "plugins" },
-    { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- use mini.starter instead of alpha
     { import = "lazyvim.plugins.extras.ui.mini-starter" },
     -- add jsonls and schemastore ans setup treesitter for json, json5 and jsonc
@@ -25,9 +25,10 @@ require("lazy").setup({
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.json" },
+    { import = "lazyvim.plugins.extras.coding.copilot" },
   },
   defaults = {
-    lazy = true, -- every plugin is lazy-loaded by default
+    lazy = false, -- every plugin is lazy-loaded by default
     version = false, -- try installing the latest stable version for plugins that support semver
   },
   install = { colorscheme = { "cattpuccin", "tokyonight", "habamax" } },

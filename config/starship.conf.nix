@@ -22,6 +22,9 @@
           style = "bold #${config.colorScheme.colors.base0F}";
           disabled = false;
         };
+        cmake = { disabled = true; };
+        aws = { disabled = true; };
+        swift = { disabled = true; };
       };
     };
   };

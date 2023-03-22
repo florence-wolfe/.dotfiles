@@ -1,5 +1,25 @@
 return {
   {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
+    },
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      options = {
+        theme = "catppuccin",
+      },
+    },
+  },
+  {
+    "SmiteshP/nvim-navic",
+    opts = {
+      highlight = true,
+    },
+  },
+  {
     "L3MON4D3/LuaSnip",
     keys = function()
       return {}
@@ -9,19 +29,10 @@ return {
   {
     "akinsho/bufferline.nvim",
     opts = {
+      highlights = require("catppuccin.groups.integrations.bufferline").get(),
       options = {
-        indicator = {
-          style = "underline"
-        },
-        diagnostics_update_in_insert = true,
         always_show_bufferline = true,
         show_tab_indicators = true,
-        hover = {
-          enabled = true,
-          delay = 50,
-          reveal = { "close" },
-        },
-        separator_style = "slant"
       },
     },
   },
@@ -39,6 +50,8 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    show_current_context = true,
-  }
+    opts = {
+      show_current_context = true,
+    },
+  },
 }

@@ -1,26 +1,35 @@
 return {
   {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin",
-    },
-  },
-  {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = false,
     version = false,
+    priority = 1000,
+    branch = "main",
     opts = {
+      flavour = "mocha", -- latte, frappe, macchiato, mocha
       custom_highlights = function(colors)
         return {
           VertSplit = { fg = colors.sapphire },
         }
       end,
+      dim_inactive = {
+        enabled = true,
+        shade = "dark",
+        percentage = 0.15,
+      },
       term_colors = true,
       integrations = {
+        barbecue = {
+          dim_dirname = true,
+        },
         cmp = true,
         gitsigns = true,
         illuminate = true,
+        indent_blankline = {
+          enabled = true,
+          colored_indent_levels = false,
+        },
         leap = true,
         mason = true,
         mini = true,
@@ -42,6 +51,10 @@ return {
             information = { "underline" },
           },
         },
+        navic = {
+          enabled = false,
+          custom_bg = "NONE",
+        },
         symbols_outline = true,
         telescope = true,
         treesitter = true,
@@ -50,6 +63,10 @@ return {
         ts_rainbow2 = true,
       },
     },
+  },
+  {
+    "rebelot/kanagawa.nvim",
+    event = "VeryLazy",
   },
   {
     "shaunsingh/nord.nvim",

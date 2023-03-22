@@ -1,27 +1,6 @@
-local function merge(...)
-  local result = {}
-  for _, t in ipairs({ ... }) do
-    for k, v in pairs(t) do
-      result[k] = v
-    end
-    local mt = getmetatable(t)
-    if mt then
-      setmetatable(result, mt)
-    end
-  end
-  return result
-end
-
 vim.keymap.set("n", "<Tab>", ">>", { desc = "Indent line" })
 vim.keymap.set("n", "<S-Tab>", "<<", { desc = "Outdent line" })
 vim.keymap.set("i", "<S-Tab>", "<C-d>", { desc = "Outdent line" })
-vim.keymap.set(
-  "v",
-  "<C-r>",
-  '"hy:%s/<C-r>h//gc<left><left><left>',
-  { noremap = true, desc = "Replace all occurrences in buffer" }
-)
-
 vim.keymap.set(
   "v",
   "<leader>s/",
@@ -32,29 +11,6 @@ vim.keymap.set(
 
 vim.keymap.set("n", "<leader>bs", "<cmd>w<CR>", { desc = "Save buffer with formatting " })
 vim.keymap.set("n", "<leader>bn", "<cmd>Wnf<CR>", { desc = "Save buffer without formatting " })
-vim.keymap.set("n", "<leader>p", function()
-  local win = vim.api.nvim_get_current_win()
-  vim.ui.input({ prompt = "Line Count" }, function(lines)
-    local count = tonumber(lines)
-    if count then
-      local cmd
-      local target_line
-      local current_line = vim.api.nvim_win_get_cursor(win)[1]
-      if count >= 1 then
-        cmd = "put"
-        target_line = current_line + count - 1
-      else
-        cmd = "put!"
-        target_line = current_line + count + 1
-      end
-      vim.api.nvim_command(target_line .. cmd .. ' "' .. vim.fn.getreg('"') .. '"')
-      vim.api.nvim_win_set_cursor(0, { target_line, 0 })
-    else
-      print("Invalid line count")
-    end
-  end)
-end, { desc = "Put register n lines" })
-
 vim.keymap.set("n", "<leader>xM", function()
   -- Open a new split window for the output buffer
   vim.cmd("new")
@@ -68,20 +24,40 @@ vim.keymap.set("n", "<leader>xM", function()
   vim.api.nvim_put({ vim.fn.getreg("a") }, "b", true, true)
   vim.cmd("normal! gg")
 end, { desc = "Print all keybindings" })
+vim.keymap.set("n", "[<Tab>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+vim.keymap.set("n", "[<S-Tab>", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+vim.keymap.set("n", "]<Tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set("n", "]<S-Tab>", "<cmd>tablast<cr>", { desc = "Last Tab" })
 
-vim.keymap.set("n", "<leader>nl", function()
-  require("noice").cmd("last")
-end, { desc = "Noice last" })
+vim.keymap.set("n", "/", "<cmd>SearchBoxIncSearch visual_mode=false show_matches=true<CR>", { desc = "Search" })
+vim.keymap.set("x", "/", "<cmd>SearchBoxIncSearch visual_mode=true show_matches=true<CR>", { desc = "Search" })
+vim.keymap.set(
+  "n",
+  "?",
+  "<cmd>SearchBoxIncSearch visual_mode=false show_matches=true reverse=true<CR>",
+  { desc = "Search" }
+)
+vim.keymap.set(
+  "x",
+  "?",
+  "<cmd>SearchBoxIncSearch visual_mode=true show_matches=true reverse=true<CR>",
+  { desc = "Search" }
+)
+vim.keymap.set(
+  "n",
+  "<leader>r",
+  "<cmd>SearchBoxReplace confirm=menu visual_mode=false show_matches=true<CR>",
+  { desc = "Search & Replace buffer" }
+)
+vim.keymap.set(
+  "x",
+  "<leader>r",
+  "<cmd>SearchBoxReplace confirm=menu visual_mode=true show_matches=true<CR>",
+  { desc = "Search & Replace selection" }
+)
 
-vim.keymap.set("n", "<leader>nh", function()
-  require("noice").cmd("history")
-end, { desc = "Noice history" })
-
-vim.keymap.set("n", "<leader>np", function()
-  require("noice").cmd("telescope")
-end, { desc = "Noice history" })
-
-vim.keymap.set("n", "[<Tab>", "<cmd>tabprevious<cr>")
-vim.keymap.set("n", "[<S-Tab>", "<cmd>tabfirst<cr>")
-vim.keymap.set("n", "]<Tab>", "<cmd>tabnext<cr>")
-vim.keymap.set("n", "]<S-Tab>", "<cmd>tablast<cr>")
+vim.keymap.set("n", "<M-m>", function()
+  vim.ui.input({ prompt = "Marks" }, function(marks)
+    vim.api.nvim_command("delmarks " .. marks)
+  end)
+end, { desc = "Remove marks" })

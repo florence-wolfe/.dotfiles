@@ -1,1 +1,7 @@
-export PATH=$PATH:~/.toolbox/tools/bin
+export PATH=$PATH:~/.toolbox/bin
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+alias npm="twinit http_proxy npm"
+alias twinit-init="twinit ssh nslookup gen.pkgs.xarth.tv"

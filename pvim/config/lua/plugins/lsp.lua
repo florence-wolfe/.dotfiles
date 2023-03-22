@@ -1,33 +1,15 @@
-local LSPConfig = require("utils.lsp-config")
+local lspConf = require("utils.lsp-conf")
 
 return {
   { "LnL7/vim-nix" },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    opts = function()
+    opts = function(_, opts)
       local nls = require("null-ls")
-      return {
-        sources = {
-          -- This seems to override the local prettier configs for formatting
-          -- nls.builtins.formatting.prettierd,
-          -- TODO: Renable if this can be set to global config
-          -- https://github.com/jose-elias-alvarez/null-ls.nvim/pull/1412
-          -- nls.builtins.diagnostics.cspell,
-          -- nls.builtins.code_actions.cspell,
-          -- nls.builtins.completion.spell,
-          nls.builtins.code_actions.eslint_d,
-          nls.builtins.code_actions.gitsigns,
-          -- Nix Language
-          nls.builtins.code_actions.statix,
-          nls.builtins.diagnostics.deadnix,
-          nls.builtins.formatting.nixfmt,
-          --
-          nls.builtins.code_actions.shellcheck,
-          nls.builtins.diagnostics.shellcheck,
-          nls.builtins.diagnostics.tsc,
-          nls.builtins.diagnostics.vale,
-        },
-      }
+      table.insert(opts.sources, nls.builtins.formatting.prettier)
+      table.insert(opts.sources, nls.builtins.diagnostics.eslint_d)
+      table.insert(opts.sources, nls.builtins.code_actions.eslint_d)
+      table.insert(opts.sources, nls.builtins.code_actions.gitsigns)
     end,
   },
   {
@@ -41,29 +23,73 @@ return {
       },
     },
     opts = {
-      diagnostics = {
-        update_in_insert = true,
-      },
-      servers = LSPConfig.servers,
-      setup = LSPConfig.setup
+      servers = lspConf.servers,
+      setup = lspConf.setup,
     },
   },
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shellcheck",
-        "shfmt",
-        "flake8",
-        "nil",
-        "json-lsp",
-        "lua-language-server",
-        "prettierd",
-        "pyright",
-        "rnix-lsp",
-        "typescript-language-server",
-      },
+  "williamboman/mason.nvim",
+  opts = {
+    ensure_installed = {
+      "actionlint",
+      "eslint_d",
+      "flake8",
+      "json-lsp",
+      "lua-language-server",
+      "nil",
+      "prettier",
+      "pyright",
+      "rnix-lsp",
+      "shellcheck",
+      "shfmt",
+      "stylua",
+      "typescript-language-server",
+      "vale",
+      "yaml-language-server",
+      "yamlfmt",
+      "yamllint",
     },
   },
+  -- {
+  --   "jay-babu/mason-null-ls.nvim",
+  --   opts = {
+  --     automatic_setup = true,
+  --     ensure_installed = {
+  --       "actionlint",
+  --       "eslint-lsp",
+  --       "eslint_d",
+  --       "flake8",
+  --       "json-lsp",
+  --       "lua-language-server",
+  --       "nil",
+  --       "prettier",
+  --       "pyright",
+  --       "rnix-lsp",
+  --       "shellcheck",
+  --       "shfmt",
+  --       "stylua",
+  --       "typescript-language-server",
+  --       "vale",
+  --       "yaml-language-server",
+  --       "yamlfmt",
+  --       "yamllint",
+  --     },
+  --   },
+  --   init = function(_, opts)
+  --     local null_ls = require("null-ls")
+  --     require("mason-null-ls").setup(opts)
+  --     require("mason-null-ls").setup_handlers({
+  --       function(source_name, methods)
+  --         -- all sources with no handler get passed here
+  --
+  --         -- To keep the original functionality of `automatic_setup = true`,
+  --         -- please add the below.
+  --         require("mason-null-ls.automatic_setup")(source_name, methods)
+  --       end,
+  --       eslint_d = function()
+  --         null_ls.register(null_ls.builtins.diagnostics.eslint_d)
+  --         null_ls.register(null_ls.builtins.code_actions.eslint_d)
+  --       end,
+  --     })
+  --   end,
+  -- },
 }

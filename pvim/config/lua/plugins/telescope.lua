@@ -9,12 +9,12 @@ return {
         build = "make",
         config = function()
           require("telescope").load_extension("fzf")
-        end
+        end,
       },
       { "nvim-telescope/telescope-file-browser.nvim" },
-      { "nvim-telescope/telescope-frecency.nvim",    dependencies = { "kkharji/sqlite.lua" } },
+      { "nvim-telescope/telescope-frecency.nvim", dependencies = { "kkharji/sqlite.lua" } },
       { "elianiva/telescope-npm.nvim" },
-      { "debugloop/telescope-undo.nvim",             dependencies = { "nvim-lua/plenary.nvim" } },
+      { "debugloop/telescope-undo.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     },
     keys = {
       -- add a keymap to browse plugin files
@@ -58,6 +58,13 @@ return {
           end
         end,
         desc = "Find NPM Packages",
+      },
+      {
+        "<leader>sT",
+        function()
+          require("telescope.builtin").colorscheme({ enable_preview = true })
+        end,
+        desc = "Themes",
       },
     },
     -- change some options

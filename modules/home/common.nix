@@ -1,7 +1,5 @@
 { config, pkgs, nix-colors, homeage, lib, ... }:
-let
-  extraNodePackages = import ../../node/default.nix { };
-  utils = import ../../utilities.nix { inherit config; };
+let utils = import ../../utilities.nix { inherit config; };
 in {
   lib = { inherit utils; };
   nixpkgs.config = { allowUnfree = true; };
@@ -31,18 +29,13 @@ in {
       pkgs.nixpkgs-fmt
       pkgs.rnix-lsp
       pkgs.spotify-tui
-      pkgs.nodejs
       pkgs.age
       pkgs.jetbrains-mono
       (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
       pkgs.bun
-      pkgs.nodePackages.tsun
-      pkgs.nodePackages.cspell
-      pkgs.nodePackages.typescript
       pkgs.nixfmt
       pkgs.deadnix
       pkgs.node2nix
-      extraNodePackages.http-proxy-to-socks
     ];
     file = {
       ".profile" = { source = ../../system/.profile; };
