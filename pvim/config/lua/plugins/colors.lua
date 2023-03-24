@@ -1,5 +1,11 @@
 return {
   {
+    "folke/tokyonight.nvim",
+    opts = {
+      style = "moon",
+    },
+  },
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = false,

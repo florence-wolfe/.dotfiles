@@ -1,5 +1,6 @@
 local Utils = require("utils")
 local ufoConf = require("utils.ufo-conf")
+local Colors = require("utils.colors-conf")
 
 return {
   {
@@ -13,7 +14,7 @@ return {
       show_dirname = false,
       show_basename = false,
       create_autocmd = false,
-      theme = "catppuccin",
+      theme = Colors.barbecue,
     },
   },
   {
@@ -208,4 +209,5 @@ return {
       },
     },
   },
+  { "echasnovski/mini.nvim", version = false },
 }

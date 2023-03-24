@@ -1,5 +1,5 @@
-vim.keymap.set("n", "<Tab>", ">>", { desc = "Indent line" })
-vim.keymap.set("n", "<S-Tab>", "<<", { desc = "Outdent line" })
+vim.keymap.set({ "n", "v" }, "<Tab>", ">>", { desc = "Indent line" })
+vim.keymap.set({ "n", "v" }, "<S-Tab>", "<<", { desc = "Outdent line" })
 vim.keymap.set("i", "<S-Tab>", "<C-d>", { desc = "Outdent line" })
 vim.keymap.set(
   "v",

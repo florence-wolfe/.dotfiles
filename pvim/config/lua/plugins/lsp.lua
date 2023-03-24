@@ -6,7 +6,7 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
       local nls = require("null-ls")
-      table.insert(opts.sources, nls.builtins.formatting.prettier)
+      table.insert(opts.sources, nls.builtins.formatting.prettierd)
       table.insert(opts.sources, nls.builtins.diagnostics.eslint_d)
       table.insert(opts.sources, nls.builtins.code_actions.eslint_d)
       table.insert(opts.sources, nls.builtins.code_actions.gitsigns)
@@ -36,7 +36,7 @@ return {
       "json-lsp",
       "lua-language-server",
       "nil",
-      "prettier",
+      "prettierd",
       "pyright",
       "rnix-lsp",
       "shellcheck",

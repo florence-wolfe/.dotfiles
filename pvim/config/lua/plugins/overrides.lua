@@ -1,15 +1,17 @@
+local Colors = require("utils.colors-conf")
+
 return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = Colors.lazyvim,
     },
   },
   {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
-        theme = "catppuccin",
+        theme = Colors.lualine,
       },
     },
   },
@@ -28,11 +30,64 @@ return {
   { "echasnovski/mini.pairs", enabled = false },
   {
     "akinsho/bufferline.nvim",
+    keys = {
+      {
+        "<leader>bl",
+        "<cmd>BufferLineCloseLeft<cr>",
+        desc = "close all buffers to the left",
+      },
+      {
+        "<leader>br",
+        "<cmd>BufferLineCloseRight<cr>",
+        desc = "close all buffers to the right",
+      },
+      {
+        "gb",
+        "<cmd>BufferLinePick<cr>",
+        desc = "pick a buffer",
+      },
+      {
+        "gC",
+        "<cmd>BufferLinePickClose<cr>",
+        desc = "pick a buffer and close it",
+      },
+      {
+        "<leader>bmn",
+        "<cmd>BufferLineMoveNext<cr>",
+        desc = "move buffer to next position",
+      },
+      {
+        "<leader>bmp",
+        "<cmd>BufferLineMovePrev<cr>",
+        desc = "move buffer to previous position",
+      },
+      {
+        "<leader>bmf",
+        function()
+          require("bufferline").move_to(1)
+        end,
+        desc = "move buffer to first position",
+      },
+      {
+        "<leader>bml",
+        function()
+          require("bufferline").move_to(-1)
+        end,
+        desc = "move buffer to last position",
+      },
+    },
+    ---@type BufferlineConfig
     opts = {
-      highlights = require("catppuccin.groups.integrations.bufferline").get(),
+      highlights = Colors.bufferline(),
+      --- The options table for configuring bufferline
+      ---@type BufferlineOptions
       options = {
+        separator_style = "thick",
         always_show_bufferline = true,
         show_tab_indicators = true,
+        indicator = {
+          style = "underline",
+        },
       },
     },
   },
@@ -52,6 +107,12 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     opts = {
       show_current_context = true,
+    },
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    opts = {
+      filetypes = { neotree = false, [""] = false },
     },
   },
 }
