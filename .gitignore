@@ -1,5 +1,7 @@
+__pycache__
 .DS_Store
 clutter
 nvim-macos
 nvim.appimage
+nvim-win64
 en.add*
