@@ -15,7 +15,7 @@ in {
     ../../config/wezterm.conf.nix
     ../../config/zsh.conf.nix
   ];
-  colorScheme = nix-colors.colorSchemes.nord;
+  colorScheme = nix-colors.colorSchemes."catppuccin";
 
   home = {
     sessionVariables = {

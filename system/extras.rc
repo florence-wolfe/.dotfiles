@@ -4,3 +4,4 @@ export NVM_DIR="$HOME/.nvm"
 
 eval "$(github-copilot-cli alias -- "$0")"
 
+export PATH="$HOME/.cargo/bin:$PATH"

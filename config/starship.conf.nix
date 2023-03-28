@@ -22,6 +22,7 @@
           style = "bold #${config.colorScheme.colors.base0F}";
           disabled = false;
         };
+        continuation_prompt = "[▶](bold #${config.colorScheme.colors.base09}) ";
         cmake = { disabled = true; };
         aws = { disabled = true; };
         swift = { disabled = true; };
