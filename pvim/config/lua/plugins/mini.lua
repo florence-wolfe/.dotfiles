@@ -8,13 +8,13 @@ return {
       local plugin = require("lazy.core.config").spec.plugins["mini.move"]
       local opts = require("lazy.core.plugin").values(plugin, "opts", false)
       local mappings = {
-        { opts.mappings.up,         desc = "Move selection up",    mode = { "v" } },
-        { opts.mappings.down,       desc = "Move selection down",  mode = { "v" } },
-        { opts.mappings.left,       desc = "Move selection left",  mode = { "v" } },
-        { opts.mappings.right,      desc = "Move selection right", mode = { "v" } },
-        { opts.mappings.line_up,    desc = "Move line up" },
-        { opts.mappings.line_down,  desc = "Move line down" },
-        { opts.mappings.line_left,  desc = "Move line left" },
+        { opts.mappings.up, desc = "Move selection up", mode = { "v" } },
+        { opts.mappings.down, desc = "Move selection down", mode = { "v" } },
+        { opts.mappings.left, desc = "Move selection left", mode = { "v" } },
+        { opts.mappings.right, desc = "Move selection right", mode = { "v" } },
+        { opts.mappings.line_up, desc = "Move line up" },
+        { opts.mappings.line_down, desc = "Move line down" },
+        { opts.mappings.line_left, desc = "Move line left" },
         { opts.mappings.line_right, desc = "Move line right" },
       }
       mappings = vim.tbl_filter(function(m)
@@ -43,6 +43,19 @@ return {
     event = "VeryLazy",
     config = function(_, opts)
       require("mini.bracketed").setup(opts)
+    end,
+  },
+  {
+    "echasnovski/mini.animate",
+    event = "VeryLazy",
+    init = function(_, opts)
+      local animate = require("mini.animate")
+      -- Animate for 200 milliseconds with linear easing
+      local timing = animate.gen_timing.linear({ duration = 100, unit = "total" })
+      animate.setup({
+        cursor = { timing = timing },
+        scroll = { enable = false },
+      })
     end,
   },
 }

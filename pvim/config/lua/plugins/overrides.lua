@@ -1,4 +1,5 @@
 local Colors = require("utils.colors-conf")
+local Utils = require("utils")
 
 return {
   {
@@ -28,8 +29,12 @@ return {
     end,
   },
   { "echasnovski/mini.pairs", enabled = false },
+  { "echasnovski/mini.comment", enabled = false },
   {
     "akinsho/bufferline.nvim",
+    init = function()
+      Utils.create_keymap_group("<leader>bm", "+Move Buffers")
+    end,
     keys = {
       {
         "<leader>bl",
@@ -95,6 +100,7 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       filesystem = {
+        bind_to_cwd = true,
         filtered_items = {
           visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
           hide_dotfiles = false,

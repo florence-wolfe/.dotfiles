@@ -36,14 +36,12 @@ in {
       pkgs.nixfmt
       pkgs.deadnix
       pkgs.node2nix
+      pkgs.ripgrep
+      pkgs.fd
+      pkgs.glxinfo
     ];
     file = {
       ".profile" = { source = ../../system/.profile; };
-      "lunarvim-config" = {
-        source = ../../system/lvim-config.lua;
-        # relative to $HOME
-        target = ".config/lvim/config.lua";
-      };
     };
     shellAliases = {
       # With line numbers

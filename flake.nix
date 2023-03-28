@@ -12,10 +12,6 @@
       url = "github:jordanisaacs/homeage";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    darwin = {
-      url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -24,67 +20,20 @@
     , home-manager
     , nix-colors
     , homeage
-    , darwin
     , ...
     }:
     let
-      commonModules = [ ./modules/custom/lazyvim.nix ./modules/custom/pvim.nix ];
-    in
-    {
-      darwinConfigurations = {
-        "jroberfr@88665a49c72f.ant.amazon.com" =
-          let
-            system = "x86_64-darwin";
-          in
-          darwin.lib.darwinSystem
-            {
-              inherit system;
-              pkgs = import nixpkgs {
-                inherit system;
-                config.allowUnfree = true;
-                config.allowUnsupportedSystem = true;
-              };
-              modules = [
-                ./modules/darwin
-                home-manager.darwinModules.home-manager
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.users.jroberfr = { ... }: {
-                    imports = commonModules ++ [ ./modules/darwin/home.nix ];
-                  };
-                  home-manager.extraSpecialArgs = { inherit nix-colors homeage; };
-                }
-              ];
-            };
-      };
-      nixosConfigurations = {
-        "nixos@nixos" =
-          let
-            system = "x86_64-linux";
-          in
-          nixpkgs.lib.nixosSystem {
-            inherit system;
-            pkgs = import nixpkgs {
-              inherit system;
-              config.allowUnfree = true;
-              config.allowUnsupportedSystem = true;
-            };
-            modules = [
-              ./modules/nixos
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.nixos = { ... }: {
-                  imports = commonModules ++ [ ./modules/home/wsl.nix ];
-                };
-                home-manager.extraSpecialArgs = { inherit nix-colors homeage; };
-              }
-            ];
-          };
-      };
+      commonModules = [ ./modules/custom/pvim.nix ];
+    in {
       homeConfigurations = {
+	      "frank@LAPTOP-OTHG7ALT" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          modules = commonModules ++ [ ./modules/home/wsl.nix ];
+          extraSpecialArgs = { inherit nix-colors homeage; };
+	      };
         "frank.robert@DS720plus" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
@@ -93,6 +42,6 @@
           modules = commonModules ++ [ ./modules/home/nas.nix ];
           extraSpecialArgs = { inherit nix-colors homeage; };
         };
-      };
     };
+  };
 }

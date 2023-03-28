@@ -2,7 +2,7 @@ local themes = { "catppuccin", "tokyonight" }
 
 local M = {}
 
-M.theme = themes[2]
+M.theme = themes[1]
 
 M.lualine = M.theme
 M.barbecue = M.theme

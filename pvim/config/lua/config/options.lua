@@ -1,3 +1,21 @@
+if vim.fn.has("nvim") == 1 then
+  local is_wsl = vim.fn.system("uname -r"):lower():find("-microsoft") ~= nil
+  if is_wsl and os.getenv("WSL_DISTRO_NAME") ~= nil then
+    vim.g.clipboard = {
+      name = "WslClipboard",
+      copy = {
+        ["+"] = "clip.exe",
+        ["*"] = "clip.exe",
+      },
+      paste = {
+        ["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      },
+      cache_enabled = 0,
+    }
+  end
+end
+
 vim.opt.relativenumber = false
 vim.opt.list = true
 vim.opt.listchars:append("space:·")
@@ -14,4 +32,4 @@ vim.opt.showtabline = 2
 vim.opt.spell = true
 vim.opt.spellfile = vim.fn.expand("~/.dotfiles/pvim/config/en.add")
 vim.opt.updatetime = 200
-vim.opt.scrolloff = 12
+vim.opt.scrolloff = 9999

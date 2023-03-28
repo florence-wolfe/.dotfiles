@@ -15,7 +15,6 @@ end
 -- Find the config
 local init_path = join_paths(dir, "config", "init.lua")
 
-print("Here's the folder" .. dir)
 vim.opt.rtp:append(join_paths(dir, "config"))
 local real_require = require
 local plugins = {

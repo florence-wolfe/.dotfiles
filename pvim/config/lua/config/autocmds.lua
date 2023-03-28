@@ -1,3 +1,14 @@
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  pattern = { "extras.rc", "work.rc" },
+  group = vim.api.nvim_create_augroup("custom_file_types", {}),
+  callback = function(ev)
+    local file = ev.file
+    if file:match("%.rc$") then
+      vim.bo.filetype = "sh"
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd({
   "WinScrolled", -- or WinResized on NVIM-v0.9 and higher
   "BufWinEnter",

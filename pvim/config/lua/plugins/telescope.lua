@@ -66,6 +66,13 @@ return {
         end,
         desc = "Themes",
       },
+      {
+        "<leader>sy",
+        function()
+          require("telescope").extensions.yank_history.yank_history()
+        end,
+        desc = "Yank History",
+      },
     },
     -- change some options
     opts = {
@@ -105,6 +112,7 @@ return {
       telescope.load_extension("frecency")
       telescope.load_extension("npm")
       telescope.load_extension("undo")
+      -- telescope.load_extension("yank_history")
     end,
   },
 }

@@ -1,0 +1,47 @@
+#!/usr/bin/env sh
+
+# Check if the OS is Darwin
+is_darwin() {
+  [ "$(uname)" = "Darwin" ]
+}
+
+# Update PVIM for Darwin
+update_darwin() {
+  echo "Updating for Darwin..."
+  dir_path=$(dirname "$(readlink -f -- "$0")")
+  echo "Downloading latest Neovim"
+  nvim_path="$dir_path/nvim-macos/bin/nvim"
+  if [ -f "$nvim_path" ]; then
+    rm "$nvim_path"
+  fi
+  url="https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz"
+  tar_file_path="$dir_path/nvim-macos.tar.gz"
+  curl -L "$url" -o "$tar_file_path"
+  tar -C "$dir_path" -xf "$tar_file_path"
+  rm "$tar_file_path"
+}
+
+# Update PVIM for Linux
+update_linux() {
+  echo "Updating for Linux..."
+  dir_path=$(dirname "$(readlink -e -- "$0")")
+  echo "Downloading latest Neovim"
+  nvim_path="$dir_path/nvim.appimage"
+  if [ -f "$nvim_path" ]; then
+    rm "$nvim_path"
+  fi
+  url="https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"
+  curl -L "$url" -o "$nvim_path"
+  chmod 744 "$nvim_path"
+}
+
+# Main function
+main() {
+  if is_darwin; then
+    update_darwin
+  else
+    update_linux
+  fi
+}
+
+main
