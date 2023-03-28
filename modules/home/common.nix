@@ -1,6 +1,7 @@
 { config, pkgs, nix-colors, homeage, lib, ... }:
 let utils = import ../../utilities.nix { inherit config; };
-in {
+in
+{
   lib = { inherit utils; };
   nixpkgs.config = { allowUnfree = true; };
   imports = [
@@ -15,7 +16,7 @@ in {
     ../../config/wezterm.conf.nix
     ../../config/zsh.conf.nix
   ];
-  colorScheme = nix-colors.colorSchemes."catppuccin";
+  colorScheme = nix-colors.colorSchemes."nord";
 
   home = {
     sessionVariables = {
