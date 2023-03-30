@@ -12,19 +12,29 @@ return {
         end,
       },
       { "nvim-telescope/telescope-file-browser.nvim" },
-      { "nvim-telescope/telescope-frecency.nvim", dependencies = { "kkharji/sqlite.lua" } },
+      {
+        "prochri/telescope-all-recent.nvim",
+        dependencies = { "kkharji/sqlite.lua" },
+        opts = {
+          default = {
+            sorting = "frecency", -- sorting: options: 'recent' and 'frecency'
+          },
+        },
+        config = function(_, opts)
+          require("telescope-all-recent").setup(opts)
+        end,
+      },
       { "elianiva/telescope-npm.nvim" },
       { "debugloop/telescope-undo.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+      { "MaximilianLloyd/adjacent.nvim" },
     },
     keys = {
       -- add a keymap to browse plugin files
-      -- stylua: ignore
+      { "<leader><space>", require("lazyvim.util").telescope("files"), desc = "Find Files (root dir)" },
       {
-        "<leader><space>",
-        function()
-          require('telescope').extensions.frecency.frecency({ workspace = 'CWD' })
-        end,
-        desc = "Find Files (root dir) #frecency",
+        "<leader>fa",
+        "<cmd>Telescope adjacent<CR>",
+        desc = "Find adjacent files",
       },
       {
         "<leader>fp",
@@ -83,16 +93,15 @@ return {
         winblend = 0,
       },
       extensions = {
-        frecency = {
-          db_root = "$HOME/.dotfiles/pvim/clutter",
-          workspaces = {
-            CWD = require("lazy.core.config").options.root,
-          },
-          show_scores = true,
-        },
         undo = {},
+        adjacent = {
+          level = 1, -- default
+        },
       },
       pickers = {
+        find_files = {
+          find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+        },
         live_grep = {
           mappings = {
             i = {
@@ -109,9 +118,9 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
-      telescope.load_extension("frecency")
       telescope.load_extension("npm")
       telescope.load_extension("undo")
+      telescope.load_extension("adjacent")
       -- telescope.load_extension("yank_history")
     end,
   },

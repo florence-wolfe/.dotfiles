@@ -1,3 +1,4 @@
+local Utils = require("utils")
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -25,6 +26,7 @@ return {
       },
     },
     init = function()
+      Utils.create_keymap_group("<leader>d", "+definition")
       require("nvim-treesitter.configs").setup({
         rainbow = { enable = true },
         textobjects = {
@@ -37,13 +39,31 @@ return {
               ["<leader>dF"] = "@class.outer",
             },
           },
+          select = {
+            enable = true,
+            keymaps = {
+              -- You can use the following keymaps as they do not conflict with any known key mappings
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["aC"] = "@comment.outer",
+              ["iC"] = "@comment.inner",
+              ["ab"] = "@block.outer",
+              ["ib"] = "@block.inner",
+              ["ap"] = "@parameter.outer",
+              ["ip"] = "@parameter.inner",
+              ["as"] = "@statement.outer",
+              ["is"] = "@statement.inner",
+            },
+          },
           swap = {
             enable = true,
-            swap_next = {
-              ["<leader>a"] = "@parameter.inner",
-            },
             swap_previous = {
               ["<leader>A"] = "@parameter.inner",
+            },
+            swap_next = {
+              ["<leader>a"] = "@parameter.inner",
             },
           },
         },

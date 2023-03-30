@@ -241,19 +241,27 @@ return {
   },
   {
     "utilyre/sentiment.nvim",
-    opts = {},
   },
   { "chrisgrieser/nvim-spider", lazy = true },
-  -- {
-  --   "gbprod/yanky.nvim",
-  --   init = function(_, opts)
-  --     require("yanky").setup(opts)
-  --   end,
-  -- },
   {
     "numToStr/Comment.nvim",
     config = function()
       require("Comment").setup()
     end,
   },
+  {
+    "nathom/filetype.nvim",
+    opts = {
+      overrides = {
+        extensions = {
+          -- Set the filetype of *.pn files to potion
+          rc = "sh",
+        },
+      },
+    },
+    config = function(_, opts)
+      require("filetype").setup(opts)
+    end,
+  },
+  { "lewis6991/impatient.nvim" },
 }

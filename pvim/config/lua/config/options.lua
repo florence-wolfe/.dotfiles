@@ -29,7 +29,5 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 vim.opt.mousemoveevent = true
 vim.opt.showtabline = 2
-vim.opt.spell = true
-vim.opt.spellfile = vim.fn.expand("~/.dotfiles/pvim/config/en.add")
 vim.opt.updatetime = 200
 vim.opt.scrolloff = 9999

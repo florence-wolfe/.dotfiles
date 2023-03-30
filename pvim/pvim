@@ -5,56 +5,72 @@ isDarwin=false
 
 # Use a function to check if the OS is Darwin and set the flag
 check_darwin() {
-  if [ "$os" = "Darwin" ]; then
-    isDarwin=true
-  fi
+	if [ "$os" = "Darwin" ]; then
+		isDarwin=true
+	fi
 }
 
 check_darwin
 
 if [ "$isDarwin" = true ]; then
-  export PVIM=$(dirname $(readlink -f -- "$0"))
-  export BIN="/nvim-macos/bin/nvim"
+	export PVIM=$(dirname $(readlink -f -- "$0"))
+	export BIN="/nvim-macos/bin/nvim"
 else
-  export PVIM=$(dirname $(readlink -e -- "$0"))
-  export BIN="/nvim.appimage"
+	export PVIM=$(dirname $(readlink -e -- "$0"))
+	export BIN="/nvim.appimage"
 fi
 
 set_nv() {
-  if [ -f $PVIM$BIN ]; then
-    NV="$PVIM$BIN"
-  elif command -v nvim >/dev/null && [ "$(readlink -f $(which nvim))" != "$PVIM/pvim" ]; then
-    NV="nvim"
-  else
-    "$PVIM/pvim_update"
-    NV="$PVIM$BIN"
-  fi
+	if [ -f $PVIM$BIN ]; then
+		NV="$PVIM$BIN"
+	elif command -v nvim >/dev/null && [ "$(readlink -f $(which nvim))" != "$PVIM/pvim" ]; then
+		NV="nvim"
+	else
+		"$PVIM/pvim_update"
+		NV="$PVIM$BIN"
+	fi
 }
 
 set_nv
 
+#!/bin/bash
+
 # Initialize update flag to false
 update=false
 
+# Initialize extra_args variable
+extra_args=""
+
 # Use getopts to parse arguments
-while getopts ":u" opt; do
-  case $opt in
-    u)
-      update=true
-      ;;
-    *)
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-  esac
+while getopts ":-:" opt; do
+	case $opt in
+	-)
+		case "${OPTARG}" in
+		update)
+			update=true
+			;;
+		*)
+			# Store the unrecognized option in extra_args
+			extra_args="${extra_args} --${OPTARG}"
+			;;
+		esac
+		;;
+	*)
+		# Store the unrecognized single letter option in extra_args
+		extra_args="${extra_args} -${OPTARG}"
+		;;
+	esac
 done
 
 # Remove parsed options
-shift $((OPTIND-1))
+shift $((OPTIND - 1))
+
+# Add any remaining arguments to extra_args
+extra_args="${extra_args} $@"
 
 if [ "$update" = true ]; then
-  "$PVIM/pvim_update"
+	"$PVIM/pvim_update"
 else
-  # Handle the case where the update flag is not set
-  exec $NV --clean -i "$PVIM/clutter/shada/state" -u "$PVIM/pvim.lua" $@
+	# Handle the case where the update flag is not set
+	exec $NV $extra_args --clean -i "$PVIM/clutter/shada/state" -u "$PVIM/pvim.lua"
 fi

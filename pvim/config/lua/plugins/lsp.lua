@@ -10,6 +10,8 @@ return {
       table.insert(opts.sources, nls.builtins.diagnostics.eslint_d)
       table.insert(opts.sources, nls.builtins.code_actions.eslint_d)
       table.insert(opts.sources, nls.builtins.code_actions.gitsigns)
+      table.insert(opts.sources, nls.builtins.diagnostics.cspell)
+      table.insert(opts.sources, nls.builtins.code_actions.cspell)
     end,
   },
   {
@@ -49,47 +51,4 @@ return {
       "yamllint",
     },
   },
-  -- {
-  --   "jay-babu/mason-null-ls.nvim",
-  --   opts = {
-  --     automatic_setup = true,
-  --     ensure_installed = {
-  --       "actionlint",
-  --       "eslint-lsp",
-  --       "eslint_d",
-  --       "flake8",
-  --       "json-lsp",
-  --       "lua-language-server",
-  --       "nil",
-  --       "prettier",
-  --       "pyright",
-  --       "rnix-lsp",
-  --       "shellcheck",
-  --       "shfmt",
-  --       "stylua",
-  --       "typescript-language-server",
-  --       "vale",
-  --       "yaml-language-server",
-  --       "yamlfmt",
-  --       "yamllint",
-  --     },
-  --   },
-  --   init = function(_, opts)
-  --     local null_ls = require("null-ls")
-  --     require("mason-null-ls").setup(opts)
-  --     require("mason-null-ls").setup_handlers({
-  --       function(source_name, methods)
-  --         -- all sources with no handler get passed here
-  --
-  --         -- To keep the original functionality of `automatic_setup = true`,
-  --         -- please add the below.
-  --         require("mason-null-ls.automatic_setup")(source_name, methods)
-  --       end,
-  --       eslint_d = function()
-  --         null_ls.register(null_ls.builtins.diagnostics.eslint_d)
-  --         null_ls.register(null_ls.builtins.code_actions.eslint_d)
-  --       end,
-  --     })
-  --   end,
-  -- },
 }
