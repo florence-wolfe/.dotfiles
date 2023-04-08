@@ -43,8 +43,7 @@ local config = {
   },
 }
 
-M.config = function()
-end
+M.config = function() end
 
 --- Get current buffer size
 ---@return {width: number, height: number}
@@ -76,7 +75,7 @@ local function get_dynamic_terminal_size(direction, size)
 end
 
 M.setup = function()
-  local terminal = require "toggleterm"
+  local terminal = require("toggleterm")
   terminal.setup(config)
 
   for i, exec in pairs(config.execs) do
@@ -103,25 +102,25 @@ M.setup = function()
 end
 
 M.add_exec = function(opts)
-  local binary = opts.cmd:match "(%S+)"
+  local binary = opts.cmd:match("(%S+)")
   if vim.fn.executable(binary) ~= 1 then
     return
   end
 
   vim.keymap.set({ "n", "t" }, opts.keymap, function()
-    M._exec_toggle { cmd = opts.cmd, count = opts.count, direction = opts.direction, size = opts.size() }
+    M._exec_toggle({ cmd = opts.cmd, count = opts.count, direction = opts.direction, size = opts.size() })
   end, { desc = opts.label, noremap = true, silent = true })
 end
 
 M._exec_toggle = function(opts)
   local Terminal = require("toggleterm.terminal").Terminal
-  local term = Terminal:new { cmd = opts.cmd, count = opts.count, direction = opts.direction }
+  local term = Terminal:new({ cmd = opts.cmd, count = opts.count, direction = opts.direction })
   term:toggle(opts.size, opts.direction)
 end
 
 M.lazygit_toggle = function()
   local Terminal = require("toggleterm.terminal").Terminal
-  local lazygit = Terminal:new {
+  local lazygit = Terminal:new({
     cmd = "lazygit",
     hidden = true,
     direction = "float",
@@ -131,11 +130,11 @@ M.lazygit_toggle = function()
       height = 100000,
     },
     on_open = function(_)
-      vim.cmd "startinsert!"
+      vim.cmd("startinsert!")
     end,
     on_close = function(_) end,
     count = 99,
-  }
+  })
   lazygit:toggle()
 end
 

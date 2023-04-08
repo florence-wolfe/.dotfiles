@@ -39,10 +39,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
     })
   end,
 })
--- vim.api.nvim_create_autocmd("LspAttach", {
---   callback = function()
---     if vim.lsp.buf.server_ready() then
---       vim.lsp.buf.format({ timeout_ms = 2000 })
---     end
---   end,
--- })

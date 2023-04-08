@@ -13,13 +13,15 @@ return {
     opts = function()
       ---@type LazyVimConfig
       local config = require("lazyvim.config")
+      local overseer = require("overseer")
       local icons = config.icons
-
+      local hide_in_width = function()
+        return vim.fn.winwidth(0) > 100
+      end
       return {
         --- @type LazyVimConfig
         options = {
-          theme = "auto",
-
+          theme = Colors.lualine,
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
         },
@@ -47,6 +49,22 @@ return {
               maxcount = 999,
             },
             {
+              "overseer",
+              label = "", -- Prefix for task counts
+              colored = true, -- Color the task icons and counts
+              symbols = {
+                [overseer.STATUS.FAILURE] = "F:",
+                [overseer.STATUS.CANCELED] = "C:",
+                [overseer.STATUS.SUCCESS] = "S:",
+                [overseer.STATUS.RUNNING] = "R:",
+              },
+              unique = false, -- Unique-ify non-running task count by name
+              name = nil, -- List of task names to search for
+              name_not = false, -- When true, invert the name search
+              status = nil, -- List of task statuses to display
+              status_not = false, -- When true, invert the status search
+            },
+            {
               "diff",
               colored = true, -- Displays a colored diff status if set to true
               diff_color = {
@@ -56,10 +74,11 @@ return {
                 removed = "DiffDelete", -- Changes the diff's removed color you
               },
               symbols = { added = icons.git.added, modified = icons.git.modified, removed = icons.git.removed }, -- Changes the symbols used by the diff.
-              source = nil, -- A function that works as a data source for diff
+              source = nil, -- A
               -- It must return a table as such:
               --   { added = add_count, modified = modified_count, removed = removed_count }
               -- or nil on failure. count <= 0 won't be displayed.
+              cond = hide_in_width,
             },
           },
           lualine_y = {
@@ -69,13 +88,14 @@ return {
           lualine_z = {
             {
               "fileformat",
+              cond = hide_in_width,
               symbols = {
                 unix = "", -- e712
                 dos = "", -- e70f
                 mac = "", -- e711
               },
             },
-            { icon = "", "hostname" },
+            { icon = "", "hostname", cond = hide_in_width },
           },
         },
         extensions = {
@@ -85,7 +105,7 @@ return {
           "quickfix",
           "symbols-outline",
           "toggleterm",
-          "trouble",
+          -- "trouble",
         },
       }
     end,

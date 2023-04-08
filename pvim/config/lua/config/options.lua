@@ -21,6 +21,10 @@ vim.opt.list = true
 vim.opt.listchars:append("space:·")
 vim.opt.listchars:append("eol:¬")
 vim.opt.fillchars:append("diff:/")
+vim.opt.fillchars:append("foldclose:▸")
+vim.opt.fillchars:append("foldopen:▾")
+vim.opt.fillchars:append("foldsep:│")
+vim.opt.fillchars:append("fold: ")
 -- write no format
 vim.api.nvim_create_user_command("Wnf", "noa w", {})
 vim.opt.foldcolumn = "1" -- '0' is not bad

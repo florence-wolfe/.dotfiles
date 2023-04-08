@@ -42,55 +42,27 @@ return {
       require("nvim-autopairs").setup(opts)
     end,
   },
-  -- {
-  --   "akinsho/toggleterm.nvim",
-  --   cmd = "ToggleTerm",
-  --   init = function()
-  --     Utils.create_keymap_group("<leader>t", "+terminal")
-  --   end,
-  --   opts = {
-  --     size = 20,
-  --     -- open_mapping = [[<c-\>]],
-  --     start_in_insert = true,
-  --     persist_size = true,
-  --     persist_mode = true,
-  --     close_on_exit = true,
-  --     auto_scroll = true,
-  --     shade_terminals = false,
-  --   },
-  --   keys = {
-  --     { "<leader>t\\", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle Term (float)" },
-  --     { "<leader>t-", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Toggle Term (horizontal)" },
-  --     { "<leader>t|", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Toggle Term (vertical)" },
-  --   },
-  -- },
   {
-    "rebelot/terminal.nvim",
+    "akinsho/toggleterm.nvim",
+    cmd = "ToggleTerm",
     init = function()
       Utils.create_keymap_group("<leader>t", "+terminal")
     end,
-    keys = function()
-      local term_map = require("terminal.mappings")
-      return {
-        {
-          "<leader>ts",
-          term_map.operator_send,
-          mode = { "n", "x" },
-          desc = "Operator Send",
-          expr = true,
-        },
-        { "<leader>to", term_map.toggle, desc = "Toggle" },
-        { "<leader>tO", term_map.toggle({ open_cmd = "enew" }), desc = "Toggle (Empty Buffer)" },
-        { "<leader>tr", term_map.run, desc = "Run" },
-        { "<leader>tR", term_map.run(nil, { layout = { open_cmd = "enew" } }), desc = "Run (Empty Buffer)" },
-        { "<leader>tk", term_map.kill, desc = "Kill" },
-        { "<leader>t]", term_map.cycle_next, desc = "Cycle Next" },
-        { "<leader>t[", term_map.cycle_prev, desc = "Cycle Prev" },
-      }
-    end,
-    config = function(_, opts)
-      require("terminal").setup(opts)
-    end,
+    opts = {
+      size = 20,
+      open_mapping = [[<c-\>]],
+      start_in_insert = true,
+      persist_size = true,
+      persist_mode = true,
+      close_on_exit = true,
+      auto_scroll = true,
+      shade_terminals = false,
+    },
+    keys = {
+      { "<leader>t\\", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle Term (float)" },
+      { "<leader>t-", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Toggle Term (horizontal)" },
+      { "<leader>t|", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Toggle Term (vertical)" },
+    },
   },
   {
     "sindrets/diffview.nvim",
@@ -140,6 +112,59 @@ return {
         provider_selector = ufoConf.provider_selector,
         fold_virt_text_handler = ufoConf.handler,
       })
+    end,
+  },
+  {
+    "luukvbaal/statuscol.nvim",
+    opts = function()
+      local builtin = require("statuscol.builtin")
+      local cfg = {
+        setopt = true, -- Whether to set the 'statuscolumn' option, may be set to false for those who
+        -- want to use the click handlers in their own 'statuscolumn': _G.Sc[SFL]a().
+        -- Although I recommend just using the segments field below to build your
+        -- statuscolumn to benefit from the performance optimizations in this plugin.
+        -- builtin.lnumfunc number string options
+        thousands = false, -- or line number thousands separator string ("." / ",")
+        relculright = false, -- whether to right-align the cursor line number with 'relativenumber' set
+        -- Builtin 'statuscolumn' options
+        ft_ignore = nil, -- lua table with filetypes for which 'statuscolumn' will be unset
+        bt_ignore = nil, -- lua table with 'buftype' values for which 'statuscolumn' will be unset
+        -- Default segments (fold -> sign -> line number + separator), explained below
+        segments = {
+          { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+          -- Git Signs
+          { text = { "%s" }, click = "v:lua.ScSa" },
+          -- Line numbers
+          {
+            text = { builtin.lnumfunc, " " },
+            condition = { true, builtin.not_empty },
+            click = "v:lua.ScLa",
+          },
+        },
+        clickhandlers = { -- builtin click handlers
+          Lnum = builtin.lnum_click,
+          FoldClose = builtin.foldclose_click,
+          FoldOpen = builtin.foldopen_click,
+          FoldOther = builtin.foldother_click,
+          DapBreakpointRejected = builtin.toggle_breakpoint,
+          DapBreakpoint = builtin.toggle_breakpoint,
+          DapBreakpointCondition = builtin.toggle_breakpoint,
+          DiagnosticSignError = builtin.diagnostic_click,
+          DiagnosticSignHint = builtin.diagnostic_click,
+          DiagnosticSignInfo = builtin.diagnostic_click,
+          DiagnosticSignWarn = builtin.diagnostic_click,
+          GitSignsTopdelete = builtin.gitsigns_click,
+          GitSignsUntracked = builtin.gitsigns_click,
+          GitSignsAdd = builtin.gitsigns_click,
+          GitSignsChange = builtin.gitsigns_click,
+          GitSignsChangedelete = builtin.gitsigns_click,
+          GitSignsDelete = builtin.gitsigns_click,
+        },
+      }
+      return cfg
+    end,
+    config = function(_, opts)
+      require("statuscol").setup(opts)
     end,
   },
   {
@@ -251,14 +276,14 @@ return {
       snippet_engine = "luasnip",
     },
     init = function()
-      Utils.create_keymap_group("<leader>a", "+annotations")
+      Utils.create_keymap_group("<leader>cN", "+neogen")
     end,
     config = function(_, opts)
       require("neogen").setup(opts)
     end,
     keys = {
       {
-        "<leader>af",
+        "<leader>cNf",
         function()
           require("neogen").generate({ type = "func" })
         end,
@@ -266,7 +291,7 @@ return {
         desc = "Annotate function",
       },
       {
-        "<leader>aF",
+        "<leader>cNF",
         function()
           require("neogen").generate({ type = "file" })
         end,
@@ -274,7 +299,7 @@ return {
         desc = "Annotate file",
       },
       {
-        "<leader>ac",
+        "<leader>cNc",
         function()
           require("neogen").generate({ type = "class" })
         end,
@@ -282,7 +307,7 @@ return {
         desc = "Annotate class",
       },
       {
-        "<leader>at",
+        "<leader>cNt",
         function()
           require("neogen").generate({ type = "type" })
         end,
@@ -364,4 +389,33 @@ return {
       require("modicator").setup(opts)
     end,
   },
+  --[[ {
+    "stevearc/overseer.nvim",
+    opts = {
+      strategy = {
+        "toggleterm",
+        -- load your default shell before starting the task
+        use_shell = false,
+        -- overwrite the default toggleterm "direction" parameter
+        direction = nil,
+        -- overwrite the default toggleterm "highlights" parameter
+        highlights = nil,
+        -- overwrite the default toggleterm "auto_scroll" parameter
+        auto_scroll = nil,
+        -- have the toggleterm window close automatically after the task exits
+        close_on_exit = false,
+        -- open the toggleterm window when a task starts
+        open_on_start = true,
+        -- mirrors the toggleterm "hidden" parameter, and keeps the task from
+        -- being rendered in the toggleable window
+        hidden = false,
+        -- command to run when the terminal is created. Combine with `use_shell`
+        -- to run a terminal command before starting the task
+        on_create = nil,
+      },
+    },
+    config = function(_, opts)
+      require("overseer").setup(opts)
+    end,
+  } ,]]
 }

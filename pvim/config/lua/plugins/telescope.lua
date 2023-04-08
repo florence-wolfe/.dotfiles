@@ -26,7 +26,6 @@ return {
           require("telescope-all-recent").setup(opts)
         end,
       },
-      { "elianiva/telescope-npm.nvim" },
       { "debugloop/telescope-undo.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
       { "MaximilianLloyd/adjacent.nvim" },
     },
@@ -51,26 +50,6 @@ return {
         desc = "Undo",
       },
       { "<C-p>", require("lazyvim.util").telescope("find_files", { cwd = false }), desc = "Find Files (cwd)" },
-      {
-        "<leader>cNn",
-        function()
-          local _, err = pcall(require("telescope").extensions.npm.scripts)
-          if err then
-            print("No package.json")
-          end
-        end,
-        desc = "Find NPM Scripts",
-      },
-      {
-        "<leader>cNp",
-        function()
-          local _, err = pcall(require("telescope").extensions.npm.packages)
-          if err then
-            print("No package.json")
-          end
-        end,
-        desc = "Find NPM Packages",
-      },
       {
         "<leader>sT",
         function()
@@ -135,10 +114,8 @@ return {
     },
     -- apply the config and additionally load fzf-native
     config = function(_, opts)
-      Utils.create_keymap_group("<leader>cN", "+node")
       local telescope = require("telescope")
       telescope.setup(opts)
-      telescope.load_extension("npm")
       telescope.load_extension("undo")
       telescope.load_extension("adjacent")
       telescope.load_extension("lazy")
