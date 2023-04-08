@@ -4,6 +4,8 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
+      { "ghassan0/telescope-glyph.nvim" },
+      { "tsakirist/telescope-lazy.nvim" },
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
@@ -48,9 +50,9 @@ return {
         "<cmd>Telescope undo<cr>",
         desc = "Undo",
       },
-      { "<A-p>", require("lazyvim.util").telescope("find_files", { cwd = false }), desc = "Find Files (cwd)" },
+      { "<C-p>", require("lazyvim.util").telescope("find_files", { cwd = false }), desc = "Find Files (cwd)" },
       {
-        "<C-n>",
+        "<leader>cNn",
         function()
           local _, err = pcall(require("telescope").extensions.npm.scripts)
           if err then
@@ -60,7 +62,7 @@ return {
         desc = "Find NPM Scripts",
       },
       {
-        "<C-p>",
+        "<leader>cNp",
         function()
           local _, err = pcall(require("telescope").extensions.npm.packages)
           if err then
@@ -82,6 +84,23 @@ return {
           require("telescope").extensions.yank_history.yank_history()
         end,
         desc = "Yank History",
+      },
+      {
+        "<leader>sl",
+        function()
+          require("telescope").extensions.lazy.lazy()
+        end,
+        desc = "Lazy",
+      },
+      {
+        "<leader>sN",
+        "<cmd>Telescope noice<cr>",
+        desc = "Noice",
+      },
+      {
+        "<leader>si",
+        "<cmd>Telescope glyph<cr>",
+        desc = "Glyph",
       },
     },
     -- change some options
@@ -116,11 +135,15 @@ return {
     },
     -- apply the config and additionally load fzf-native
     config = function(_, opts)
+      Utils.create_keymap_group("<leader>cN", "+node")
       local telescope = require("telescope")
       telescope.setup(opts)
       telescope.load_extension("npm")
       telescope.load_extension("undo")
       telescope.load_extension("adjacent")
+      telescope.load_extension("lazy")
+      telescope.load_extension("noice")
+      telescope.load_extension("glyph")
       -- telescope.load_extension("yank_history")
     end,
   },

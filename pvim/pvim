@@ -37,7 +37,7 @@ set_nv
 
 # Initialize update flag to false
 update=false
-
+clean=false
 # Initialize extra_args variable
 extra_args=""
 
@@ -48,6 +48,9 @@ while getopts ":-:" opt; do
 		case "${OPTARG}" in
 		update)
 			update=true
+			;;
+		clean)
+			clean=true
 			;;
 		*)
 			# Store the unrecognized option in extra_args
@@ -70,6 +73,9 @@ extra_args="${extra_args} $@"
 
 if [ "$update" = true ]; then
 	"$PVIM/pvim_update"
+elif [ "$clean" = true ]; then
+	# Handle the case where the clean flag is set
+	exec $NV --clean
 else
 	# Handle the case where the update flag is not set
 	exec $NV $extra_args --clean -i "$PVIM/clutter/shada/state" -u "$PVIM/pvim.lua"

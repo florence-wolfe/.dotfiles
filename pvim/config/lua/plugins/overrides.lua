@@ -10,12 +10,16 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    opts = function(plugin)
-      local icons = require("lazyvim.config").icons
+    opts = function()
+      ---@type LazyVimConfig
+      local config = require("lazyvim.config")
+      local icons = config.icons
 
       return {
+        --- @type LazyVimConfig
         options = {
           theme = "auto",
+
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
         },
@@ -35,18 +39,54 @@ return {
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { "filename", path = 1 },
           },
-          lualine_x = {},
+          lualine_x = {
+            {
+              "searchcount",
+              icon = "",
+              timeout = 500,
+              maxcount = 999,
+            },
+            {
+              "diff",
+              colored = true, -- Displays a colored diff status if set to true
+              diff_color = {
+                -- Same color values as the general color option can be used here.
+                added = "DiffAdd", -- Changes the diff's added color
+                modified = "DiffChange", -- Changes the diff's modified color
+                removed = "DiffDelete", -- Changes the diff's removed color you
+              },
+              symbols = { added = icons.git.added, modified = icons.git.modified, removed = icons.git.removed }, -- Changes the symbols used by the diff.
+              source = nil, -- A function that works as a data source for diff
+              -- It must return a table as such:
+              --   { added = add_count, modified = modified_count, removed = removed_count }
+              -- or nil on failure. count <= 0 won't be displayed.
+            },
+          },
           lualine_y = {
             { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
-            function()
-              return " " .. os.date("%R")
-            end,
+            {
+              "fileformat",
+              symbols = {
+                unix = "", -- e712
+                dos = "", -- e70f
+                mac = "", -- e711
+              },
+            },
+            { icon = "", "hostname" },
           },
         },
-        extensions = { "neo-tree" },
+        extensions = {
+          "neo-tree",
+          "lazy",
+          "man",
+          "quickfix",
+          "symbols-outline",
+          "toggleterm",
+          "trouble",
+        },
       }
     end,
   },
@@ -143,8 +183,8 @@ return {
       filesystem = {
         bind_to_cwd = true,
         filtered_items = {
-          visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
-          hide_dotfiles = false,
+          visible = false, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+          hide_dotfiles = true,
           hide_gitignored = true,
         },
       },
@@ -157,9 +197,27 @@ return {
     },
   },
   {
-    "zbirenbaum/copilot.lua",
+    "folke/noice.nvim",
     opts = {
-      filetypes = { neotree = false, [""] = false },
+      presets = {
+        lsp_doc_border = true, -- add a border to hover docs and signature help
+        inc_rename = true, -- add a border to the inc rename window
+      },
+      routes = {
+        {
+          filter = {
+            find = "Detached buffer",
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = "msg_show",
+            kind = "wmsg",
+          },
+          opts = { skip = true },
+        },
+      },
     },
   },
 }

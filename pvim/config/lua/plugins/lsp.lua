@@ -7,11 +7,14 @@ return {
     opts = function(_, opts)
       local nls = require("null-ls")
       table.insert(opts.sources, nls.builtins.formatting.prettierd)
-      table.insert(opts.sources, nls.builtins.diagnostics.eslint_d)
+      table.insert(
+        opts.sources,
+        nls.builtins.diagnostics.eslint_d.with({
+          method = nls.methods.DIAGNOSTICS_ON_SAVE,
+        })
+      )
       table.insert(opts.sources, nls.builtins.code_actions.eslint_d)
       table.insert(opts.sources, nls.builtins.code_actions.gitsigns)
-      table.insert(opts.sources, nls.builtins.diagnostics.cspell)
-      table.insert(opts.sources, nls.builtins.code_actions.cspell)
     end,
   },
   {
@@ -50,5 +53,13 @@ return {
       "yamlfmt",
       "yamllint",
     },
+  },
+  {
+    "github/copilot.vim",
+    build = ":Copilot setup",
+    event = "LspAttach",
+    config = function()
+      return "<cmd>Copilot enable<cr>"
+    end,
   },
 }

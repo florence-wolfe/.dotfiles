@@ -1,8 +1,10 @@
 { config, pkgs, nix-colors, homeage, lib, ... }:
-let utils = import ../../utilities.nix { inherit config; };
+let
+  utils = import ../../utilities.nix { inherit config; };
+  weztermConfig = import ../../config/wezterm.conf.nix { inherit config pkgs lib; };
 in
 {
-  lib = { inherit utils; };
+  lib = { inherit utils weztermConfig; };
   nixpkgs.config = { allowUnfree = true; };
   imports = [
     nix-colors.homeManagerModule
@@ -13,7 +15,6 @@ in
     # ./neovim
     ../../config/starship.conf.nix
     ../../config/tools.conf.nix
-    ../../config/wezterm.conf.nix
     ../../config/zsh.conf.nix
   ];
   colorScheme = nix-colors.colorSchemes."nord";
@@ -42,6 +43,7 @@ in
       pkgs.glxinfo
     ];
     file = {
+      ".local/bin/cb" = { source = ../../system/cb; };
       ".profile" = { source = ../../system/.profile; };
     };
     shellAliases = {

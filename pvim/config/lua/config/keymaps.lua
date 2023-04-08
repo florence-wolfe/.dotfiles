@@ -28,34 +28,6 @@ vim.keymap.set("n", "[<Tab>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 vim.keymap.set("n", "[<S-Tab>", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 vim.keymap.set("n", "]<Tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 vim.keymap.set("n", "]<S-Tab>", "<cmd>tablast<cr>", { desc = "Last Tab" })
-
-vim.keymap.set("n", "/", "<cmd>SearchBoxIncSearch visual_mode=false show_matches=true<CR>", { desc = "Search" })
-vim.keymap.set("x", "/", "<cmd>SearchBoxIncSearch visual_mode=true show_matches=true<CR>", { desc = "Search" })
-vim.keymap.set(
-  "n",
-  "?",
-  "<cmd>SearchBoxIncSearch visual_mode=false show_matches=true reverse=true<CR>",
-  { desc = "Search" }
-)
-vim.keymap.set(
-  "x",
-  "?",
-  "<cmd>SearchBoxIncSearch visual_mode=true show_matches=true reverse=true<CR>",
-  { desc = "Search" }
-)
-vim.keymap.set(
-  "n",
-  "<leader>r",
-  "<cmd>SearchBoxReplace confirm=menu visual_mode=false show_matches=true<CR>",
-  { desc = "Search & Replace buffer" }
-)
-vim.keymap.set(
-  "x",
-  "<leader>r",
-  "<cmd>SearchBoxReplace confirm=menu visual_mode=true show_matches=true<CR>",
-  { desc = "Search & Replace selection" }
-)
-
 vim.keymap.set("n", "<M-m>", function()
   vim.ui.input({ prompt = "Marks" }, function(marks)
     vim.api.nvim_command("delmarks " .. marks)

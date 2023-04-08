@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }:
 {
-  home.file.".config/wezterm/wezterm.lua".text =
+  weztermConfig =
     with config.lib.utils;
     let
       FONT_DIRS = replacementStruct ''"$FONT_DIRS"'' ''
