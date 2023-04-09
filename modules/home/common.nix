@@ -22,7 +22,6 @@ in
   home = {
     sessionVariables = {
       ACTIVE_SHELL = "zsh";
-      # Home-Manager uses this for quite a few programs and services but it's not always defined on every machine.
     };
     stateVersion = "22.11";
     sessionPath = [ "$HOME/.local/bin" ];
@@ -59,13 +58,7 @@ in
       enable = true;
       path = "$HOME/.dotfiles";
     };
-    # lazyvim = {
-    #   enable = false;
-    # };
 
-    pvim = { enable = true; };
-
-    ### END OF PROGRAMS
     rbw = {
       enable = true;
       settings = {
