@@ -35,3 +35,7 @@ vim.opt.mousemoveevent = true
 vim.opt.showtabline = 2
 vim.opt.updatetime = 200
 vim.opt.scrolloff = 9999
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"
+vim.opt.spellfile = vim.fn.expand("~/.dotfiles/pvim/config/en.add")
+vim.opt.spelloptions = "camel"
