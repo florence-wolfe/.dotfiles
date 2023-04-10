@@ -739,6 +739,7 @@ in
             echo -e "\e[1;31merror: Homebrew is not installed, skipping...\e[0m" >&2
           fi
         '');
+        home.sessionPath = mkIf cfg.enable [ "${config.home.homeDirectory}/.linuxbrew/bin" "/home/linuxbrew/.linuxbrew/bin" ];
       };
   }
   

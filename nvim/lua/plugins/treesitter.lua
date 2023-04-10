@@ -40,7 +40,7 @@ return {
     opts = {
       ensure_installed = {
         "bash",
-        "help",
+        "vimdoc",
         "html",
         "javascript",
         "json",
