@@ -1,7 +1,7 @@
-local Utils = require("utils")
+local utils = require("utils")
 local ts_utils = require("nvim-treesitter.ts_utils")
 
-function select_next_sibling()
+local function select_next_sibling()
   local bufnr = vim.api.nvim_get_current_buf()
   local node = vim.treesitter.get_node({ bufnr = bufnr })
   print("current node")
@@ -21,7 +21,7 @@ function select_next_sibling()
   end
 end
 
-function select_prev_sibling()
+local function select_prev_sibling()
   local node = ts_utils.get_node_at_cursor()
   if not node then
     return
@@ -74,7 +74,7 @@ return {
       },
     },
     init = function()
-      Utils.create_keymap_group("<leader>d", "+definition")
+      utils.create_keymap_group("<leader>d", "+definition")
       require("nvim-treesitter.configs").setup({
         sync_install = false,
         highlight = { enable = true },

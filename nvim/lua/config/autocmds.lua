@@ -25,6 +25,7 @@ vim.api.nvim_create_autocmd({
     require("barbecue.ui").update()
   end,
 })
+
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
     vim.api.nvim_create_autocmd("BufDelete", {
@@ -39,4 +40,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
     })
   end,
 })
-

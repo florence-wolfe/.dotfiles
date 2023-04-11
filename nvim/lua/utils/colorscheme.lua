@@ -7,6 +7,8 @@ M.theme = themes[1]
 M.lualine = M.theme
 M.barbecue = M.theme
 M.lazyvim = M.theme
+
+--@return table<string, BufferlineHLGroup>
 M.bufferline = function()
   if M.theme == "catppuccin" then
     return require("catppuccin.groups.integrations.bufferline").get()
@@ -84,5 +86,16 @@ M.modicator_mode = function()
     }
   end
 end
+
+-- M.get = function(kind)
+--  switch(kind) {
+--    "lualine": return M.lualine,
+--    "barbecue": return M.barbecue,
+--    "lazyvim": return M.lazyvim,
+--    "bufferline": return M.bufferline(),
+--    "modicator_mode": return M.modicator_mode(),
+--    default: return M.theme,
+--  }
+-- end
 
 return M

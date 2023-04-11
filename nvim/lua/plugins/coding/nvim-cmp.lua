@@ -121,49 +121,4 @@ return {
       cmp.setup(opts)
     end,
   },
-
-  --[[ {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      { "hrsh7th/cmp-cmdline" },
-      { "dmitmel/cmp-cmdline-history" },
-      { "hrsh7th/cmp-emoji" },
-      { "hrsh7th/cmp-nvim-lua" },
-    },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-      print("hello from opts")
-      local sources_cmdline = {
-        { name = "path" },
-        {
-          name = "cmdline",
-          option = {
-            ignore_cmds = { "Man", "!" },
-          },
-        },
-        { name = "cmdline_history" },
-      }
-
-      -- Setup sources for search
-      local sources_search = {
-        { name = "buffer" },
-        { name = "cmdline_history" },
-      }
-
-      -- Combine configurations for both cmdline and cmdline-history
-      for _, cmd_type in ipairs({ ":", "/", "?", "@" }) do
-        local sources = cmd_type == ":" and sources_cmdline or sources_search
-        cmp.setup.cmdline(cmd_type, {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = sources,
-        })
-      end
-
-      return opts
-    end,
-  }, ]]
 }
