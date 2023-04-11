@@ -4,7 +4,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = colorscheme.lazyvim,
+      colorscheme = colorscheme.get("lazyvim"),
     },
   },
 }

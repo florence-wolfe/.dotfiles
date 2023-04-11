@@ -12,7 +12,7 @@ return {
       show_dirname = false,
       show_basename = false,
       create_autocmd = false,
-      theme = colorscheme.barbecue,
+      theme = colorscheme.get("barbecue"),
     },
   },
 }

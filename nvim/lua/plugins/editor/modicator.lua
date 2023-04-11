@@ -9,7 +9,7 @@ return {
         italic = true,
       },
       highlights = {
-        modes = colorscheme.modicator_mode(),
+        modes = colorscheme.get("modicator_mode"),
       },
     },
     config = function(_, opts)

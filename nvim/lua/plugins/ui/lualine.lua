@@ -13,7 +13,7 @@ return {
       return {
         --- @type LazyVimConfig
         options = {
-          theme = colorscheme.lualine,
+          theme = colorscheme.get("lualine"),
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
         },

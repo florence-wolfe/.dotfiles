@@ -55,7 +55,7 @@ return {
     },
     ---@type BufferlineConfig
     opts = {
-      highlights = colorscheme.bufferline(),
+      highlights = colorscheme.get("bufferline"),
       --- The options table for configuring bufferline
       ---@type BufferlineOptions
       options = {
