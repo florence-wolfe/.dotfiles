@@ -40,6 +40,7 @@ in
       pkgs.ripgrep
       pkgs.fd
       pkgs.glxinfo
+      pkgs.tree
     ];
     file = {
       ".local/bin/cb" = { source = ../../system/cb; };
