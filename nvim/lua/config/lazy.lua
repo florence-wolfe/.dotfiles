@@ -40,6 +40,7 @@ end
 
 local path = "lua/plugins"
 local import_entries = generate_import_entries(path)
+---@type LazyConfig
 local config = {
   spec = {
     -- import LazyVim plugins
@@ -58,6 +59,9 @@ local config = {
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.json" },
+  },
+  ui = {
+    border = "rounded",
   },
   defaults = {
     lazy = false, -- every plugin is lazy-loaded by default
