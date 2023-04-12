@@ -15,6 +15,12 @@ M.bufferline = function()
   end
 end
 
+M.lspsaga = function()
+  if M.theme == "catppuccin" then
+    return require("catppuccin.groups.integrations.lsp_saga").custom_kind()
+  end
+end
+
 M.modicator_mode = function()
   if M.theme == "catppuccin" then
     local C = require("catppuccin.palettes").get_palette()
@@ -97,6 +103,7 @@ M.get = function(kind)
   --- @field lazyvim string
   --- @field bufferline table<string, BufferlineHLGroup>
   --- @field modicator_mode table
+  --- @field lspsaga table
   --- @field theme string
   local modules = {
     ["lualine"] = M.lualine,
@@ -105,6 +112,7 @@ M.get = function(kind)
     ["bufferline"] = M.bufferline(),
     ["modicator_mode"] = M.modicator_mode(),
     ["theme"] = M.theme,
+    ["lspsaga"] = M.lspsaga(),
   }
 
   return modules[kind]

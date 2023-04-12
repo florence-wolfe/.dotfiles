@@ -11,7 +11,16 @@ return {
         })
       )
       table.insert(opts.sources, nls.builtins.code_actions.eslint_d)
-      table.insert(opts.sources, nls.builtins.code_actions.gitsigns)
+      table.insert(
+        opts.sources,
+        nls.builtins.code_actions.gitsigns.with({
+          config = {
+            filter_actions = function(title)
+              return title:lower():match("blame") == nil -- filter out blame actions
+            end,
+          },
+        })
+      )
     end,
   },
 }

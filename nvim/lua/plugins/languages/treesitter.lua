@@ -4,18 +4,11 @@ local ts_utils = require("nvim-treesitter.ts_utils")
 local function select_next_sibling()
   local bufnr = vim.api.nvim_get_current_buf()
   local node = vim.treesitter.get_node({ bufnr = bufnr })
-  print("current node")
-  print(vim.inspect(node))
   if not node then
-    print("no node")
     return
   end
   local next_node = ts_utils.get_next_node(node)
   local next_sibling = node:next_sibling()
-  print("next sibling")
-  print(vim.inspect(next_sibling))
-  print("next node")
-  print(vim.inspect(next_node))
   if next_node then
     ts_utils.update_selection(bufnr, next_node)
   end
