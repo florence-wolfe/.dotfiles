@@ -27,6 +27,7 @@ return {
           dim_dirname = true,
         },
         cmp = true,
+        fidget = true,
         gitsigns = true,
         illuminate = true,
         indent_blankline = {

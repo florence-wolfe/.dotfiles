@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -11,8 +13,17 @@ return {
     },
     -- LSP Keymaps have to be modified in the init function
     -- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-customizing-lsp-keymaps
---[[     init = function()
+    init = function()
+      local success = pcall(require, "lspsaga")
+      if not success then
+        return
+      end
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      utils.create_keymap_group("<leader>cl", "+lsp")
+
+      keys[#keys + 1] = { "<leader>cl", false }
+      keys[#keys + 1] = { "<leader>cli", "<cmd>LspInfo<cr>", desc = "Lsp Info" }
+
       -- disable line diagnostics
       keys[#keys + 1] = { "<leader>cd", false }
       -- disable goto definition
@@ -39,7 +50,7 @@ return {
       keys[#keys + 1] = { "[w", false }
       -- disable code actions
       keys[#keys + 1] = { "<leader>ca", false }
-    end, ]]
+    end,
     opts = {
       servers = {
         pyright = {},

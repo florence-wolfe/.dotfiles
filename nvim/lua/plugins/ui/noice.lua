@@ -3,12 +3,21 @@ return {
     "folke/noice.nvim",
     ---@type NoiceConfig
     opts = {
+      popupmenu = {
+        -- cmp-cmdline has more sources and can be extended
+        backend = "cmp", -- backend to use to show regular cmdline completions
+      },
       lsp = {
-        hover = {
+        -- use fidget instead
+        progress = {
           enabled = false,
         },
         signature = {
-          enabled = false,
+          auto_open = {
+            -- disable the auto-opened signature helper in insert mode
+            trigger = false, -- Automatically show signature help when typing a trigger character from the LSP
+            luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
+          },
         },
       },
       presets = {
