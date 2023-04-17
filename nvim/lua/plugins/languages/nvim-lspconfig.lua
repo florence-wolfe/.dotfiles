@@ -1,5 +1,3 @@
-local utils = require("utils")
-
 return {
   {
     "neovim/nvim-lspconfig",
@@ -14,42 +12,9 @@ return {
     -- LSP Keymaps have to be modified in the init function
     -- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-customizing-lsp-keymaps
     init = function()
-      local success = pcall(require, "lspsaga")
-      if not success then
-        return
-      end
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      utils.create_keymap_group("<leader>cl", "+lsp")
-
-      keys[#keys + 1] = { "<leader>cl", false }
-      keys[#keys + 1] = { "<leader>cli", "<cmd>LspInfo<cr>", desc = "Lsp Info" }
-
-      -- disable line diagnostics
-      keys[#keys + 1] = { "<leader>cd", false }
-      -- disable goto definition
-      keys[#keys + 1] = { "gd", false }
-      -- disable goto references
-      keys[#keys + 1] = { "gr", false }
-      -- disable goto implementation
-      keys[#keys + 1] = { "gI", false }
-      -- disable goto type definition
-      keys[#keys + 1] = { "gt", false }
       -- disable Hover
       keys[#keys + 1] = { "K", false }
-      -- disable next diagnostic
-      keys[#keys + 1] = { "]d", false }
-      -- disable previous diagnostic
-      keys[#keys + 1] = { "[d", false }
-      -- disable next error
-      keys[#keys + 1] = { "]e", false }
-      -- disable previous error
-      keys[#keys + 1] = { "[e", false }
-      -- disable next warning
-      keys[#keys + 1] = { "]w", false }
-      -- disable previous warning
-      keys[#keys + 1] = { "[w", false }
-      -- disable code actions
-      keys[#keys + 1] = { "<leader>ca", false }
     end,
     opts = {
       servers = {
@@ -72,7 +37,9 @@ return {
               format = {
                 enable = true,
               },
-              validate = { enable = true },
+              validate = {
+                enable = true,
+              },
             },
           },
         },

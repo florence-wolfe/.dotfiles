@@ -33,3 +33,17 @@ vim.keymap.set("n", "<M-m>", function()
     vim.api.nvim_command("delmarks " .. marks)
   end)
 end, { desc = "Remove marks" })
+
+vim.keymap.set("n", "<left>", function()
+  local cur_line = vim.api.nvim_win_get_cursor(0)[1]
+  if vim.fn.foldclosed(cur_line) == -1 then
+    vim.cmd("normal! h")
+  end
+end, { desc = "Check for fold before moving left" })
+
+vim.keymap.set("n", "<right>", function()
+  local cur_line = vim.api.nvim_win_get_cursor(0)[1]
+  if vim.fn.foldclosed(cur_line) == -1 then
+    vim.cmd("normal! l")
+  end
+end, { desc = "Check for fold before moving right" })

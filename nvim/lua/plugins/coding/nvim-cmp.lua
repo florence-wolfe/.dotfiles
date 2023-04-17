@@ -1,89 +1,47 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    version = false, -- last release is way too old
     event = { "InsertEnter", "CmdlineEnter " },
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
       { "hrsh7th/cmp-cmdline" },
       { "dmitmel/cmp-cmdline-history" },
       { "hrsh7th/cmp-emoji" },
       { "hrsh7th/cmp-nvim-lua" },
       { "tzachar/cmp-fuzzy-buffer", dependencies = { "tzachar/fuzzy.nvim" } },
     },
-    opts = function()
+    opts = function(_, opts)
       local cmp = require("cmp")
       local compare = require("cmp.config.compare")
-      return {
-        window = {
-          completion = cmp.config.window.bordered({
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          }),
+
+      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
+        { name = "emoji" },
+        { name = "nvim_lua", include_deprecated = true },
+        { name = "cmdline_history" },
+        { name = "cmdline" },
+        { name = "fuzzy_buffer" },
+      }))
+      opts.completion.border = "rounded"
+      opts.sorting = {
+        priority_weight = 2,
+        comparators = {
+          require("cmp_fuzzy_buffer.compare"),
+          compare.offset,
+          compare.exact,
+          compare.score,
+          compare.recently_used,
+          compare.kind,
+          compare.sort_text,
+          compare.length,
+          compare.order,
         },
-        completion = {
-          border = "rounded",
-          completeopt = "menu,menuone,noinsert",
-        },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<S-CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      }
+      opts.window = {
+        completion = cmp.config.window.bordered({
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
         }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
-          { name = "emoji" },
-          { name = "nvim_lua", include_deprecated = true },
-          { name = "cmdline_history" },
-          { name = "cmdline" },
-          { name = "fuzzy_buffer" },
+        documentation = cmp.config.window.bordered({
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
         }),
-        formatting = {
-          format = function(_, item)
-            local icons = require("lazyvim.config").icons.kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-            return item
-          end,
-        },
-        sorting = {
-          priority_weight = 2,
-          comparators = {
-            require("cmp_fuzzy_buffer.compare"),
-            compare.offset,
-            compare.exact,
-            compare.score,
-            compare.recently_used,
-            compare.kind,
-            compare.sort_text,
-            compare.length,
-            compare.order,
-          },
-        },
-        experimental = {
-          ghost_text = {
-            hl_group = "LspCodeLens",
-          },
-        },
       }
     end,
     config = function(_, opts)

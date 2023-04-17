@@ -10,12 +10,14 @@ return {
         function()
           require("neo-tree.command").execute({ toggle = true, position = "right" })
         end,
+        desc = "Toggle file explorer (right)",
       },
       {
         "<leader>E",
         function()
           require("neo-tree.command").execute({ toggle = true, position = "float" })
         end,
+        desc = "Toggle file explorer (float)",
       },
     },
     opts = {

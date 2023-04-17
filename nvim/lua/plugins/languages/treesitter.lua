@@ -29,6 +29,7 @@ end
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    event = "BufEnter",
     dependencies = { "HiPhish/nvim-ts-rainbow2" },
     opts = {
       ensure_installed = {

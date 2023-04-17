@@ -38,6 +38,27 @@ return {
           },
           opts = { skip = true },
         },
+        {
+          filter = {
+            event = "msg_show",
+            find = "^nvim%-navic:.*Already attached to %w+",
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = "msg_show",
+            find = "^error%(satellite.nvim%):",
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = "msg_show",
+            find = "code = %-32801",
+          },
+          opts = { skip = true },
+        },
       },
     },
   },
