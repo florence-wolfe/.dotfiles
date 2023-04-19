@@ -59,6 +59,7 @@ return {
       --- The options table for configuring bufferline
       ---@type BufferlineOptions
       options = {
+        themable = true,
         separator_style = "thick",
         always_show_bufferline = true,
         show_tab_indicators = true,

@@ -1,4 +1,5 @@
 local utils = require("utils")
+local colorscheme = require("utils.colorscheme")
 
 return {
   {
@@ -16,6 +17,7 @@ return {
       close_on_exit = true,
       auto_scroll = true,
       shade_terminals = false,
+      highlights = colorscheme.get("toggleterm"),
     },
     keys = {
       { "<leader>t\\", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle Term (float)" },

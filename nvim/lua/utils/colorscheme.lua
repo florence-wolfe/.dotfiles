@@ -1,8 +1,13 @@
-local themes = { "catppuccin", "tokyonight" }
+local themes = {
+  CATPPUCCIN = "catppuccin",
+  TOKYONIGHT = "tokyonight",
+  ROSE_PINE = "rose-pine",
+}
 
 local M = {}
 
-M.theme = themes[1]
+M.theme = themes.ROSE_PINE
+-- M.theme = themes.CATPPUCCIN
 
 M.lualine = M.theme
 M.barbecue = M.theme
@@ -10,13 +15,33 @@ M.lazyvim = M.theme
 
 ---@return table<string, BufferlineHLGroup>
 M.bufferline = function()
-  if M.theme == "catppuccin" then
+  if M.theme == themes.CATPPUCCIN then
     return require("catppuccin.groups.integrations.bufferline").get()
+  elseif M.theme == themes.ROSE_PINE then
+    return require("rose-pine.plugins.bufferline")
+  end
+end
+
+M.winsep = function()
+  if M.theme == themes.CATPPUCCIN then
+    local C = require("catppuccin.palettes").get_palette()
+    return {}
+  elseif M.theme == "tokyonight" then
+    local T = require("tokyonight.colors").setup({ transform = true })
+    return {
+      fg = T.bg,
+      bg = T.bg,
+    }
+  elseif M.theme == themes.ROSE_PINE then
+    local R = require("rose-pine.palette")
+    return {
+      fg = R.muted,
+    }
   end
 end
 
 M.modicator_mode = function()
-  if M.theme == "catppuccin" then
+  if M.theme == themes.CATPPUCCIN then
     local C = require("catppuccin.palettes").get_palette()
     return {
       ["n"] = {
@@ -50,7 +75,7 @@ M.modicator_mode = function()
         foreground = C.green,
       },
     }
-  elseif M.theme == "tokyonight" then
+  elseif M.theme == themes.TOKYONIGHT then
     local T = require("tokyonight.colors").setup({ transform = true })
     return {
       ["n"] = {
@@ -84,7 +109,49 @@ M.modicator_mode = function()
         foreground = T.green1,
       },
     }
+  elseif M.theme == themes.ROSE_PINE then
+    local R = require("rose-pine.palette")
+    return {
+      ["n"] = {
+        foreground = R.rose,
+      },
+      ["i"] = {
+        foreground = R.foam,
+      },
+      ["v"] = {
+        foreground = R.iris,
+      },
+      ["V"] = {
+        foreground = R.iris,
+      },
+      ["\22"] = {
+        foreground = R.iris,
+      },
+      ["s"] = {
+        foreground = R.iris,
+      },
+      ["S"] = {
+        foreground = R.iris,
+      },
+      ["R"] = {
+        foreground = R.pine,
+      },
+      ["c"] = {
+        foreground = R.love,
+      },
+      ["t"] = {
+        foreground = R.rose,
+      },
+    }
   end
+end
+
+M.toggleterm = function()
+  if M.theme == themes.ROSE_PINE then
+    return require("rose-pine.plugins.toggleterm")
+  end
+
+  return {}
 end
 
 --- Get the specified module.
@@ -97,6 +164,8 @@ M.get = function(kind)
   --- @field lazyvim string
   --- @field bufferline table<string, BufferlineHLGroup>
   --- @field modicator_mode table
+  --- @field winsep { highlight: { fg: string, bg: string } }
+  --- @field toggleterm table<string, string>
   --- @field theme string
   local modules = {
     ["lualine"] = M.lualine,
@@ -104,6 +173,8 @@ M.get = function(kind)
     ["lazyvim"] = M.lazyvim,
     ["bufferline"] = M.bufferline(),
     ["modicator_mode"] = M.modicator_mode(),
+    ["winsep"] = M.winsep(),
+    ["toggleterm"] = M.toggleterm(),
     ["theme"] = M.theme,
   }
 

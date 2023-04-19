@@ -43,6 +43,9 @@ return {
           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
         }),
       }
+      opts.experimental = {
+        ghost_text = false,
+      }
     end,
     config = function(_, opts)
       local cmp = require("cmp")
