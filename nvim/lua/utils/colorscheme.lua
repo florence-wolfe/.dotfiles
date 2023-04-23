@@ -1,4 +1,5 @@
 local themes = {
+  MATERIAL = "material",
   CATPPUCCIN = "catppuccin",
   TOKYONIGHT = "tokyonight",
   ROSE_PINE = "rose-pine",
@@ -7,7 +8,6 @@ local themes = {
 local M = {}
 
 M.theme = themes.ROSE_PINE
--- M.theme = themes.CATPPUCCIN
 
 M.lualine = M.theme
 M.barbecue = M.theme

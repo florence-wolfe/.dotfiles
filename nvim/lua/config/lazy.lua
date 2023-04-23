@@ -50,7 +50,6 @@ local config = {
     },
 
     -- import/override with your plugins
-    { import = "plugins" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- use mini.starter instead of alpha
     -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
@@ -58,7 +57,6 @@ local config = {
     { import = "lazyvim.plugins.extras.lang.json" },
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.lang.json" },
   },
   ui = {
     border = "rounded",
