@@ -12,7 +12,7 @@ return {
     opts = function(_, opts)
       local cmp = require("cmp")
       local compare = require("cmp.config.compare")
-
+      opts.preselect = "none"
       opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
         { name = "emoji" },
         { name = "nvim_lua", include_deprecated = true },

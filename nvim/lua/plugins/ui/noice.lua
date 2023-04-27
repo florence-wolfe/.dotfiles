@@ -8,6 +8,9 @@ return {
         backend = "cmp", -- backend to use to show regular cmdline completions
       },
       lsp = {
+        override = {
+          ["cmp.entry.get_documentation"] = true,
+        },
         -- use fidget instead
         progress = {
           enabled = false,

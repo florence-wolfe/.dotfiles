@@ -89,6 +89,14 @@ return {
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
         winblend = 0,
+        mappings = {
+          i = {
+            -- map actions.which_key to <C-h> (default: <C-/>)
+            -- actions.which_key shows the mappings for your picker,
+            -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+            ["<C-h>"] = "which_key",
+          },
+        },
       },
       extensions = {
         undo = {},
@@ -97,6 +105,9 @@ return {
         },
       },
       pickers = {
+        colorscheme = {
+          enable_preview = true,
+        },
         find_files = {
           find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
         },

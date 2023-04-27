@@ -20,8 +20,8 @@ return {
         "yaml-language-server",
         "yamlfmt",
         "yamllint",
-        "lemminx",
-        "xmlformatter",
+        --[[ "lemminx",
+        "xmlformatter", ]]
       },
     },
   },
