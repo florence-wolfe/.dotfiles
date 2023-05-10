@@ -5,6 +5,7 @@ return {
     opts = {
       text = {
         spinner = "moon",
+        done = "﫠",
       },
       sources = { -- Sources to configure
         ["null-ls"] = { -- Name of source

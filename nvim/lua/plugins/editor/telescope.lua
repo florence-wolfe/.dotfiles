@@ -4,8 +4,10 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
+      { "nvim-telescope/telescope-media-files.nvim" },
       { "ghassan0/telescope-glyph.nvim" },
       { "tsakirist/telescope-lazy.nvim" },
+      { "benfowler/telescope-luasnip.nvim" },
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
@@ -51,6 +53,15 @@ return {
       },
       { "<C-p>", require("lazyvim.util").telescope("find_files", { cwd = false }), desc = "Find Files (cwd)" },
       {
+        "<leader>fB",
+        function()
+          require("telescope").extensions.file_browser.file_browser({
+            preview = true,
+          })
+        end,
+        desc = "File Browser",
+      },
+      {
         "<leader>sT",
         function()
           require("telescope.builtin").colorscheme({ enable_preview = true })
@@ -77,16 +88,64 @@ return {
         desc = "Noice",
       },
       {
-        "<leader>si",
+        "<leader>sg",
         "<cmd>Telescope glyph<cr>",
         desc = "Glyph",
+      },
+      {
+        "<leader>sL",
+        "<cmd>Telescope luasnip<cr>",
+        desc = "Luasnip",
       },
     },
     -- change some options
     opts = {
       defaults = {
-        layout_strategy = "horizontal",
-        layout_config = { prompt_position = "top" },
+        preview = {
+          mime_hook = function(filepath, bufnr, opts)
+            local is_image = function(filepath)
+              local image_extensions = { "png", "jpg", "jpeg", "gif" } -- Supported image formats
+              local split_path = vim.split(filepath:lower(), ".", { plain = true })
+              local extension = split_path[#split_path]
+              return vim.tbl_contains(image_extensions, extension)
+            end
+            if is_image(filepath) then
+              local term = vim.api.nvim_open_term(bufnr, {})
+              local function send_output(_, data, _)
+                for _, d in ipairs(data) do
+                  vim.api.nvim_chan_send(term, d .. "\r\n")
+                end
+              end
+              vim.fn.jobstart({
+                "viu",
+                "-w",
+                "40",
+                "-b",
+                filepath, -- Terminal image viewer command
+              }, { on_stdout = send_output, stdout_buffered = true })
+            else
+              require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
+            end
+          end,
+        },
+        layout_strategy = "flex",
+        layout_config = {
+          prompt_position = "top",
+          horizontal = {
+            mirror = true,
+            preview_cutoff = 100,
+            preview_width = 0.5,
+          },
+          vertical = {
+            mirror = true,
+            preview_cutoff = 0.4,
+          },
+          flex = {
+            flip_columns = 110,
+          },
+          height = 0.94,
+          width = 0.86,
+        },
         sorting_strategy = "ascending",
         winblend = 0,
         mappings = {
@@ -102,6 +161,18 @@ return {
         undo = {},
         adjacent = {
           level = 1, -- default
+        },
+        fzf = {
+          override_generic_sorter = false,
+          override_file_sorter = true,
+          case_mode = "smart_case",
+        },
+        file_browser = {
+          -- theme = 'ivy',
+          -- disables netrw and use telescope-file-browser in its place
+          theme = nil,
+          hijack_netrw = false,
+          -- mappings = {},
         },
       },
       pickers = {
@@ -132,6 +203,8 @@ return {
       telescope.load_extension("lazy")
       telescope.load_extension("noice")
       telescope.load_extension("glyph")
+      telescope.load_extension("media_files")
+      telescope.load_extension("luasnip")
       -- telescope.load_extension("yank_history")
     end,
   },

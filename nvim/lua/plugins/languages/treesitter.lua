@@ -52,6 +52,51 @@ return {
         "vimdoc",
         "yaml",
       },
+      highlight = {
+        enable = true,
+        disable = { "html" },
+      },
+      indent = { enable = false },
+      context_commentstring = { enable = true, enable_autocmd = false },
+      rainbow = { enable = true },
+      textobjects = {
+        lsp_interop = {
+          enable = true,
+          border = "rounded",
+          floating_preview_opts = {},
+          peek_definition_code = {
+            ["<leader>df"] = { query = "@function.outer", desc = "Peek definition of a function" },
+            ["<leader>dF"] = { query = "@class.outer", desc = "Peek definition of a class" },
+          },
+        },
+        select = {
+          enable = true,
+          keymaps = {
+            -- You can use the following keymaps as they do not conflict with any known key mappings
+            ["af"] = { query = "@function.outer", desc = "Select outer function" },
+            ["if"] = { query = "@function.inner", desc = "Select inner function" },
+            ["ac"] = { query = "@class.outer", desc = "Select outer class" },
+            ["ic"] = { query = "@class.inner", desc = "Select inner class" },
+            ["aC"] = { query = "@comment.outer", desc = "Select outer comment" },
+            ["iC"] = { query = "@comment.inner", desc = "Select inner comment" },
+            ["ab"] = { query = "@block.outer", desc = "Select outer block" },
+            ["ib"] = { query = "@block.inner", desc = "Select inner block" },
+            ["ap"] = { query = "@parameter.outer", desc = "Select outer parameter" },
+            ["ip"] = { query = "@parameter.inner", desc = "Select inner parameter" },
+            ["as"] = { query = "@statement.outer", desc = "Select outer statement" },
+            ["is"] = { query = "@statement.inner", desc = "Select inner statement" },
+          },
+        },
+        swap = {
+          enable = true,
+          swap_previous = {
+            ["<leader>A"] = { query = "@parameter.inner", desc = "Swap with previous parameter" },
+          },
+          swap_next = {
+            ["<leader>a"] = { query = "@parameter.inner", desc = "Swap with next parameter" },
+          },
+        },
+      },
     },
     keys = {
       {
@@ -69,54 +114,9 @@ return {
     },
     init = function()
       utils.create_keymap_group("<leader>d", "+definition")
-      sync_install =
-        false, require("nvim-treesitter.configs").setup({
-          highlight = {
-            enable = true,
-            disable = { "html" },
-          },
-          indent = { enable = false },
-          context_commentstring = { enable = true, enable_autocmd = false },
-          rainbow = { enable = true },
-          textobjects = {
-            lsp_interop = {
-              enable = true,
-              border = "rounded",
-              floating_preview_opts = {},
-              peek_definition_code = {
-                ["<leader>df"] = { query = "@function.outer", desc = "Peek definition of a function" },
-                ["<leader>dF"] = { query = "@class.outer", desc = "Peek definition of a class" },
-              },
-            },
-            select = {
-              enable = true,
-              keymaps = {
-                -- You can use the following keymaps as they do not conflict with any known key mappings
-                ["af"] = { query = "@function.outer", desc = "Select outer function" },
-                ["if"] = { query = "@function.inner", desc = "Select inner function" },
-                ["ac"] = { query = "@class.outer", desc = "Select outer class" },
-                ["ic"] = { query = "@class.inner", desc = "Select inner class" },
-                ["aC"] = { query = "@comment.outer", desc = "Select outer comment" },
-                ["iC"] = { query = "@comment.inner", desc = "Select inner comment" },
-                ["ab"] = { query = "@block.outer", desc = "Select outer block" },
-                ["ib"] = { query = "@block.inner", desc = "Select inner block" },
-                ["ap"] = { query = "@parameter.outer", desc = "Select outer parameter" },
-                ["ip"] = { query = "@parameter.inner", desc = "Select inner parameter" },
-                ["as"] = { query = "@statement.outer", desc = "Select outer statement" },
-                ["is"] = { query = "@statement.inner", desc = "Select inner statement" },
-              },
-            },
-            swap = {
-              enable = true,
-              swap_previous = {
-                ["<leader>A"] = { query = "@parameter.inner", desc = "Swap with previous parameter" },
-              },
-              swap_next = {
-                ["<leader>a"] = { query = "@parameter.inner", desc = "Swap with next parameter" },
-              },
-            },
-          },
-        })
+    end,
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
   {
@@ -124,7 +124,7 @@ return {
     opts = {
       max_lines = 3, -- How many lines the window should span. Values <= 0 mean no limit.
     },
-    init = function(_, opts)
+    config = function(_, opts)
       require("treesitter-context").setup(opts)
     end,
   },

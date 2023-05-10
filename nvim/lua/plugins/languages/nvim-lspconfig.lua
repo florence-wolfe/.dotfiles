@@ -18,7 +18,6 @@ return {
     end,
     opts = {
       servers = {
-        pyright = {},
         tsserver = {
           settings = {
             completions = {

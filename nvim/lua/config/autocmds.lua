@@ -1,4 +1,4 @@
--- Set the filetype for certain files
+--[[ -- Set the filetype for certain files
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   pattern = { "extras.rc", "work.rc" },
   group = vim.api.nvim_create_augroup("custom_file_types", {}),
@@ -42,4 +42,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end,
     })
   end,
-})
+}) ]]

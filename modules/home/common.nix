@@ -41,6 +41,9 @@ in
       pkgs.fd
       pkgs.glxinfo
       pkgs.tree
+      pkgs.ascii-image-converter
+      pkgs.viu
+      pkgs.lazydocker
     ];
     file = {
       ".local/bin/cb" = { source = ../../system/cb; };

@@ -6,8 +6,7 @@ local themes = {
 }
 
 local M = {}
-
-M.theme = themes.ROSE_PINE
+M.theme = themes.CATPPUCCIN
 
 M.lualine = M.theme
 M.barbecue = M.theme
@@ -24,7 +23,7 @@ end
 
 M.winsep = function()
   if M.theme == themes.CATPPUCCIN then
-    local C = require("catppuccin.palettes").get_palette()
+    -- local C = require("catppuccin.palettes").get_palette()
     return {}
   elseif M.theme == "tokyonight" then
     local T = require("tokyonight.colors").setup({ transform = true })

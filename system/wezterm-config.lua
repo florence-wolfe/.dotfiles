@@ -13,6 +13,7 @@ return {
 		top = 0,
 		bottom = 0,
 	},
+	enable_kitty_graphics = true,
 	use_fancy_tab_bar = false,
 	cursor_blink_ease_in = "Constant",
 	cursor_blink_ease_out = "Constant",

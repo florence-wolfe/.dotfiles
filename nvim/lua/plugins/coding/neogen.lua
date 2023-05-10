@@ -15,6 +15,13 @@ return {
     end,
     keys = {
       {
+        "<leader>cc",
+        function()
+          require("neogen").generate({})
+        end,
+        desc = "Neogen Comment",
+      },
+      {
         "<leader>cNf",
         function()
           require("neogen").generate({ type = "func" })
