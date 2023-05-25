@@ -39,7 +39,6 @@ in
       pkgs.node2nix
       pkgs.ripgrep
       pkgs.fd
-      pkgs.glxinfo
       pkgs.tree
       pkgs.ascii-image-converter
       pkgs.viu

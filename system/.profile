@@ -6,6 +6,7 @@ fi
 
 export PATH="$HOME/.local/bin:$PATH"
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -e "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh" ]; then . "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"; fi # source the home manager session
 
 # Define an array of shell names to check
 shells=("$(command -v zsh)" "$(command -v fish)" "$(command -v bash)")
@@ -26,3 +27,4 @@ for shell in "${shells[@]}"; do
 		break
 	fi
 done
+

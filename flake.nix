@@ -12,6 +12,10 @@
       url = "github:jordanisaacs/homeage";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -20,12 +24,34 @@
     , home-manager
     , nix-colors
     , homeage
+    , darwin
     , ...
     }:
     let
       commonModules = [ ];
     in
     {
+      darwinConfigurations = {
+	"frankrobert@HOP-MAC-ROBERF" = darwin.lib.darwinSystem {
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            config.allowUnfree = true;
+            config.allowUnsupportedSystem = true;
+          };
+          modules = [
+            ./modules/darwin
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.frankrobert = { ... }: {
+                imports = commonModules ++ [ ./modules/darwin/home.nix ];
+              };
+              home-manager.extraSpecialArgs = { inherit nix-colors homeage; };
+            }
+          ];
+        };
+      };
       homeConfigurations = {
         "frank@LAPTOP-OTHG7ALT" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {

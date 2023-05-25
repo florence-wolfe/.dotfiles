@@ -1,14 +1,40 @@
 { pkgs, lib, ... }: rec {
-  users.users.jroberfr.home = "/Users/jroberfr";
+  users.users.frankrobert.home = "/Users/frankrobert";
   environment = {
     loginShell = "zsh";
-    systemPath = [ "${users.users.jroberfr.home}/" ];
+    systemPath = [ "${users.users.frankrobert.home}/" ];
   };
   security.pam.enableSudoTouchIdAuth = true;
   homebrew = {
     enable = true;
-    casks = [{ name = "keycastr"; } { name = "wezterm-nightly"; }];
-    brews = [{ name = "nvm"; }];
+    taps = [
+      { name = "homebrew/cask-versions"; }
+      { name = "homebrew-ffmpeg/ffmpeg"; }
+    ];
+    casks = [
+      { name = "keycastr"; }
+      { name = "wezterm-nightly"; }
+      { name = "MonitorControl"; }
+      { name = "dbeaver-community"; }
+      { name = "redisinsight"; }
+    ];
+    brews = [
+      { name = "nvm"; }
+      { name = "coreutils"; }
+      { name = "neovim"; args = [ "HEAD" ]; }
+      {
+        name = "postgresql@14";
+        start_service = true;
+        restart_service = "changed";
+      }
+      {
+        name = "redis";
+        start_service = true;
+        restart_service = "changed";
+      }
+      { name = "openssl"; }
+      { name = "homebrew-ffmpeg/ffmpeg/ffmpeg"; }
+    ];
   };
   services = {
     nix-daemon.enable = true;

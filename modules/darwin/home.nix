@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  username = "jroberfr";
+  username = "frankrobert";
   homeDirectory = "/Users/${username}";
 in {
   imports = [ ../home/common.nix ];
@@ -24,6 +24,14 @@ in {
         "${homeDirectory}/.dotfiles/system/karabiner/spotify.json";
     };
     # file.".workrc" = { source = ../../system/work.rc; };
+
+    file.".config/nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/nvim";
+      recursive = true;
+    };
+    file.".config/wezterm/wezterm.lua" = {
+      text = config.lib.weztermConfig.weztermConfig;
+    };
   };
   targets.darwin = {
     currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
@@ -40,5 +48,14 @@ in {
   # mount = "${homeDirectory}/secrets";
   # };
   programs = { vscode.enable = true; };
-  programs.zsh.initExtra = builtins.readFile ../../system/work.rc;
+  programs.zsh.initExtra = ''
+    if [[ $(uname -m) == 'arm64' ]]; then
+     eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+    export PATH=$PATH:/run/current-system/sw/bin
+    export PATH=$PATH:/etc/profiles/per-user/frankrobert/bin
+    export PATH=$PATH:/usr/local/bin
+    ${builtins.readFile ../../system/extras.rc};
+    ${builtins.readFile ../../system/work.rc};
+  '';
 }
