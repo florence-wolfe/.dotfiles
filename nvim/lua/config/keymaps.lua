@@ -47,3 +47,8 @@ vim.keymap.set("n", "<right>", function()
     vim.cmd("normal! l")
   end
 end, { desc = "Check for fold before moving right" })
+
+-- https://www.reddit.com/r/neovim/comments/13y3thq/whats_a_very_simple_config_change_that_you_cant/
+vim.keymap.set("i", "<C-BS>", "<Esc>cvb", { desc = "Delete entire words behind cursor" })
+vim.keymap.set("x", "y", "ygv<Esc>", { desc = "Keep cursor in position when copying text" })
+vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })

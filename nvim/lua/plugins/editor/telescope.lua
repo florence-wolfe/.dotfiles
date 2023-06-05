@@ -97,6 +97,11 @@ return {
         "<cmd>Telescope luasnip<cr>",
         desc = "Luasnip",
       },
+      {
+        "<leader>R",
+        "<cmd>Telescope resume<cr>",
+        desc = "Resume Telescope results window",
+      },
     },
     -- change some options
     opts = {
