@@ -59,6 +59,7 @@ return {
       indent = { enable = false },
       context_commentstring = { enable = true, enable_autocmd = false },
       rainbow = { enable = true },
+      autotag = { enable = true },
       textobjects = {
         lsp_interop = {
           enable = true,
@@ -127,5 +128,8 @@ return {
     config = function(_, opts)
       require("treesitter-context").setup(opts)
     end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
   },
 }

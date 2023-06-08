@@ -2,6 +2,7 @@ return {
   {
     -- https://github.com/SmiteshP/nvim-navbuddy
     "SmiteshP/nvim-navbuddy",
+    enabled = false,
     dependencies = {
       "neovim/nvim-lspconfig",
       "SmiteshP/nvim-navic",

@@ -45,11 +45,19 @@ return {
       opts.experimental = {
         ghost_text = false,
       }
+
+      opts.completion.autocomplete = {
+        function()
+          if vim.api.nvim_buf_get_lines(0, vim.fn.line(".") - 1, vim.fn.line("."), false)[1]:match("^%s*$") then
+            return false
+          end
+          return true
+        end,
+      }
     end,
     config = function(_, opts)
       local cmp = require("cmp")
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
       local sources_cmdline = {
         { name = "path" },
