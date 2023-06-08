@@ -3,6 +3,7 @@ local colorscheme = require("utils.colorscheme")
 return {
   {
     "utilyre/barbecue.nvim",
+    enabled = false,
     name = "barbecue",
     dependencies = {
       "SmiteshP/nvim-navic",

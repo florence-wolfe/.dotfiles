@@ -11,9 +11,6 @@ return {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
-        config = function()
-          require("telescope").load_extension("fzf")
-        end,
       },
       { "nvim-telescope/telescope-file-browser.nvim" },
       {
@@ -168,7 +165,7 @@ return {
           level = 1, -- default
         },
         fzf = {
-          override_generic_sorter = false,
+          override_generic_sorter = true,
           override_file_sorter = true,
           case_mode = "smart_case",
         },
@@ -203,6 +200,7 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
+      telescope.load_extension("fzf")
       telescope.load_extension("undo")
       telescope.load_extension("adjacent")
       telescope.load_extension("lazy")
