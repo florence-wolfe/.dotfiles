@@ -8,9 +8,6 @@ return {
         bold = true,
         italic = true,
       },
-      highlights = {
-        modes = colorscheme.get("modicator_mode"),
-      },
     },
     config = function(_, opts)
       require("modicator").setup(opts)

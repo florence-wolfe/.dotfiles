@@ -59,6 +59,13 @@ return {
         desc = "File Browser",
       },
       {
+        "<leader>sq",
+        function()
+          require("telescope.builtin").quickfix()
+        end,
+        desc = "Quickfix",
+      },
+      {
         "<leader>sT",
         function()
           require("telescope.builtin").colorscheme({ enable_preview = true })
