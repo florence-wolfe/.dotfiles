@@ -7,7 +7,7 @@
   # };
   programs = {
     atuin = {
-      enable = false;
+      enable = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
       settings =

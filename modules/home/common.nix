@@ -11,8 +11,6 @@ in
     homeage.homeManagerModules.homeage
     ../../config/atuin.conf.nix
     ../../config/git.conf.nix
-    # ./config/fish.conf.nix
-    # ./neovim
     ../../config/starship.conf.nix
     ../../config/tools.conf.nix
     ../../config/zsh.conf.nix
@@ -50,9 +48,9 @@ in
     };
     shellAliases = {
       # With line numbers
-      ccat = "bat --paging=never";
+      cat = "bat --paging=never";
       # Without line numbers
-      cat = "bat --paging=never -pp";
+      ccat = "bat --paging=never -pp";
     };
   };
 

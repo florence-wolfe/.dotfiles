@@ -32,7 +32,7 @@
     in
     {
       darwinConfigurations = {
-	"frankrobert@HOP-MAC-ROBERF" = darwin.lib.darwinSystem {
+        "frankrobert@HOP-MAC-ROBERF" = darwin.lib.darwinSystem {
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
             config.allowUnfree = true;
