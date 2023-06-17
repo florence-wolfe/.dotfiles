@@ -16,6 +16,7 @@
       { name = "wezterm-nightly"; }
       { name = "MonitorControl"; }
       { name = "dbeaver-community"; }
+      { name = "flameshot"; }
       { name = "redisinsight"; }
     ];
     brews = [

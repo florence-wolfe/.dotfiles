@@ -121,15 +121,6 @@ return {
     end,
   },
   {
-    "nvim-treesitter/nvim-treesitter-context",
-    opts = {
-      max_lines = 3, -- How many lines the window should span. Values <= 0 mean no limit.
-    },
-    config = function(_, opts)
-      require("treesitter-context").setup(opts)
-    end,
-  },
-  {
     "windwp/nvim-ts-autotag",
   },
 }

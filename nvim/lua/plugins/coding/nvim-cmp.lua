@@ -46,14 +46,14 @@ return {
         ghost_text = false,
       }
 
-      opts.completion.autocomplete = {
+      --[[ opts.completion.autocomplete = {
         function()
           if vim.api.nvim_buf_get_lines(0, vim.fn.line(".") - 1, vim.fn.line("."), false)[1]:match("^%s*$") then
             return false
           end
           return true
         end,
-      }
+      } ]]
     end,
     config = function(_, opts)
       local cmp = require("cmp")
