@@ -20,13 +20,8 @@ local config = {
       import = "lazyvim.plugins",
     },
 
-    -- import/override with your plugins
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- use mini.starter instead of alpha
-    -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
-    -- add jsonls and schemastore ans setup treesitter for json, json5 and jsonc
+    { import = "lazyvim.plugins.extras.ui.mini-animate" },
     { import = "lazyvim.plugins.extras.lang.json" },
-    -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
   },
   ui = {

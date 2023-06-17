@@ -3,6 +3,7 @@ local colorscheme = require("utils.colorscheme")
 return {
   {
     "nvim-zh/colorful-winsep.nvim",
+    enabled = false,
     opts = {
       highlight = colorscheme.get("winsep"),
     },
