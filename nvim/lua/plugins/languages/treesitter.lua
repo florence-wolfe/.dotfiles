@@ -33,8 +33,11 @@ return {
     dependencies = { "HiPhish/nvim-ts-rainbow2" },
     opts = {
       ensure_installed = {
+        "astro",
         "bash",
         "html",
+        "css",
+        "scss",
         "javascript",
         "json",
         "json5",

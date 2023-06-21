@@ -1,4 +1,4 @@
---[[ -- Set the filetype for certain files
+-- Set the filetype for certain files
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   pattern = { "extras.rc", "work.rc" },
   group = vim.api.nvim_create_augroup("custom_file_types", {}),
@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 })
 
 -- Update the bufferline when certain events occur
-vim.api.nvim_create_autocmd({
+--[[ vim.api.nvim_create_autocmd({
   "WinScrolled", -- or WinResized on NVIM-v0.9 and higher
   "BufWinEnter",
   "CursorHold",
@@ -26,13 +26,14 @@ vim.api.nvim_create_autocmd({
   callback = function()
     require("barbecue.ui").update()
   end,
-})
+}) ]]
 
 -- Remove LSP clients when closing buffers
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
     vim.api.nvim_create_autocmd("BufDelete", {
-      buffer = vim.api.nvim_get_current_buf(),
+      buffer = bufnr,
       callback = function(opts)
         local bufnr = opts.buf
         local clients = vim.lsp.buf_get_clients(bufnr)
@@ -42,4 +43,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end,
     })
   end,
-}) ]]
+})

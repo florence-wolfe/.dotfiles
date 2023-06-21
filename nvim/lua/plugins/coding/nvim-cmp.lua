@@ -45,7 +45,13 @@ return {
       opts.experimental = {
         ghost_text = false,
       }
+      local format_kinds = opts.formatting.format
+      opts.formatting.format = function(entry, item)
+        format_kinds(entry, item) -- add icons
+        return require("tailwindcss-colorizer-cmp").formatter(entry, item)
+      end
 
+      -- TODO: Get this working eventually
       --[[ opts.completion.autocomplete = {
         function()
           if vim.api.nvim_buf_get_lines(0, vim.fn.line(".") - 1, vim.fn.line("."), false)[1]:match("^%s*$") then

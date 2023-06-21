@@ -4,6 +4,7 @@ return {
     opts = {
       ensure_installed = {
         "actionlint",
+        "astro-language-server",
         "eslint_d",
         "mypy",
         "python-lsp-server",
