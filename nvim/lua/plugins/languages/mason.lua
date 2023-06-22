@@ -18,7 +18,6 @@ return {
         "shellcheck",
         "shfmt",
         "stylua",
-        "typescript-language-server",
         "vale",
         "yaml-language-server",
         "yamlfmt",
