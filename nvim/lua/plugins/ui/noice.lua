@@ -7,6 +7,9 @@ return {
         -- cmp-cmdline has more sources and can be extended
         backend = "cmp", -- backend to use to show regular cmdline completions
       },
+      notify = {
+        view = "mini",
+      },
       lsp = {
         override = {
           ["cmp.entry.get_documentation"] = true,
@@ -14,6 +17,9 @@ return {
         -- use fidget instead
         progress = {
           enabled = false,
+        },
+        hover = {
+          silent = true, -- set to true to not show a message if hover is not available
         },
         signature = {
           auto_open = {
@@ -59,6 +65,13 @@ return {
           filter = {
             event = "msg_show",
             find = "code = %-32801",
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = "msg_show",
+            find = "attempt to index local 'request' %(a nil value%)",
           },
           opts = { skip = true },
         },

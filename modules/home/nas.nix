@@ -12,29 +12,21 @@
       TMPDIR = "/tmp-nix";
     };
     packages = [
-      pkgs.sumneko-lua-language-server
       pkgs.netcat
       pkgs.unzip
-      pkgs.gcc12
-      pkgs.cmake
-      pkgs.luajitPackages.luarocks
-      pkgs.glibcLocalesUtf8
-      pkgs.cargo
-      pkgs.rustc
-      pkgs.nodejs
-      pkgs.nodePackages.tsun
-      pkgs.nodePackages.cspell
-      pkgs.nodePackages.typescript
+      # pkgs.gcc12
+      # pkgs.cmake
+      # pkgs.glibcLocalesUtf8
     ];
   };
   systemd = {
     user = {
-      # tmpfiles = {
-      #   rules = [
-      #     "L+ /lib/${builtins.baseNameOf pkgs.stdenv.cc.bintools.dynamicLinker} - - - - ${pkgs.stdenv.cc.bintools.dynamicLinker}"
-      #     "L+ /lib64 - - - - /lib"
-      #   ];
-      # };
+      tmpfiles = {
+        rules = [
+          "L+ /lib/${builtins.baseNameOf pkgs.stdenv.cc.bintools.dynamicLinker} - - - - ${pkgs.stdenv.cc.bintools.dynamicLinker}"
+          "L+ /lib64 - - - - /lib"
+        ];
+      };
     };
   };
 }

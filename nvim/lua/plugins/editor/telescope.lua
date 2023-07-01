@@ -157,6 +157,7 @@ return {
         },
         sorting_strategy = "ascending",
         winblend = 0,
+        dynamic_preview_title = true,
         mappings = {
           i = {
             -- map actions.which_key to <C-h> (default: <C-/>)
@@ -171,11 +172,6 @@ return {
         adjacent = {
           level = 1, -- default
         },
-        fzf = {
-          override_generic_sorter = true,
-          override_file_sorter = true,
-          case_mode = "smart_case",
-        },
         file_browser = {
           -- theme = 'ivy',
           -- disables netrw and use telescope-file-browser in its place
@@ -189,9 +185,11 @@ return {
           enable_preview = true,
         },
         find_files = {
+          path_display = { "smart" },
           find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
         },
         live_grep = {
+          path_display = { "shorten" },
           mappings = {
             i = {
               ["<C-f>"] = Utils.ts_select_dir_for_grep,
