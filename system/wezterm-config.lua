@@ -4,7 +4,7 @@ return {
 	color_scheme = "$COLOR",
 	font_dirs = { "$FONT_DIRS" },
 	font = wezterm.font_with_fallback({ "$FONTS" }),
-	font_size = 28.0,
+	font_size = 24.0,
 	enable_scroll_bar = true,
 	adjust_window_size_when_changing_font_size = false,
 	window_padding = {

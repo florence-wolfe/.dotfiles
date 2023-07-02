@@ -9,13 +9,13 @@ in
   imports = [
     nix-colors.homeManagerModule
     homeage.homeManagerModules.homeage
-    ../../config/atuin.conf.nix
+    # ../../config/atuin.conf.nix
     ../../config/git.conf.nix
     ../../config/starship.conf.nix
     ../../config/tools.conf.nix
     ../../config/zsh.conf.nix
   ];
-  colorScheme = nix-colors.colorSchemes."nord";
+  colorScheme = nix-colors.colorSchemes."catppuccin-mocha";
 
   home = {
     sessionVariables = {
@@ -30,6 +30,7 @@ in
       pkgs.spotify-tui
       pkgs.age
       pkgs.jetbrains-mono
+      pkgs.intel-one-mono
       (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
       pkgs.bun
       pkgs.nixfmt
@@ -57,7 +58,7 @@ in
   programs = {
     home-manager = {
       enable = true;
-      path = "$HOME/.dotfiles";
+      # path = "$HOME/.dotfiles";
     };
 
     rbw = {

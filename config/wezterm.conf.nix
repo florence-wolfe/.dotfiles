@@ -8,8 +8,9 @@
         '${config.home.homeDirectory}/.nix-profile/share/fonts/truetype/NerdFonts',
         '${config.home.homeDirectory}/.nix-profile/share/fonts/opentype/NerdFonts'
       '';
-      COLOR = replacementStruct "$COLOR" "${lib.strings.toLower config.colorScheme.name}";
+      COLOR = replacementStruct "$COLOR" "${config.colorScheme.name}";
       FONTS = replacementStruct ''"$FONTS"'' ''
+        'IntelOne Mono',
         'JetBrains Mono',
         'Fira Code',
         'Anonymous Pro' 
