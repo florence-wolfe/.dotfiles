@@ -1,0 +1,4 @@
+ldd() {
+  # from https://community.synology.com/enu/forum/1/post/153781
+  echo "ldd 2.20"
+}

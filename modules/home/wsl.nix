@@ -12,6 +12,7 @@
       pkgs.zip
       pkgs.luajitPackages.luarocks
       pkgs.ruby
+      pkgs.rbenv
       pkgs.php82
       pkgs.powershell
     ];

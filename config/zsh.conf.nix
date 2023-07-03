@@ -2,11 +2,9 @@
   programs = {
     zsh = {
       enable = true;
-      syntaxHighlighting = {
-        enable = true;
-      };
       enableAutosuggestions = true;
       enableCompletion = true;
+      syntaxHighlighting = { enable = true; };
       shellAliases = {
         "dots" = "cd ~/.dotfiles";
         "edit-dots" = "nvim ~/.dotfiles/";

@@ -1,10 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   imports = [ ../linux ];
-  home = {
+  home = rec {
     username = "frank.robert";
     homeDirectory = "/volume1/homes/frank.robert";
     sessionVariables = {
-      LC_ALL = "en_US.utf-8";
+	  LC_ALL = "en_US.utf-8";
+	  LOCALE_ARCHIVE = "/usr/lib/locale/locale-archive";
       LANG = "en_US.utf-8";
       LC_CTYPE = "en_US.utf-8";
       TMPDIR = "/tmp-nix";
@@ -12,11 +13,15 @@
     packages = [
       pkgs.netcat
       pkgs.unzip
-      # pkgs.gcc12
-      # pkgs.cmake
-      # pkgs.glibcLocalesUtf8
+      pkgs.gcc48
+      pkgs.cmake
+      pkgs.glibcLocalesUtf8
+      pkgs.glibc
     ];
   };
+  programs.zsh.initExtra = ''
+    ${builtins.readFile ../../system/extras.rc}
+  '';
   systemd = {
     user = {
       tmpfiles = {

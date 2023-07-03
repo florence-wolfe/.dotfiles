@@ -58,7 +58,6 @@ in
   programs = {
     home-manager = {
       enable = true;
-      # path = "$HOME/.dotfiles";
     };
 
     rbw = {
