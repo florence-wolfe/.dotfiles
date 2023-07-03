@@ -42,6 +42,7 @@ in
       pkgs.ascii-image-converter
       pkgs.viu
       pkgs.lazydocker
+      pkgs.ranger
     ];
     file = {
       ".local/bin/cb" = { source = ../../system/cb; };
