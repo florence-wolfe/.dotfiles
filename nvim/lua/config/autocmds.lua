@@ -1,6 +1,6 @@
 -- Set the filetype for certain files
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  pattern = { "extras.rc", "work.rc" },
+  pattern = { "extras.rc", "work.rc", "nas.rc" },
   group = vim.api.nvim_create_augroup("custom_file_types", {}),
   callback = function(ev)
     local file = ev.file
