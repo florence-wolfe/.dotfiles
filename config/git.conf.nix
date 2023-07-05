@@ -14,7 +14,7 @@
           features = "decorations line-numbers";
           whitespace-error-style = "22 reverse";
           navigate = true;
-          syntax-theme = "${config.colorScheme.name}";
+          syntax-theme = "Catppuccin-mocha";
         };
       };
       userEmail = "frankie.robert+github@gmail.com";
