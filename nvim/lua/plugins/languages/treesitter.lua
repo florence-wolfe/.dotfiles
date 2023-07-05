@@ -4,7 +4,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     event = "BufEnter",
-    dependencies = { "HiPhish/nvim-ts-rainbow2" },
     opts = {
       ensure_installed = {
         "astro",
@@ -35,7 +34,6 @@ return {
       },
       indent = { enable = false },
       context_commentstring = { enable = true, enable_autocmd = false },
-      rainbow = { enable = true },
       autotag = { enable = true },
       textobjects = {
         lsp_interop = {

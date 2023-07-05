@@ -59,12 +59,17 @@ return {
             warnings = { "undercurl" },
             information = { "undercurl" },
           },
+          inlay_hints = {
+            background = true,
+          },
         },
         navic = {
           enabled = false,
           custom_bg = "NONE",
         },
         overseer = true,
+        rainbow_delimiters = true,
+        semantic_tokens = true,
         symbols_outline = true,
         telescope = true,
         treesitter = true,
