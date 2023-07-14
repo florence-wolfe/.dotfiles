@@ -21,6 +21,11 @@ M.bufferline = function()
   end
 end
 
+M.hydra_lualine = function()
+  local C = require("catppuccin.palettes").get_palette()
+  return { bg = C.maroon, fg = C.surface0, gui = "bold" }
+end
+
 M.winsep = function()
   if M.theme == themes.CATPPUCCIN then
     -- local C = require("catppuccin.palettes").get_palette()
@@ -175,6 +180,7 @@ M.get = function(kind)
     ["winsep"] = M.winsep(),
     ["toggleterm"] = M.toggleterm(),
     ["theme"] = M.theme,
+    ["hydra_lualine"] = M.hydra_lualine(),
   }
 
   return modules[kind]

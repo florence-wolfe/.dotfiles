@@ -4,6 +4,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     event = "BufEnter",
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
     opts = {
       ensure_installed = {
         "astro",
@@ -33,7 +36,7 @@ return {
         disable = { "html" },
       },
       indent = { enable = false },
-      context_commentstring = { enable = true, enable_autocmd = false },
+      context_commentstring = { enable = true },
       autotag = { enable = true },
       textobjects = {
         lsp_interop = {

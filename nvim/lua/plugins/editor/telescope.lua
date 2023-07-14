@@ -8,10 +8,7 @@ return {
       { "ghassan0/telescope-glyph.nvim" },
       { "tsakirist/telescope-lazy.nvim" },
       { "benfowler/telescope-luasnip.nvim" },
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
+      { "nvim-telescope/telescope-fzf-native.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
       {
         "prochri/telescope-all-recent.nvim",

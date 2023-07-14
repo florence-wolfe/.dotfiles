@@ -1,5 +1,6 @@
 return {
   "ggandor/leap.nvim",
+  enabled = false,
   init = function()
     vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) -- or some grey
     vim.api.nvim_set_hl(0, "LeapMatch", {

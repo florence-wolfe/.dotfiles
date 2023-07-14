@@ -25,7 +25,6 @@ local config = {
     { import = "lazyvim.plugins.extras.lang.tailwind" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "lazyvim.plugins.extras.editor.mini-files" },
-    { import = "lazyvim.plugins.extras.editor.flash" },
   },
   ui = {
     border = "rounded",

@@ -1,6 +1,7 @@
 return {
   {
     "m4xshen/hardtime.nvim",
+    enabled = false,
     opts = {
       disabled_filetypes = {
         "qf",

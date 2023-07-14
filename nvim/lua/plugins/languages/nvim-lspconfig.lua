@@ -31,7 +31,18 @@ return {
         tailwindcss = {
           filetypes_exclude = { "markdown" },
         },
-
+        astro = {
+          typescript = {
+            inlayHints = {
+              parameterNames = {
+                enabled = "all",
+              },
+              parameterTypes = {
+                enabled = "all",
+              },
+            },
+          },
+        },
         lua_ls = { settings = { Lua = { hint = { enable = true } } } },
         jsonls = {
           -- lazy-load schemastore when needed
