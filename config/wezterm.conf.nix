@@ -13,6 +13,7 @@
         'IntelOne Mono',
         'JetBrains Mono',
         'Fira Code',
+        'Iosevka Term',
         'Anonymous Pro' 
       '';
       lists = generateReplacementLists [

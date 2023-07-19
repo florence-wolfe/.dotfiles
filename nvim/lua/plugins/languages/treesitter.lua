@@ -60,4 +60,13 @@ return {
   {
     "windwp/nvim-ts-autotag",
   },
+  {
+    "code-biscuits/nvim-biscuits",
+    opts = {
+      cursor_line_only = true,
+    },
+    config = function(_, opts)
+      require("nvim-biscuits").setup(opts)
+    end,
+  },
 }

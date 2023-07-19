@@ -21,17 +21,17 @@ return {
       }))
       opts.completion.border = "rounded"
       opts.sorting = {
-        priority_weight = 2,
+        priority_weight = 1,
         comparators = {
           require("cmp_fuzzy_buffer.compare"),
+          compare.locality,
+          compare.recently_used,
           compare.offset,
+          compare.order,
           compare.exact,
           compare.score,
-          compare.recently_used,
           compare.kind,
           compare.sort_text,
-          compare.length,
-          compare.order,
         },
       }
       opts.window = {

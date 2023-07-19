@@ -31,6 +31,7 @@ in
       pkgs.age
       pkgs.jetbrains-mono
       pkgs.intel-one-mono
+      pkgs.iosevka
       (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
       pkgs.bun
       pkgs.nixfmt

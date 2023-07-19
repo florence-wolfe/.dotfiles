@@ -25,7 +25,9 @@ return {
         position = "right",
       },
       filesystem = {
-        follow_current_file = true,
+        follow_current_file = {
+          enabled = true,
+        },
         bind_to_cwd = true,
         filtered_items = {
           visible = false, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"

@@ -99,7 +99,7 @@ return {
         desc = "Luasnip",
       },
       {
-        "<leader>R",
+        "<leader>T",
         "<cmd>Telescope resume<cr>",
         desc = "Resume Telescope results window",
       },
