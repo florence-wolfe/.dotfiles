@@ -8,7 +8,12 @@ return {
       { "ghassan0/telescope-glyph.nvim" },
       { "tsakirist/telescope-lazy.nvim" },
       { "benfowler/telescope-luasnip.nvim" },
-      { "nvim-telescope/telescope-fzf-native.nvim" },
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        -- for windows
+        -- zig cc -O3 -Wall -Werror -fpic -std=gnu99 -shared src/fzf.c -o build\libfzf.dll
+        build = "make",
+      },
       { "nvim-telescope/telescope-file-browser.nvim" },
       {
         "prochri/telescope-all-recent.nvim",
@@ -19,6 +24,9 @@ return {
           },
         },
         config = function(_, opts)
+          if vim.loop.os_uname().sysname == "Windows_NT" then
+            vim.g.sqlite_clib_path = "C:\\ProgramData\\chocolatey\\lib\\SQLite\\tools\\sqlite3.dll"
+          end
           require("telescope-all-recent").setup(opts)
         end,
       },
