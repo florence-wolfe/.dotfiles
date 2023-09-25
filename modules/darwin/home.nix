@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  username = "frankrobert";
+  username = "frank";
   homeDirectory = "/Users/${username}";
-in {
+in
+{
   imports = [ ../home/common.nix ];
   home = {
     inherit username;
@@ -12,13 +13,15 @@ in {
       # pkgs.spotifyd
     ];
     sessionVariables = { TMPDIR = "/tmp"; };
-    file."Applications/Home Manager Apps".source = let
-      apps = pkgs.buildEnv {
-        name = "home-manager-applications";
-        paths = config.home.packages;
-        pathsToLink = "/Applications";
-      };
-    in "${apps}/Applications";
+    file."Applications/Home Manager Apps".source =
+      let
+        apps = pkgs.buildEnv {
+          name = "home-manager-applications";
+          paths = config.home.packages;
+          pathsToLink = "/Applications";
+        };
+      in
+      "${apps}/Applications";
     file.".config/karabiner/assets/complex_modifications/spotify.json" = {
       source = config.lib.file.mkOutOfStoreSymlink
         "${homeDirectory}/.dotfiles/system/karabiner/spotify.json";
@@ -47,15 +50,23 @@ in {
   # installationType = "activation";
   # mount = "${homeDirectory}/secrets";
   # };
-  programs = { vscode.enable = true; };
-  programs.zsh.initExtra = ''
-    if [[ $(uname -m) == 'arm64' ]]; then
-     eval "$(/opt/homebrew/bin/brew shellenv)"
-    fi
-    export PATH=$PATH:/run/current-system/sw/bin
-    export PATH=$PATH:/etc/profiles/per-user/frankrobert/bin
-    export PATH=$PATH:/usr/local/bin
-    ${builtins.readFile ../../system/extras.rc};
-    ${builtins.readFile ../../system/work.rc};
-  '';
+  programs = {
+    vscode.enable = true;
+    zsh.initExtra = ''
+      if [[ $(uname -m) == 'arm64' ]]; then
+       eval "$(/opt/homebrew/bin/brew shellenv)"
+      fi
+      export PATH=$PATH:/run/current-system/sw/bin
+      export PATH=$PATH:/etc/profiles/per-user/frank/bin
+      export PATH=$PATH:/usr/local/bin
+      # extras.rc
+      ${builtins.readFile ../../system/extras.rc};
+      # work.rc
+      ${builtins.readFile ../../system/work.rc};
+    '';
+    git = {
+      userEmail = lib.mkForce "frobert@rippling.com";
+    };
+  };
+
 }

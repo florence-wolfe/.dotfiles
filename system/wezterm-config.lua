@@ -3,7 +3,6 @@ local act = wezterm.action
 return {
 	color_scheme = "$COLOR",
 	font_dirs = { "$FONT_DIRS" },
-	default_domain = "WSL:Ubuntu",
 	font = wezterm.font_with_fallback({ "$FONTS" }),
 	font_size = 20.0,
 	enable_scroll_bar = true,

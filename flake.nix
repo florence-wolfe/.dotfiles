@@ -32,7 +32,7 @@
     in
     {
       darwinConfigurations = {
-        "frankrobert@HOP-MAC-ROBERF" = darwin.lib.darwinSystem {
+        "frank@franks-MacBook-Pro" = darwin.lib.darwinSystem {
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
             config.allowUnfree = true;
@@ -44,7 +44,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.frankrobert = { ... }: {
+              home-manager.users.frank = { ... }: {
                 imports = commonModules ++ [ ./modules/darwin/home.nix ];
               };
               home-manager.extraSpecialArgs = { inherit nix-colors homeage; };

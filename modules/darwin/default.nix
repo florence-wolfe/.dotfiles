@@ -1,40 +1,26 @@
 { pkgs, lib, ... }: rec {
-  users.users.frankrobert.home = "/Users/frankrobert";
+  users.users.frank.home = "/Users/frank";
   environment = {
     loginShell = "zsh";
-    systemPath = [ "${users.users.frankrobert.home}/" ];
+    systemPath = [ "${users.users.frank.home}/" ];
   };
   security.pam.enableSudoTouchIdAuth = true;
   homebrew = {
     enable = true;
     taps = [
       { name = "homebrew/cask-versions"; }
-      { name = "homebrew-ffmpeg/ffmpeg"; }
     ];
     casks = [
       { name = "keycastr"; }
       { name = "wezterm-nightly"; }
       { name = "MonitorControl"; }
-      { name = "dbeaver-community"; }
       { name = "flameshot"; }
-      { name = "redisinsight"; }
     ];
     brews = [
       { name = "nvm"; }
-      { name = "coreutils"; }
       { name = "neovim"; args = [ "HEAD" ]; }
-      {
-        name = "postgresql@14";
-        start_service = true;
-        restart_service = "changed";
-      }
-      {
-        name = "redis";
-        start_service = true;
-        restart_service = "changed";
-      }
-      { name = "openssl"; }
-      { name = "homebrew-ffmpeg/ffmpeg/ffmpeg"; }
+      { name = "xz"; }
+      { name = "pyenv"; }
     ];
   };
   services = {
