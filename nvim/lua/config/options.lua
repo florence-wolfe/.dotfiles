@@ -49,3 +49,31 @@ vim.api.nvim_create_user_command("OverseerRestartLast", function()
     overseer.run_action(tasks[1], "restart")
   end
 end, {})
+
+if vim.g.neovide then
+  vim.o.guifont = "IntoneMono Nerd Font Mono"
+  vim.g.neovide_confirm_quit = true
+  local os = require("os")
+
+  local USER = os.getenv("USERPROFILE")
+
+  local vim_enter_group = vim.api.nvim_create_augroup("vim_enter_group", { clear = true })
+
+  vim.api.nvim_create_autocmd({ "VimEnter" }, { pattern = "*", command = "cd " .. USER, group = vim_enter_group })
+end
+
+function print_copilot_vars()
+  print("Global variables starting with 'copilot':")
+  for k, _ in pairs(vim.g) do
+    if k:match("^copilot") then
+      print(k)
+    end
+  end
+
+  print("Buffer variables starting with 'copilot':")
+  for k, _ in pairs(vim.b) do
+    if k:match("^copilot") then
+      print(k)
+    end
+  end
+end

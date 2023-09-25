@@ -1,12 +1,27 @@
 local colorscheme = require("utils.colorscheme")
--- local hydra = require("hydra.statusline")
+
+local function copilot_status()
+  -- Execute ':Copilot status' and capture the output
+  local status_output = vim.fn.execute(":Copilot status")
+
+  -- Check if "Enabled and online" appears in the output
+  local is_enabled = string.find(status_output, "Enabled and online") and true or false
+
+  local C = require("catppuccin.palettes").get_palette()
+  -- Set the color and icon based on the Copilot status
+  local color_code = is_enabled and C.green or C.red -- Replace with green/red color code from Catppuccin
+  local icon = ""
+
+  -- Define the highlight group with the correct color
+  vim.cmd(string.format("highlight LualineCopilotStatus guifg=%s", color_code))
+
+  -- Return the formatted status string
+  return string.format("%%#LualineCopilotStatus#%s", icon)
+end
 
 return {
   {
     "nvim-lualine/lualine.nvim",
-    --[[ dependencies = {
-      "anuvyklack/hydra.nvim",
-    }, ]]
     opts = function()
       ---@type lazyvimconfig
       local config = require("lazyvim.config")
@@ -74,6 +89,9 @@ return {
           },
           lualine_z = {
             {
+              copilot_status,
+            },
+            {
               "fileformat",
               cond = hide_in_width,
               symbols = {
@@ -85,6 +103,7 @@ return {
             { icon = "", "hostname", cond = hide_in_width },
           },
         },
+
         extensions = {
           "neo-tree",
           "lazy",
