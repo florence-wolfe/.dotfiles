@@ -10,7 +10,6 @@ in
     inherit username;
     packages = [
       pkgs.act
-      # pkgs.spotifyd
     ];
     sessionVariables = { TMPDIR = "/tmp"; };
     file."Applications/Home Manager Apps".source =
@@ -26,8 +25,6 @@ in
       source = config.lib.file.mkOutOfStoreSymlink
         "${homeDirectory}/.dotfiles/system/karabiner/spotify.json";
     };
-    # file.".workrc" = { source = ../../system/work.rc; };
-
     file.".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/nvim";
       recursive = true;
@@ -64,8 +61,38 @@ in
       # work.rc
       ${builtins.readFile ../../system/work.rc};
     '';
+    # https://seansantry.com/development/2022/12/14/split-git-nix/
+    ssh = {
+      enable = true;
+      matchBlocks = {
+        "*" = {
+          extraOptions = {
+            AddKeysToAgent = "yes";
+            UseKeychain = "yes";
+            IdentitiesOnly = "yes";
+          };
+        };
+      };
+    };
     git = {
-      userEmail = lib.mkForce "frobert@rippling.com";
+      extraConfig = {
+        core = { sshCommand = "ssh -i ~/.ssh/id_ed25519_personal"; };
+      };
+      includes = [
+        {
+          contents = {
+            user = {
+              email = "frobert@rippling.com";
+            };
+
+            core = {
+              sshCommand = "ssh -i ~/.ssh/id_ed25519_work";
+            };
+          };
+
+          condition = "hasconfig:remote.*.url:git@github.com:Rippling/*";
+        }
+      ];
     };
   };
 
