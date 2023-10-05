@@ -15,6 +15,8 @@
       { name = "wezterm-nightly"; }
       { name = "MonitorControl"; }
       { name = "flameshot"; }
+      { name = "raycast"; }
+      { name = "rectangle"; }
     ];
     brews = [
       { name = "nvm"; }
@@ -25,8 +27,6 @@
   };
   services = {
     nix-daemon.enable = true;
-    # spotifyd.enable = true;
-    karabiner-elements.enable = true;
   };
   system.defaults.finder = {
     AppleShowAllExtensions = true;

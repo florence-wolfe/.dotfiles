@@ -55,11 +55,11 @@ if vim.g.neovide then
   vim.g.neovide_confirm_quit = true
   local os = require("os")
 
-  local USER = os.getenv("USERPROFILE")
+  local HOME = os.getenv("HOME") or os.getenv("USERPROFILE")
 
   local vim_enter_group = vim.api.nvim_create_augroup("vim_enter_group", { clear = true })
 
-  vim.api.nvim_create_autocmd({ "VimEnter" }, { pattern = "*", command = "cd " .. USER, group = vim_enter_group })
+  vim.api.nvim_create_autocmd({ "VimEnter" }, { pattern = "*", command = "cd " .. HOME, group = vim_enter_group })
 end
 
 function print_copilot_vars()

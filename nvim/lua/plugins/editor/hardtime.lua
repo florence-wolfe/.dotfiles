@@ -1,19 +1,20 @@
 return {
   {
     "m4xshen/hardtime.nvim",
-    enabled = false,
+    enabled = true,
     opts = {
       disabled_filetypes = {
-        "qf",
-        "netrw",
         "NvimTree",
-        "lazy",
-        "mason",
-        "neo-tree",
-        "noice",
       },
+      disable_mouse = false,
       restricted_keys = {
         ["<C-P>"] = {},
+      },
+      disabled_keys = {
+        ["<Up>"] = {},
+        ["<Down>"] = {},
+        ["<Left>"] = {},
+        ["<Right>"] = {},
       },
     },
     config = function(_, opts)

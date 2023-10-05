@@ -53,7 +53,7 @@ return {
         "<cmd>Telescope undo<cr>",
         desc = "Undo",
       },
-      { "<C-p>", require("lazyvim.util").telescope("find_files", { cwd = false }), desc = "Find Files (cwd)" },
+      -- { "<C-p>", require("lazyvim.util").telescope("find_files", { cwd = false }), desc = "Find Files (cwd)" },
       {
         "<leader>fB",
         function()

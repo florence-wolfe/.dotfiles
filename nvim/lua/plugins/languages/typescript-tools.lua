@@ -5,6 +5,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {
       settings = {
+        tsserver_max_memory = 8192,
         tsserver_plugins = { "@astrojs/ts-plugin" },
         tsserver_file_preferences = {
           includeInlayParameterNameHints = "all",
