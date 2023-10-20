@@ -1,5 +1,9 @@
 local M = {}
 
+M.get_current_buffer_id = function()
+  return vim.fn.bufnr("%")
+end
+
 M.create_keymap_group = function(key, name, mode)
   local success, wk = pcall(require, "which-key")
   if not success then

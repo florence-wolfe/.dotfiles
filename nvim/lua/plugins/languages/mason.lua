@@ -6,7 +6,6 @@ return {
         "actionlint",
         "astro-language-server",
         "eslint_d",
-        "mypy",
         "python-lsp-server",
         "ruff-lsp",
         "blackd-client",

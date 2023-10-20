@@ -2,7 +2,9 @@
 {
   programs = {
     git = {
-      enable = true;
+      aliases = {
+        diff-clean = "-c pager.diff='less -R' diff";
+      };
       delta = {
         enable = true;
         options = {

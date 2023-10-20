@@ -1,7 +1,6 @@
 return {
   {
     "echasnovski/mini.move",
-    version = false,
     -- https://www.lazyvim.org/plugins/coding#minisurround
     keys = function(_, keys)
       -- Populate the keys based on the user's options

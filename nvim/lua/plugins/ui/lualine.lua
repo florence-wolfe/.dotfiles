@@ -100,7 +100,7 @@ return {
                 mac = "", -- e711
               },
             },
-            { icon = "", "hostname", cond = hide_in_width },
+            { icon = "󰁥", "hostname", cond = hide_in_width },
           },
         },
 

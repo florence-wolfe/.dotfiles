@@ -1,17 +1,18 @@
 return {
   {
     "VidocqH/lsp-lens.nvim",
+    cmd = { "LspLensOn", "LspLensOff", "LspLensToggle" },
+    event = "LspAttach",
     opts = {
-      enable = false,
-      include_declaration = false, -- Reference include declaration
-      sections = { -- Enable / Disable specific request
-        definition = false,
+      include_declaration = true, -- Reference include declaration
+      sections = {
+        definition = true,
         references = true,
         implementation = true,
       },
+      ignore_filetype = {
+        "prisma",
+      },
     },
-    config = function(_, opts)
-      require("lsp-lens").setup(opts)
-    end,
   },
 }

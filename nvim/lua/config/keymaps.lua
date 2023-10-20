@@ -1,6 +1,14 @@
-vim.keymap.set({ "n", "v" }, "<Tab>", ">>", { desc = "Indent line" })
-vim.keymap.set({ "n", "v" }, "<S-Tab>", "<<", { desc = "Outdent line" })
-vim.keymap.set("i", "<S-Tab>", "<C-d>", { desc = "Outdent line" })
+-- In normal mode, indent and outdent line then remain in normal mode
+vim.keymap.set("n", "<Tab>", ">>_", { noremap = true, silent = true, desc = "Indent line" })
+vim.keymap.set("n", "<S-Tab>", "<<_", { noremap = true, silent = true, desc = "Outdent line" })
+
+-- In visual mode, indent/outdent selection and then stay in visual mode
+vim.keymap.set("v", "<Tab>", ">gv", { noremap = true, silent = true, desc = "Indent line" })
+vim.keymap.set("v", "<S-Tab>", "<gv", { noremap = true, silent = true, desc = "Outdent line" })
+
+-- In insert mode, outdent line
+vim.keymap.set("i", "<S-Tab>", "<C-d>", { noremap = true, silent = true, desc = "Outdent line" })
+
 vim.keymap.set(
   "v",
   "<leader>s/",

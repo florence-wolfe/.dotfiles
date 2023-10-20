@@ -4,9 +4,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     event = "BufEnter",
-    dependencies = {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-    },
     opts = {
       ensure_installed = {
         "astro",
@@ -56,9 +53,6 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end,
-  },
-  {
-    "windwp/nvim-ts-autotag",
   },
   {
     "code-biscuits/nvim-biscuits",

@@ -61,7 +61,6 @@ return {
       options = {
         themable = true,
         separator_style = "thick",
-        always_show_bufferline = true,
         show_tab_indicators = true,
         indicator = {
           style = "underline",

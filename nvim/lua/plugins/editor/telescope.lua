@@ -5,7 +5,7 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       { "nvim-telescope/telescope-media-files.nvim" },
-      { "ghassan0/telescope-glyph.nvim" },
+      { "francis-robert/telescope-glyph.nvim" },
       { "tsakirist/telescope-lazy.nvim" },
       { "benfowler/telescope-luasnip.nvim" },
       {
@@ -227,7 +227,7 @@ return {
       telescope.load_extension("glyph")
       telescope.load_extension("media_files")
       telescope.load_extension("luasnip")
-      -- telescope.load_extension("yank_history")
+      telescope.load_extension("yank_history")
     end,
   },
 }

@@ -33,6 +33,7 @@ return {
         cmp = true,
         fidget = true,
         gitsigns = true,
+        harpoon = true,
         illuminate = true,
         indent_blankline = {
           enabled = true,

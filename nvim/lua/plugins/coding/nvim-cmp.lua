@@ -19,7 +19,9 @@ return {
         { name = "cmdline" },
         { name = "fuzzy_buffer" },
       }))
-      opts.completion.border = "rounded"
+      opts.completion = {
+        border = "rounded",
+      }
       opts.sorting = {
         priority_weight = 1,
         comparators = {
@@ -50,16 +52,6 @@ return {
         format_kinds(entry, item) -- add icons
         return require("tailwindcss-colorizer-cmp").formatter(entry, item)
       end
-
-      -- TODO: Get this working eventually
-      --[[ opts.completion.autocomplete = {
-        function()
-          if vim.api.nvim_buf_get_lines(0, vim.fn.line(".") - 1, vim.fn.line("."), false)[1]:match("^%s*$") then
-            return false
-          end
-          return true
-        end,
-      } ]]
     end,
     config = function(_, opts)
       local cmp = require("cmp")

@@ -10,6 +10,7 @@ in
     packages = [
       pkgs.act
       pkgs.docker
+      pkgs.nerdfix
     ];
     sessionVariables = { TMPDIR = "/tmp"; };
     file."Applications/Home Manager Apps".source =
@@ -29,6 +30,8 @@ in
       text = config.lib.weztermConfig.weztermConfig;
     };
   };
+
+  fonts.fontconfig.enable = true;
   targets.darwin = {
     currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
   };

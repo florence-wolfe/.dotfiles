@@ -6,11 +6,13 @@
       FONT_DIRS = replacementStruct ''"$FONT_DIRS"'' ''
         '${config.home.homeDirectory}/.nix-profile/share/fonts/truetype',
         '${config.home.homeDirectory}/.nix-profile/share/fonts/truetype/NerdFonts',
-        '${config.home.homeDirectory}/.nix-profile/share/fonts/opentype/NerdFonts'
+        '${config.home.homeDirectory}/.nix-profile/share/fonts/opentype/NerdFonts',
+        '${config.home.homeDirectory}/Library/Fonts',
+        '/Library/Fonts',
       '';
       COLOR = replacementStruct "$COLOR" "${config.colorScheme.name}";
       FONTS = replacementStruct ''"$FONTS"'' ''
-        'IntelOne Mono',
+        'IntoneMono Nerd Font Mono',
         'JetBrains Mono',
         'Fira Code',
         'Iosevka Term',
