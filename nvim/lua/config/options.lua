@@ -27,6 +27,11 @@ vim.opt.fillchars:append("foldsep:│")
 vim.opt.fillchars:append("fold: ")
 -- write no format
 vim.api.nvim_create_user_command("Wnf", "noa w", {})
+-- ShellOut is an alias for the :r! command so that you can use it in the way
+vim.api.nvim_create_user_command("ShellOut", function(opts)
+  local cmd = table.concat(opts.fargs, " ") -- Concatenate the arguments to form the complete shell command
+  vim.cmd("r !" .. cmd) -- Run the shell command and insert its output into the buffer
+end, { nargs = "+" }) -- The command expects one or more arguments;
 vim.opt.foldcolumn = "1" -- '0' is not bad
 vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.opt.foldlevelstart = 99

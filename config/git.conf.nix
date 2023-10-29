@@ -2,6 +2,7 @@
 {
   programs = {
     git = {
+      enable = true;
       aliases = {
         diff-clean = "-c pager.diff='less -R' diff";
       };

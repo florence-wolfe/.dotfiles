@@ -24,6 +24,20 @@ return {
       window = {
         position = "right",
       },
+      event_handlers = {
+        {
+          event = "neo_tree_buffer_enter",
+          handler = function()
+            vim.cmd([[setlocal relativenumber]])
+          end,
+        },
+        {
+          event = "neo_tree_buffer_leave",
+          handler = function()
+            vim.cmd([[setlocal norelativenumber]])
+          end,
+        },
+      },
       filesystem = {
         follow_current_file = {
           enabled = true,
