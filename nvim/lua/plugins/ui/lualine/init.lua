@@ -1,23 +1,19 @@
+local wtf = require("wtf")
 local colorscheme = require("utils.colorscheme")
+local lualine_copilot = require("plugins.ui.lualine.copilot")
+local lualine_codeium = require("plugins.ui.lualine.codeium")
+local lualine_utils = require("plugins.ui.lualine.utils")
 
-local function copilot_status()
-  -- Execute ':Copilot status' and capture the output
-  local status_output = vim.fn.execute(":Copilot status")
-
-  -- Check if "Enabled and online" appears in the output
-  local is_enabled = string.find(status_output, "Enabled and online") and true or false
-
-  local C = require("catppuccin.palettes").get_palette()
-  -- Set the color and icon based on the Copilot status
-  local color_code = is_enabled and C.green or C.red -- Replace with green/red color code from Catppuccin
-  local icon = ""
-
-  -- Define the highlight group with the correct color
-  vim.cmd(string.format("highlight LualineCopilotStatus guifg=%s", color_code))
-
-  -- Return the formatted status string
-  return string.format("%%#LualineCopilotStatus#%s", icon)
+local function get_ai_completion_status()
+  local lazyvim_util = require("lazyvim.util")
+  if lazyvim_util.has("copilot-cmp") then
+    return lualine_utils.get_completion_status(lualine_copilot)
+  elseif lazyvim_util.has("codeium.nvim") then
+    return lualine_utils.get_completion_status(lualine_codeium)
+  end
 end
+
+local theme = colorscheme.get("lualine")
 
 return {
   {
@@ -32,7 +28,7 @@ return {
       return {
         --- @type lazyvimconfig
         options = {
-          theme = colorscheme.get("lualine"),
+          theme = theme,
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
         },
@@ -88,9 +84,8 @@ return {
             { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
-            {
-              copilot_status,
-            },
+            { wtf.get_status },
+            { get_ai_completion_status },
             {
               "fileformat",
               cond = hide_in_width,

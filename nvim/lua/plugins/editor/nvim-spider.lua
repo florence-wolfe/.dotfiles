@@ -3,7 +3,7 @@ return {
     "chrisgrieser/nvim-spider",
     lazy = true,
     opts = {
-      skipInsignificantPunctuation = true,
+      skipInsignificantPunctuation = false,
     },
     config = function(_, opts)
       require("spider").setup(opts)

@@ -42,9 +42,9 @@ vim.opt.updatetime = 200
 vim.opt.scrolloff = 9999
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
-vim.opt.spellfile = vim.fn.expand("~/.dotfiles/pvim/config/en.add")
+vim.opt.spellfile = vim.fn.expand("~/.dotfiles/nvim/en.add")
 vim.opt.spelloptions = "camel"
-
+vim.opt.swapfile = false
 vim.api.nvim_create_user_command("OverseerRestartLast", function()
   local overseer = require("overseer")
   local tasks = overseer.list_tasks({ recent_first = true })
@@ -82,3 +82,5 @@ function print_copilot_vars()
     end
   end
 end
+
+vim.g.skip_ts_context_commentstring_module = true

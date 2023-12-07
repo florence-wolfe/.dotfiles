@@ -2,6 +2,9 @@ return {
   {
     "m4xshen/hardtime.nvim",
     enabled = true,
+    keys = {
+      { "gw", false },
+    },
     opts = {
       disabled_filetypes = {
         "NvimTree",
@@ -15,6 +18,7 @@ return {
         ["<Down>"] = {},
         ["<Left>"] = {},
         ["<Right>"] = {},
+        ["gw"] = {},
       },
     },
     config = function(_, opts)

@@ -1,11 +1,8 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   programs = {
     git = {
       enable = true;
-      aliases = {
-        diff-clean = "-c pager.diff='less -R' diff";
-      };
+      aliases = { diff-clean = "-c pager.diff='less -R' diff"; };
       delta = {
         enable = true;
         options = {
@@ -27,12 +24,8 @@
       # };
 
       extraConfig = {
-        init = {
-          defaultBranch = "main";
-        };
-        advice = {
-          addIgnoredFile = false;
-        };
+        init = { defaultBranch = "main"; };
+        advice = { addIgnoredFile = false; };
       };
     };
     lazygit = {

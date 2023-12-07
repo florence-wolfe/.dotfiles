@@ -1,11 +1,13 @@
 local Utils = require("utils")
+
 return {
   -- change some telescope options and add telescope-fzf-native
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
+      { "piersolenski/telescope-import.nvim" },
       { "nvim-telescope/telescope-media-files.nvim" },
-      { "francis-robert/telescope-glyph.nvim" },
+      { "florence-robert/telescope-glyph.nvim" },
       { "tsakirist/telescope-lazy.nvim" },
       { "benfowler/telescope-luasnip.nvim" },
       {
@@ -53,7 +55,6 @@ return {
         "<cmd>Telescope undo<cr>",
         desc = "Undo",
       },
-      -- { "<C-p>", require("lazyvim.util").telescope("find_files", { cwd = false }), desc = "Find Files (cwd)" },
       {
         "<leader>fB",
         function()
@@ -107,9 +108,16 @@ return {
         desc = "Luasnip",
       },
       {
-        "<leader>T",
-        "<cmd>Telescope resume<cr>",
-        desc = "Resume Telescope results window",
+        "<leader>xs",
+        function()
+          require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor({}))
+        end,
+        desc = "Spelling Suggestions",
+      },
+      {
+        "<leader>si",
+        "<cmd>Telescope import<cr>",
+        desc = "Import",
       },
     },
     -- change some options
@@ -228,6 +236,7 @@ return {
       telescope.load_extension("media_files")
       telescope.load_extension("luasnip")
       telescope.load_extension("yank_history")
+      telescope.load_extension("import")
     end,
   },
 }

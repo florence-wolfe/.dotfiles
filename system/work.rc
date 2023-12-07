@@ -28,10 +28,8 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
-export DEVELOPER_NAME=francis-robert
+export DEVELOPER_NAME=florence-robert
 export REMOTE_PRIVATE_KEY_FILE=$HOME/.ssh/id_ed25519_work
 export RIPPLING_BACKEND=$HOME/projects/rippling-main
-source $RIPPLING_BACKEND/shell-cloud-dev.sh
 export REMOTE_IP=10.203.8.221
-export ADDITIONAL_PORT_FORWARDS="pinot,presto,mongodb-insurance"
 export DOCKER_HOST=unix:///var/run/docker.sock

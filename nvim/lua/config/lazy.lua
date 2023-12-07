@@ -24,7 +24,6 @@ local config = {
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.lang.tailwind" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-    { import = "lazyvim.plugins.extras.editor.mini-files" },
     { import = "lazyvim.plugins.extras.coding.yanky" },
   },
   ui = {
@@ -34,7 +33,7 @@ local config = {
     lazy = false, -- every plugin is lazy-loaded by default
     version = false, -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "cattpuccin", "tokyonight", "habamax" } },
+  -- install = { colorscheme = { "cattpuccin", "tokyonight", "habamax" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {

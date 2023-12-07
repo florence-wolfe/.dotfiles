@@ -12,7 +12,14 @@ return {
         "<C-K>",
         function()
           local bufnr = vim.api.nvim_get_current_buf()
-          vim.lsp.buf.inlay_hint(bufnr, nil)
+          local success, is_enabled = pcall(vim.lsp.inlay_hint.is_enabled, bufnr)
+          local show_inlay
+          if not success then
+            show_inlay = nil
+          else
+            show_inlay = not is_enabled
+          end
+          vim.lsp.inlay_hint.enable(bufnr, show_inlay)
         end,
         { "inoremap" },
         { "n", "i" },
@@ -25,6 +32,7 @@ return {
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       -- disable Hover
       keys[#keys + 1] = { "K", false }
+      keys[#keys + 1] = { "<leader>ca", false }
     end,
     opts = {
       servers = {
@@ -40,6 +48,14 @@ return {
               parameterTypes = {
                 enabled = "all",
               },
+            },
+          },
+        },
+        pylsp = {
+          plugins = {
+            pycodestyle = {
+              ignore = { "E501" },
+              maxLineLength = 88,
             },
           },
         },

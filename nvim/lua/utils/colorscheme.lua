@@ -6,11 +6,41 @@ local themes = {
 }
 
 local M = {}
-M.theme = themes.CATPPUCCIN
 
+local path = (vim.fn.stdpath("config") .. "/lua/utils/.theme")
+local function read_theme()
+  local ok, file = pcall(vim.fn.readfile, path)
+  if ok then
+    return file[1]
+  else
+    return nil
+  end
+end
+local function restore()
+  local theme = read_theme()
+  if theme then
+    M.theme = theme
+    vim.cmd.colorscheme(theme)
+  else
+    return nil
+  end
+end
+M.write_theme = function(theme)
+  vim.fn.writefile({ theme }, path, "s")
+end
+local timer = vim.loop.new_timer()
+timer:start(200, 0, vim.schedule_wrap(restore))
+
+print("Default Starter Theme: " .. tostring(M.theme))
 M.lualine = M.theme
 M.barbecue = M.theme
 M.lazyvim = M.theme
+
+M.get_colors = function()
+  if M.theme == themes.CATPPUCCIN then
+    return require("catppuccin.palettes").get_palette()
+  end
+end
 
 ---@return table<string, BufferlineHLGroup>
 M.bufferline = function()
@@ -171,7 +201,9 @@ M.get = function(kind)
   --- @field winsep { highlight: { fg: string, bg: string } }
   --- @field toggleterm table<string, string>
   --- @field theme string
+  --- @field colors table<string, string>
   local modules = {
+    ["colors"] = M.get_colors(),
     ["lualine"] = M.lualine,
     ["barbecue"] = M.barbecue,
     ["lazyvim"] = M.lazyvim,
@@ -185,5 +217,16 @@ M.get = function(kind)
 
   return modules[kind]
 end
+
+vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+  group = vim.api.nvim_create_augroup("MyColorSchemeAutocmd", {}),
+  callback = function()
+    local prev_theme = vim.g.colors_name or vim.api.nvim_exec("colorscheme", true)
+    if vim.g.colors_name == "default" then
+      return -- Do nothing if the colorscheme is 'default'
+    end
+    M.write_theme(prev_theme)
+  end,
+})
 
 return M

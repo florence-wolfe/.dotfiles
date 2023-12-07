@@ -1,7 +1,7 @@
 return {
   {
     "github/copilot.vim",
-    enabled = true,
+    enabled = false,
     build = ":Copilot setup",
     event = "LspAttach",
     keys = {

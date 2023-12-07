@@ -1,7 +1,7 @@
 return {
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
+    enabled = false,
     event = "BufReadPre",
     opts = {
       text = {

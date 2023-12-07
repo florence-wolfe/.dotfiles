@@ -10,8 +10,22 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end,
 })
 
+-- Disable animations for certain filetypes
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "*" },
+  group = vim.api.nvim_create_augroup("disable_animation", {}),
+  callback = function()
+    local filetype = vim.bo.filetype
+    if filetype == "help" then
+      vim.b.minianimate_disable = true
+    else
+      vim.b.minianimate_disable = false
+    end
+  end,
+})
+
 -- Remove LSP clients when closing buffers
-vim.api.nvim_create_autocmd("LspAttach", {
+--[[ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
     local buffer = vim.api.nvim_get_current_buf()
     vim.api.nvim_create_autocmd("BufDelete", {
@@ -25,11 +39,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end,
     })
   end,
-})
+}) ]]
 
 -- https://github.com/hrsh7th/nvim-cmp/issues/519#issuecomment-1091109258
 -- Only open completion menu when typing an there's a character before the cursor
-vim.api.nvim_create_autocmd({ "TextChangedI", "TextChangedP" }, {
+--[[ vim.api.nvim_create_autocmd({ "TextChangedI", "TextChangedP" }, {
   callback = function()
     local line = vim.api.nvim_get_current_line()
     local cursor = vim.api.nvim_win_get_cursor(0)[2]
@@ -48,4 +62,4 @@ vim.api.nvim_create_autocmd({ "TextChangedI", "TextChangedP" }, {
     end
   end,
   pattern = "*",
-})
+}) ]]

@@ -16,6 +16,7 @@ return {
           includeInlayPropertyDeclarationTypeHints = true,
           includeInlayFunctionLikeReturnTypeHints = true,
           includeInlayEnumMemberValueHints = true,
+          -- includeCompletionsForModuleExports = false,
         },
       },
     },

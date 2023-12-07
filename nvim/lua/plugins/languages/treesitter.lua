@@ -33,7 +33,6 @@ return {
         disable = { "html" },
       },
       indent = { enable = false },
-      context_commentstring = { enable = true },
       autotag = { enable = true },
       textobjects = {
         lsp_interop = {

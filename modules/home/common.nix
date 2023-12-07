@@ -1,9 +1,9 @@
 { config, pkgs, nix-colors, homeage, lib, ... }:
 let
   utils = import ../../utilities.nix { inherit config; };
-  weztermConfig = import ../../config/wezterm.conf.nix { inherit config pkgs lib; };
-in
-{
+  weztermConfig =
+    import ../../config/wezterm.conf.nix { inherit config pkgs lib; };
+in {
   lib = { inherit utils weztermConfig; };
   nixpkgs.config = { allowUnfree = true; };
   imports = [
@@ -20,6 +20,9 @@ in
   home = {
     sessionVariables = {
       ACTIVE_SHELL = "zsh";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      TERM = "wezterm";
     };
     stateVersion = "22.11";
     sessionPath = [ "$HOME/.local/bin" ];
@@ -58,9 +61,7 @@ in
   };
 
   programs = {
-    home-manager = {
-      enable = true;
-    };
+    home-manager = { enable = true; };
 
     rbw = {
       enable = true;

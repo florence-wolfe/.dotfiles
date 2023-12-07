@@ -11,6 +11,7 @@ return {
       custom_highlights = function(colors)
         return {
           VertSplit = { fg = colors.sapphire },
+          WinSeparator = { fg = colors.sapphire },
           CmpItemAbbrMatchFuzzy = { fg = colors.mauve },
           CmpItemAbbrMatch = { fg = colors.mauve },
         }
