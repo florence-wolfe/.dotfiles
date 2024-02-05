@@ -91,9 +91,9 @@ return {
       local cmp = require("cmp")
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-      cmp.event:on("menu_opened", function()
+      --[[ cmp.event:on("menu_opened", function()
         vim.fn["codeium#Clear"]()
-      end)
+      end) ]]
 
       local sources_cmdline = {
         { name = "path" },

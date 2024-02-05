@@ -75,6 +75,7 @@ return {
         },
       },
       routes = {
+        { filter = { event = "msg_show", kind = "print" }, opts = { skip = true } },
         { -- route long messages to split
           filter = {
             event = "msg_show",

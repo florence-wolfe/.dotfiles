@@ -18,6 +18,10 @@
           darwin-rebuild switch --flake "$HOME/.dotfiles#\"$(get-profile)\""'';
       };
       oh-my-zsh = { enable = true; };
+      initExtra = ''
+        # secrets
+        source $HOME/.dotfiles/secrets/.env
+      '';
     };
   };
 }

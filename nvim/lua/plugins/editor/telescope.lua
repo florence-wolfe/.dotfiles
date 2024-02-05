@@ -192,6 +192,12 @@ return {
           hijack_netrw = false,
           -- mappings = {},
         },
+        fzf = {
+          fuzzy = true, -- false will only do exact matching
+          override_generic_sorter = true, -- override the generic sorter
+          override_file_sorter = true, -- override the file sorter
+          case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+        },
       },
       pickers = {
         colorscheme = {
@@ -211,6 +217,9 @@ return {
               ["<C-f>"] = Utils.ts_select_dir_for_grep,
             },
           },
+        },
+        lsp_references = {
+          path_display = { "shorten" },
         },
       },
     },

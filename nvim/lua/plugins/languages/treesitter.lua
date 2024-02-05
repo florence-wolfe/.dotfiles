@@ -30,6 +30,7 @@ return {
       },
       highlight = {
         enable = true,
+        additional_vim_regex_highlighting = false,
         disable = { "html" },
       },
       indent = { enable = false },
@@ -61,5 +62,10 @@ return {
     config = function(_, opts)
       require("nvim-biscuits").setup(opts)
     end,
+  },
+  {
+    "chrisgrieser/nvim-various-textobjs",
+    lazy = false,
+    opts = { useDefaultKeymaps = true },
   },
 }

@@ -5,3 +5,4 @@ nvim-macos
 nvim.appimage
 nvim-win64
 en.add*
+.env

@@ -32,6 +32,7 @@ return {
           color_mode = true, -- enable color for kind's texts, not just kind's icons
         },
         cmp = true,
+        flash = true,
         fidget = true,
         gitsigns = true,
         harpoon = true,
@@ -47,6 +48,7 @@ return {
         noice = true,
         notify = true,
         neotree = true,
+        neogit = true,
         native_lsp = {
           enabled = true,
           virtual_text = {

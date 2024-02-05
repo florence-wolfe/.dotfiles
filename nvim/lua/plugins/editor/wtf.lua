@@ -5,8 +5,6 @@ return {
       "MunifTanjim/nui.nvim",
     },
     opts = {
-      -- TODO: DONT COMMIT THIS
-      openai_api_key = "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",
       additional_instructions = "",
     },
     config = function(_, opts)

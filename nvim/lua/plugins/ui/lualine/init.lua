@@ -1,4 +1,5 @@
 local wtf = require("wtf")
+local arrow_statusline = require("arrow.statusline")
 local colorscheme = require("utils.colorscheme")
 local lualine_copilot = require("plugins.ui.lualine.copilot")
 local lualine_codeium = require("plugins.ui.lualine.codeium")
@@ -82,6 +83,7 @@ return {
           lualine_y = {
             { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
+            { arrow_statusline.text_for_statusline_with_icons, cond = arrow_statusline.is_on_arrow_file },
           },
           lualine_z = {
             { wtf.get_status },

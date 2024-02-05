@@ -21,6 +21,7 @@ return {
 	default_cursor_style = "BlinkingBlock",
 	window_close_confirmation = "NeverPrompt",
 	leader = { key = "a", mods = "CTRL" },
+	scrollback_lines = 100000,
 
 	keys = {
 		{ key = "p", mods = "CMD", action = act.ShowLauncher },

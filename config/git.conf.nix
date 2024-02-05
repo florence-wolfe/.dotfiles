@@ -27,6 +27,7 @@
         init = { defaultBranch = "main"; };
         advice = { addIgnoredFile = false; };
       };
+      ignores = [ ".envrc" ];
     };
     lazygit = {
       enable = true;
@@ -42,7 +43,7 @@
     };
     gh = {
       enable = true;
-      enableGitCredentialHelper = true;
+      gitCredentialHelper = { enable = true; };
     };
   };
 }

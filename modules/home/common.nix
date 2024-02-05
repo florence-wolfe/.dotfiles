@@ -9,8 +9,10 @@ in {
   imports = [
     nix-colors.homeManagerModule
     homeage.homeManagerModules.homeage
-    # ../../config/atuin.conf.nix
+    ../../config/atuin.conf.nix
     ../../config/git.conf.nix
+    ../../config/kitty.conf.nix
+    ../../config/direnv.conf.nix
     ../../config/starship.conf.nix
     ../../config/tools.conf.nix
     ../../config/zsh.conf.nix
@@ -32,6 +34,8 @@ in {
       pkgs.rnix-lsp
       pkgs.spotify-tui
       pkgs.age
+      pkgs.sops
+      pkgs.infisical
       pkgs.jetbrains-mono
       pkgs.intel-one-mono
       pkgs.iosevka

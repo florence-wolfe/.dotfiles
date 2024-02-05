@@ -10,7 +10,6 @@ return {
     end,
     opts = {
       size = 20,
-      open_mapping = [[<c-\>]],
       start_in_insert = true,
       persist_size = true,
       persist_mode = true,
@@ -20,7 +19,7 @@ return {
       highlights = colorscheme.get("toggleterm"),
     },
     keys = {
-      { "<leader>t\\", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle Term (float)" },
+      { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle Term (float)" },
       { "<leader>t-", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Toggle Term (horizontal)" },
       { "<leader>t|", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Toggle Term (vertical)" },
     },

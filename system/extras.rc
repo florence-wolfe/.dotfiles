@@ -11,3 +11,8 @@ copy() {
 _paste() {
 	xclip -selection clipboard -o
 }
+
+
+if [ -f "$HOME/.ssh/config.bak" ]; then
+    mv "$HOME/.ssh/config.bak" "$HOME/.ssh/config"
+fi
