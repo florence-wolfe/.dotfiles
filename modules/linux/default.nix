@@ -1,13 +1,21 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports = [ ../home/common.nix ../custom/homebrew.nix ];
   homebrew = {
     enable = true;
-    brews = [{ name = "neovim"; args = [ "HEAD" ]; }];
+    taps = [{ name = "hashicorp/tap"; }];
+    brews = [
+      {
+        name = "neovim";
+        args = [ "HEAD" ];
+      }
+      { name = "terraform"; }
+      { name = "vlt"; }
+    ];
   };
 
   home.file.".config/nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/nvim";
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/nvim";
     recursive = true;
   };
 
@@ -19,8 +27,6 @@
       };
     };
 
-    spotifyd = {
-      enable = true;
-    };
+    spotifyd = { enable = true; };
   };
 }
