@@ -6,6 +6,7 @@ end
 return {
   {
     "echasnovski/mini.comment",
+    enabled = false,
     keys = {
       {
         "<c-/>",
@@ -17,7 +18,7 @@ return {
           end
         end,
         expr = true,
-        mode = { "n", "i" },
+        mode = { "n", "i", "v" },
         desc = "comment toggle",
       },
     },

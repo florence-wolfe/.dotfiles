@@ -10,11 +10,15 @@ return {
       { "florence-robert/telescope-glyph.nvim" },
       { "tsakirist/telescope-lazy.nvim" },
       { "benfowler/telescope-luasnip.nvim" },
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         -- for windows
         -- zig cc -O3 -Wall -Werror -fpic -std=gnu99 -shared src/fzf.c -o build\libfzf.dll
-        build = "make",
+        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
       },
       { "nvim-telescope/telescope-file-browser.nvim" },
       {
@@ -38,6 +42,7 @@ return {
     keys = {
       -- add a keymap to browse plugin files
       { "<leader><space>", require("lazyvim.util").telescope("files"), desc = "Find Files (root dir)" },
+      { "<c-p>", require("lazyvim.util").telescope("files", { cwd = vim.loop.cwd() }), desc = "Find Files (cwd)" },
       {
         "<leader>fa",
         "<cmd>Telescope adjacent<CR>",
@@ -198,6 +203,24 @@ return {
           override_file_sorter = true, -- override the file sorter
           case_mode = "smart_case", -- or "ignore_case" or "respect_case"
         },
+        live_grep_args = {
+          auto_quoting = true, -- enable/disable auto-quoting
+          -- define mappings, e.g.
+          mappings = { -- extend mappings
+            i = {
+              ["<C-k>"] = function()
+                require("telescope-live-grep-args.actions").quote_prompt()
+              end,
+              ["<C-i>"] = function()
+                require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " })
+              end,
+            },
+          },
+          -- ... also accepts theme settings, for example:
+          -- theme = "dropdown", -- use dropdown theme
+          -- theme = { }, -- use own theme spec
+          -- layout_config = { mirror=true }, -- mirror preview pane
+        },
       },
       pickers = {
         colorscheme = {
@@ -236,7 +259,6 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
-      telescope.load_extension("fzf")
       telescope.load_extension("undo")
       telescope.load_extension("adjacent")
       telescope.load_extension("lazy")
@@ -246,6 +268,7 @@ return {
       telescope.load_extension("luasnip")
       telescope.load_extension("yank_history")
       telescope.load_extension("import")
+      telescope.load_extension("live_grep_args")
     end,
   },
 }

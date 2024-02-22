@@ -6,12 +6,12 @@ return {
       { "dmitmel/cmp-cmdline-history" },
       { "hrsh7th/cmp-nvim-lua" },
       { "onsails/lspkind.nvim" },
-      {
-        "Exafunction/codeium.nvim",
-        cmd = "Codeium",
-        build = ":Codeium Auth",
-        opts = {},
-      },
+      -- {
+      --   "Exafunction/codeium.nvim",
+      --   cmd = "Codeium",
+      --   build = ":Codeium Auth",
+      --   opts = {},
+      -- },
     },
     opts = function(_, opts)
       local cmp = require("cmp")
@@ -28,11 +28,11 @@ return {
         { name = "cmdline_history" },
         { name = "cmdline" },
       }))
-      table.insert(opts.sources, 1, {
-        name = "codeium",
-        group_index = 1,
-        priority = 1000,
-      })
+      -- table.insert(opts.sources, 1, {
+      --   name = "codeium",
+      --   group_index = 1,
+      --   priority = 1000,
+      -- })
       opts.formatting = {
         format = require("lspkind").cmp_format({
           mode = "symbol_text",
@@ -41,6 +41,7 @@ return {
           symbol_map = { Codeium = "" },
         }),
       }
+      opts.experimental.ghost_text = false
       -- For Catppuccin theming
       opts.completion = {
         border = "rounded",
@@ -90,10 +91,15 @@ return {
     config = function(_, opts)
       local cmp = require("cmp")
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-      --[[ cmp.event:on("menu_opened", function()
+      cmp.event:on("menu_opened", function()
+        vim.g.codeium_manual = true
         vim.fn["codeium#Clear"]()
-      end) ]]
+      end)
+      cmp.event:on("menu_closed", function()
+        vim.g.codeium_manual = false
+        vim.fn["codeium#Complete"]()
+      end)
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
       local sources_cmdline = {
         { name = "path" },

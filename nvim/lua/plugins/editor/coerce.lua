@@ -3,14 +3,7 @@ return {
     "gregorias/coerce.nvim",
     config = function()
       local coerce = require("coerce")
-      local conversion_m = require("coerce.conversion")
       local case_m = require("coerce.case")
-      -- New list to hold the modified elements
-      local modes = {
-        { vim_mode = "n", keymap_prefix = "co", selector = conversion_m.select_current_word },
-        { vim_mode = "n", keymap_prefix = "go", selector = conversion_m.select_with_motion },
-        { vim_mode = "v", keymap_prefix = "go", selector = conversion_m.select_current_visual_selection },
-      }
       local cases = {
         {
           keymap = "f",
@@ -46,7 +39,6 @@ return {
 
       coerce.setup({
         cases = cases,
-        modes = modes,
       })
     end,
   },
