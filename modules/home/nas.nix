@@ -1,8 +1,8 @@
 { pkgs, config, ... }: {
   imports = [ ../linux ];
   home = rec {
-    username = "frank.robert";
-    homeDirectory = "/volume1/homes/frank.robert";
+    username = "flo.wolfe";
+    homeDirectory = "/volume1/homes/flo.wolfe";
     sessionVariables = {
       LC_ALL = "en_US.utf-8";
       LOCALE_ARCHIVE = "/usr/lib/locale/locale-archive";

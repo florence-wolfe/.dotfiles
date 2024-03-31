@@ -46,8 +46,6 @@ in {
       export PATH=$PATH:/run/current-system/sw/bin
       export PATH=$PATH:/etc/profiles/per-user/frank/bin
       export PATH=$PATH:/usr/local/bin
-      # extras.rc
-      ${builtins.readFile ../../system/extras.rc};
       # work.rc
       ${builtins.readFile ../../system/work.rc};
     '';
