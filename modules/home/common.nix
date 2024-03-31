@@ -73,7 +73,14 @@ in {
 
     ssh = {
       enable = true;
-      hosts = {
+      matchBlocks = {
+        "*" = {
+          extraOptions = {
+            AddKeysToAgent = "yes";
+            UseKeychain = "yes";
+            IdentitiesOnly = "yes";
+          };
+        };
         "nas" = {
           hostname = "192.168.1.229";
           user = "flo.wolfe";
