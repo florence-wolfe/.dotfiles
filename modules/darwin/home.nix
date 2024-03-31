@@ -51,7 +51,6 @@ in {
     '';
     # https://seansantry.com/development/2022/12/14/split-git-nix/
     ssh = {
-      enable = true;
       matchBlocks = {
         "rippling" = { match = ''exec "${checkDirScript}"''; };
         "*" = {
@@ -63,9 +62,6 @@ in {
           };
         };
       };
-      extraConfig = ''
-        Include ~/.ssh/external_config
-      '';
     };
     git = {
       extraConfig = {

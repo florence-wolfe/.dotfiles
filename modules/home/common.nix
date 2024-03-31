@@ -71,6 +71,24 @@ in {
   programs = {
     home-manager = { enable = true; };
 
+    ssh = {
+      enable = true;
+       hosts = {
+          "nas" = {
+            hostname = "192.168.1.229";
+            user = "flo.wolfe";
+            port = 22210;
+            extraOptions = {
+              ForwardAgent = "yes";
+            };
+          };
+        };
+      };
+      extraConfig = ''
+        Include ~/.ssh/external_config
+      '';
+    };
+
     rbw = {
       enable = true;
       settings = {
