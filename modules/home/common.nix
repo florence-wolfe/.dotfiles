@@ -35,7 +35,6 @@ in {
       pkgs.spotify-tui
       pkgs.age
       pkgs.sops
-      pkgs.infisical
       pkgs.jetbrains-mono
       pkgs.intel-one-mono
       pkgs.iosevka
@@ -55,6 +54,11 @@ in {
     file = {
       ".local/bin/cb" = { source = ../../system/cb; };
       ".profile" = { source = ../../system/.profile; };
+      "secrets" = {
+        source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/.dotfiles/secrets";
+        recursive = true;
+      };
     };
     shellAliases = {
       # With line numbers
@@ -74,7 +78,12 @@ in {
         base_url = "https://bitwarden.simbojimbo.com";
       };
     };
-
+    zsh.initExtra = ''
+      # extras.rc
+      ${builtins.readFile ../../system/extras.rc};
+      # vault.rc
+      ${builtins.readFile ../../system/vault.rc};
+    '';
     discocss = {
       enable = false;
       css = ''

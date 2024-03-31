@@ -7,9 +7,8 @@
   security.pam.enableSudoTouchIdAuth = true;
   homebrew = {
     enable = true;
-    taps = [
-      { name = "homebrew/cask-versions"; }
-    ];
+    taps = [ { name = "homebrew/cask-versions"; } { name = "hashicorp/tap"; } ];
+
     casks = [
       { name = "keycastr"; }
       { name = "wezterm-nightly"; }
@@ -20,14 +19,17 @@
     ];
     brews = [
       { name = "nvm"; }
-      { name = "neovim"; args = [ "HEAD" ]; }
+      {
+        name = "neovim";
+        args = [ "HEAD" ];
+      }
       { name = "xz"; }
       { name = "pyenv"; }
+      { name = "terraform"; }
+      { name = "vault"; }
     ];
   };
-  services = {
-    nix-daemon.enable = true;
-  };
+  services = { nix-daemon.enable = true; };
   system.defaults.finder = {
     AppleShowAllExtensions = true;
     AppleShowAllFiles = true;

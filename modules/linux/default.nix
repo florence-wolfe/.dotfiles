@@ -9,16 +9,21 @@
         args = [ "HEAD" ];
       }
       { name = "terraform"; }
-      { name = "vlt"; }
+      { name = "vault"; }
     ];
   };
 
-  home.file.".config/nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/.dotfiles/nvim";
-    recursive = true;
+  home.file = {
+    ".config/nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${config.home.homeDirectory}/.dotfiles/nvim";
+      recursive = true;
+    };
+    ".vault.yml" = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${config.home.homeDirectory}/.dotfiles/system/vault.yml";
+    };
   };
-
   services = {
     home-manager = {
       autoUpgrade = {
