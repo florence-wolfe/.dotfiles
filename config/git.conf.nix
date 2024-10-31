@@ -22,8 +22,8 @@
           syntax-theme = "Catppuccin-mocha";
         };
       };
-      userEmail = "florencejrrobert+github@gmail.com";
-      userName = "Flo Robert";
+      userEmail = "florencewolfe@pm.me";
+      userName = "Flo Wolfe";
       extraConfig = {
         core = { editor = "nvr --remote-wait-silent"; };
         init = { defaultBranch = "main"; };

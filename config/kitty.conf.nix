@@ -1,6 +1,6 @@
 { ... }: {
   programs.kitty = {
-    enable = true;
+    enable = false;
     font = {
       name = "IntoneMono Nerd Font Mono";
       size = 20;

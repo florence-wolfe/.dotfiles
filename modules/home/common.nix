@@ -31,7 +31,6 @@ in {
     packages = [
       pkgs.go
       pkgs.nixpkgs-fmt
-      pkgs.rnix-lsp
       pkgs.spotify-tui
       pkgs.age
       pkgs.sops
@@ -85,9 +84,7 @@ in {
           hostname = "192.168.1.229";
           user = "flo.wolfe";
           port = 22210;
-          extraOptions = {
-            ForwardAgent = "yes";
-          };
+          extraOptions = { ForwardAgent = "yes"; };
         };
       };
       extraConfig = ''
