@@ -10,6 +10,7 @@ return {
       flavour = "mocha", -- latte, frappe, macchiato, mocha
       custom_highlights = function(colors)
         return {
+          LspInlayHint = { fg = colors.teal, bg = colors.surface0 },
           VertSplit = { fg = colors.sapphire },
           WinSeparator = { fg = colors.sapphire },
           CmpItemAbbrMatchFuzzy = { fg = colors.mauve },

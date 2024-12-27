@@ -51,4 +51,3 @@ return {
   generate_import_entries = generate_import_entries,
   ignore_patterns = ignore_patterns,
 }
-

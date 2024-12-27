@@ -31,7 +31,6 @@ in {
     packages = [
       pkgs.go
       pkgs.nixpkgs-fmt
-      pkgs.spotify-tui
       pkgs.age
       pkgs.sops
       pkgs.jetbrains-mono
@@ -53,11 +52,11 @@ in {
     file = {
       ".local/bin/cb" = { source = ../../system/cb; };
       ".profile" = { source = ../../system/.profile; };
-      "secrets" = {
-        source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/.dotfiles/secrets";
-        recursive = true;
-      };
+      # "secrets" = {
+      #   source = config.lib.file.mkOutOfStoreSymlink
+      #     "${config.home.homeDirectory}/.dotfiles/secrets";
+      #   recursive = true;
+      # };
     };
     shellAliases = {
       # With line numbers

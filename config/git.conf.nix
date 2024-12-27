@@ -44,7 +44,7 @@
         git = {
           paging = {
             colorArg = "always";
-            pager = "${pkgs.delta}/bin/delta --paging=never";
+            pager = "${pkgs.delta}/bin/delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
             useConfig = false;
           };
         };
