@@ -1,8 +1,18 @@
 import subprocess
+from enum import StrEnum
 from typing import Callable
 from halo import Halo
 from simbo.utils import with_bash
 
+
+class Platform(StrEnum):
+    linux = "Linux"
+    macos = "Darwin"
+    windows = "Windows"
+
+def get_platform():
+    import platform
+    return platform.system()
 
 def run_command(command: Callable[[Halo], None], error_message: str):
     with Halo() as spinner:

@@ -15,6 +15,7 @@ choco upgrade jq
 choco upgrade zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
+choco upgrade python
 choco upgrade rustup.intall
 choco upgrade tree-sitter -y
 choco upgrade lazygit
