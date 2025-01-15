@@ -1,6 +1,6 @@
 # OS Settings
 Set-ExplorerOptions -showHiddenFilesFoldersDrives -showProtectedOSFiles -showFileExtensions
-Enable-RemoteDesktop
+# Enable-RemoteDesktop
 
 # Set environment variables
 $dotfilesRepo = "https://github.com/florence-wolfe/.dotfiles"
