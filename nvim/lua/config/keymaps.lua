@@ -1,16 +1,13 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
-vim.keymap.set("n", "<Tab>", ">>")
-vim.keymap.set("n", "<S-Tab>", "<<")
-vim.keymap.set("n", ">", ">gv")
-vim.keymap.set("v", "<Tab>", function()
-  vim.cmd("normal! >gv")
-end)
-vim.keymap.set("v", "<S-Tab>", function()
-  vim.cmd("normal! <gv")
-end)
-vim.keymap.set("i", "<S-Tab>", "<C-d>")
+vim.keymap.set("n", "<Tab>", ">>", { noremap = true })
+vim.keymap.set("n", "<S-Tab>", "<<", { noremap = true })
+
+-- Visual mode: Tab/Shift-Tab for indent/dedent (preserving selection)
+vim.keymap.set("v", "<Tab>", ">gv", { noremap = true })
+vim.keymap.set("v", "<S-Tab>", "<gv", { noremap = true })
+
+-- Insert mode: Shift-Tab for dedent
+vim.keymap.set("i", "<S-Tab>", "<C-d>", { noremap = true })
+
 vim.keymap.set("n", "<leader>bs", "<cmd>w<CR>", { desc = "Save buffer with formatting" })
 -- write no format
 vim.api.nvim_create_user_command("Wnf", "noa w", {})
@@ -36,11 +33,3 @@ vim.keymap.set("n", "<C-Right>", "w", { desc = "Move forward a word in normal mo
 vim.keymap.set("i", "<C-Right>", "<Esc>wi", { desc = "Move forward a word in insert mode" })
 vim.keymap.set("n", "<C-Left>", "b", { desc = "Move backward a word in normal mode" })
 vim.keymap.set("i", "<C-Left>", "<Esc>bi", { desc = "Move backward a word in insert mode" })
-
--- Move lines with arrow keys
-vim.keymap.set("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
-vim.keymap.set("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
-vim.keymap.set("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
-vim.keymap.set("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
-vim.keymap.set("v", "<A-Down>", ":m '>+1<CR>gv=gv", { desc = "Move Down" })
-vim.keymap.set("v", "<A-Up>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })

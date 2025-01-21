@@ -11,7 +11,7 @@
 
     casks = [
       { name = "keycastr"; }
-      { name = "wezterm-nightly"; }
+      # { name = "wezterm-nightly"; }
       { name = "MonitorControl"; }
       { name = "flameshot"; }
       { name = "raycast"; }

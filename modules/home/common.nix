@@ -1,11 +1,23 @@
-{ config, pkgs, nix-colors, homeage, lib, ... }:
+{
+  config,
+  pkgs,
+  nix-colors,
+  homeage,
+  ghostty,
+  lib,
+  ...
+}:
 let
   utils = import ../../utilities.nix { inherit config; };
-  weztermConfig =
-    import ../../config/wezterm.conf.nix { inherit config pkgs lib; };
-in {
-  lib = { inherit utils weztermConfig; };
-  nixpkgs.config = { allowUnfree = true; };
+  weztermConfig = import ../../config/wezterm.conf.nix { inherit config pkgs lib; };
+in
+{
+  lib = {
+    inherit utils weztermConfig;
+  };
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   imports = [
     nix-colors.homeManagerModule
     homeage.homeManagerModules.homeage
@@ -36,9 +48,14 @@ in {
       pkgs.jetbrains-mono
       pkgs.intel-one-mono
       pkgs.iosevka
-      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+      (pkgs.nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "DroidSansMono"
+        ];
+      })
       pkgs.bun
-      pkgs.nixfmt
+      pkgs.nixfmt-rfc-style
       pkgs.deadnix
       pkgs.node2nix
       pkgs.ripgrep
@@ -48,10 +65,16 @@ in {
       pkgs.viu
       pkgs.lazydocker
       pkgs.ranger
+      # Re-enable once we know how to install this for darwin
+      # ghostty.packages."${pkgs.system}".default
     ];
     file = {
-      ".local/bin/cb" = { source = ../../system/cb; };
-      ".profile" = { source = ../../system/.profile; };
+      ".local/bin/cb" = {
+        source = ../../system/cb;
+      };
+      ".profile" = {
+        source = ../../system/.profile;
+      };
       # "secrets" = {
       #   source = config.lib.file.mkOutOfStoreSymlink
       #     "${config.home.homeDirectory}/.dotfiles/secrets";
@@ -67,7 +90,9 @@ in {
   };
 
   programs = {
-    home-manager = { enable = true; };
+    home-manager = {
+      enable = true;
+    };
 
     ssh = {
       enable = true;
@@ -83,7 +108,9 @@ in {
           hostname = "192.168.1.229";
           user = "flo.wolfe";
           port = 22210;
-          extraOptions = { ForwardAgent = "yes"; };
+          extraOptions = {
+            ForwardAgent = "yes";
+          };
         };
       };
       extraConfig = ''
@@ -106,8 +133,7 @@ in {
     '';
     discocss = {
       enable = false;
-      css = ''
-        @import url("https://raw.githubusercontent.com/YottaGitHub/Nord-Glasscord/master/nord-glasscord.theme.css");'';
+      css = ''@import url("https://raw.githubusercontent.com/YottaGitHub/Nord-Glasscord/master/nord-glasscord.theme.css");'';
     };
   };
 }

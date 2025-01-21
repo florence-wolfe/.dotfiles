@@ -18,6 +18,28 @@ return {
   },
   opts = {
     servers = {
+      basedpyright = {
+        settings = {
+          basedpyright = {
+            analysis = {
+              diagnosticMode = "openFilesOnly",
+              extraPaths = { "app" },
+            },
+          },
+        },
+      },
+      lua_ls = {
+        workspace = {
+          library = {
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.stdpath("config") .. "/lua"] = true,
+          },
+        },
+        diagnostics = {
+          -- Recognize the `vim` global
+          globals = { "vim" },
+        },
+      },
       vtsls = {
         settings = {
           typescript = {

@@ -10,26 +10,37 @@ let
       echo "IdentityFile ~/.ssh/id_ed25519_personal"
     fi
   '';
-in {
+in
+{
   imports = [ ../home/common.nix ];
   home = {
     inherit username;
-    packages = [ pkgs.act pkgs.docker pkgs.nerdfix ];
-    sessionVariables = { TMPDIR = "/tmp"; };
-    file."Applications/Home Manager Apps".source = let
-      apps = pkgs.buildEnv {
-        name = "home-manager-applications";
-        paths = config.home.packages;
-        pathsToLink = "/Applications";
-      };
-    in "${apps}/Applications";
+    packages = [
+      pkgs.act
+      pkgs.docker
+      pkgs.nerdfix
+    ];
+    sessionVariables = {
+      TMPDIR = "/tmp";
+    };
+    file."Applications/Home Manager Apps".source =
+      let
+        apps = pkgs.buildEnv {
+          name = "home-manager-applications";
+          paths = config.home.packages;
+          pathsToLink = "/Applications";
+        };
+      in
+      "${apps}/Applications";
     file.".config/nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink
-        "${config.home.homeDirectory}/.dotfiles/nvim";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/nvim";
       recursive = true;
     };
     file.".config/wezterm/wezterm.lua" = {
       text = config.lib.weztermConfig.weztermConfig;
+    };
+    file.".config/ghostty/config" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/ghostty.conf";
     };
   };
 
@@ -52,7 +63,9 @@ in {
     # https://seansantry.com/development/2022/12/14/split-git-nix/
     ssh = {
       matchBlocks = {
-        "rippling" = { match = ''exec "${checkDirScript}"''; };
+        "rippling" = {
+          match = ''exec "${checkDirScript}"'';
+        };
         "*" = {
           extraOptions = {
             AddKeysToAgent = "yes";
@@ -65,17 +78,25 @@ in {
     };
     git = {
       extraConfig = {
-        core = { sshCommand = "ssh -i ~/.ssh/id_ed25519_personal"; };
-      };
-      includes = [{
-        contents = {
-          user = { email = "frobert@rippling.com"; };
-
-          core = { sshCommand = "ssh -i ~/.ssh/id_ed25519_work"; };
+        core = {
+          sshCommand = "ssh -i ~/.ssh/id_ed25519_personal";
         };
+      };
+      includes = [
+        {
+          contents = {
+            user = {
+              email = "frobert@rippling.com";
+            };
 
-        condition = "hasconfig:remote.*.url:git@github.com:Rippling/*";
-      }];
+            core = {
+              sshCommand = "ssh -i ~/.ssh/id_ed25519_work";
+            };
+          };
+
+          condition = "hasconfig:remote.*.url:git@github.com:Rippling/*";
+        }
+      ];
     };
   };
 }
