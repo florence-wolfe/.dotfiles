@@ -35,13 +35,21 @@ return {
             { kind = "wmsg" },
             { find = "^nvim%-navic:.*Already attached to %w+" },
             { find = "^error%(satellite.nvim%):" },
-            { find = "code = %-32801" },
+            { find = "Request textDocument/diagnostic failed with message: Could not find config file." },
             { find = "attempt to index local 'request' %(a nil value%)" },
             { find = "^%[.*%] .*$" },
             { find = "E592: 'winwidth' cannot be smaller than 'winminwidth'" },
           },
         },
         opts = { skip = true },
+      },
+      {
+        filter = {
+          error = true,
+          any = {
+            { find = "Request textDocument/diagnostic failed with message:" },
+          },
+        },
       },
     },
   },
