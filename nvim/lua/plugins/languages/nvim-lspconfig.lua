@@ -18,16 +18,6 @@ return {
   },
   opts = {
     servers = {
-      basedpyright = {
-        settings = {
-          basedpyright = {
-            analysis = {
-              diagnosticMode = "openFilesOnly",
-              extraPaths = { "app" },
-            },
-          },
-        },
-      },
       lua_ls = {
         workspace = {
           library = {
@@ -45,6 +35,16 @@ return {
           typescript = {
             tsserver = {
               maxTsServerMemory = 16384,
+            },
+          },
+        },
+      },
+      basedpyright = {
+        settings = {
+          basedpyright = {
+            analysis = {
+              diagnosticMode = "openFilesOnly",
+              logLevel = "Error"
             },
           },
         },

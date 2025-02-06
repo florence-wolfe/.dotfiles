@@ -1,5 +1,8 @@
-vim.g.lazyvim_python_lsp = "pyright"
+vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_picker = "snacks"
+local python3_host_prog = vim.fn.expand("~") .. ".cde/lde/.vanilla-venv/bin/python"
+print(python3_host_prog)
+vim.g.python3_host_prog = python3_host_prog
 
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
