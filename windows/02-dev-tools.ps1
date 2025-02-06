@@ -1,22 +1,20 @@
 # Dev Tools
-choco upgrade scoop
-choco upgrade gzip
+# install scoop
+Install-Scoop-Modules
 choco upgrade git -y
+choco upgrade gzip
 choco upgrade starship
+Set-Profile-Command -Tag "starship" -Command "$(Invoke-Expression (&starship init powershell))"
 choco upgrade nvm
-
-if (-not(Get-Command node -ErrorAction Ignore)) {
-    C:\ProgramData\nvm\nvm.exe install lts
-    C:\ProgramData\nvm\nvm.exe use lts
-}
+Install-Node-LTS
 
 choco upgrade jq
 
 choco upgrade zoxide
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
+Set-Profile-Command -Tag "zoxide" -Command "$(zoxide init powershell | Out-String)"
 
 choco upgrade python
-choco upgrade rustup.intall
+# choco install rustup.intall
 choco upgrade tree-sitter -y
 choco upgrade lazygit
 choco upgrade ripgrep
@@ -31,5 +29,3 @@ choco upgrade mingw
 choco upgrade llvm
 choco upgrade neovim --pre
 
-scoop bucket add main
-scoop install main/luarocks
