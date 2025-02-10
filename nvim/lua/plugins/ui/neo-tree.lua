@@ -23,7 +23,7 @@ end
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = true,
+    -- enabled = true,
     keys = {
       {
         "<leader>e",

@@ -44,8 +44,14 @@ return {
           basedpyright = {
             analysis = {
               diagnosticMode = "openFilesOnly",
-              logLevel = "Error"
+              logLevel = "Error",
+              inlayHints = {
+                variableTypes = false,
+                callArgumentNames = false,
+                functionReturnTypes = false,
+              }
             },
+            disableTaggedHints = true,
           },
         },
       },
