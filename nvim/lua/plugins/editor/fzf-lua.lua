@@ -1,7 +1,7 @@
 return {
   {
     "ibhagwan/fzf-lua",
-    enabled = false,
+    enabled = true,
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons", "folke/trouble.nvim" },
     config = function(_, opts)
