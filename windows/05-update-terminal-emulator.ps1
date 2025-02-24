@@ -1,6 +1,7 @@
 # UPDATE WEZTERM
 # Define the paths
 $sourcePath = "$env:DOTFILES_DIR\system\wezterm-config.lua"
+# TODO: Update with Ghostty when the time comes.
 $targetPath = "$env:USERPROFILE\.wezterm.lua"
 
 # Check if the source file exists

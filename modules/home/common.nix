@@ -1,11 +1,23 @@
-{ config, pkgs, nix-colors, homeage, lib, ... }:
+{
+  config,
+  pkgs,
+  nix-colors,
+  homeage,
+  ghostty,
+  lib,
+  ...
+}:
 let
   utils = import ../../utilities.nix { inherit config; };
-  weztermConfig =
-    import ../../config/wezterm.conf.nix { inherit config pkgs lib; };
-in {
-  lib = { inherit utils weztermConfig; };
-  nixpkgs.config = { allowUnfree = true; };
+  weztermConfig = import ../../config/wezterm.conf.nix { inherit config pkgs lib; };
+in
+{
+  lib = {
+    inherit utils weztermConfig;
+  };
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   imports = [
     nix-colors.homeManagerModule
     homeage.homeManagerModules.homeage
@@ -31,16 +43,19 @@ in {
     packages = [
       pkgs.go
       pkgs.nixpkgs-fmt
-      pkgs.rnix-lsp
-      pkgs.spotify-tui
       pkgs.age
       pkgs.sops
       pkgs.jetbrains-mono
       pkgs.intel-one-mono
       pkgs.iosevka
-      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+      (pkgs.nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "DroidSansMono"
+        ];
+      })
       pkgs.bun
-      pkgs.nixfmt
+      pkgs.nixfmt-rfc-style
       pkgs.deadnix
       pkgs.node2nix
       pkgs.ripgrep
@@ -50,15 +65,21 @@ in {
       pkgs.viu
       pkgs.lazydocker
       pkgs.ranger
+      # Re-enable once we know how to install this for darwin
+      # ghostty.packages."${pkgs.system}".default
     ];
     file = {
-      ".local/bin/cb" = { source = ../../system/cb; };
-      ".profile" = { source = ../../system/.profile; };
-      "secrets" = {
-        source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/.dotfiles/secrets";
-        recursive = true;
+      ".local/bin/cb" = {
+        source = ../../system/cb;
       };
+      ".profile" = {
+        source = ../../system/.profile;
+      };
+      # "secrets" = {
+      #   source = config.lib.file.mkOutOfStoreSymlink
+      #     "${config.home.homeDirectory}/.dotfiles/secrets";
+      #   recursive = true;
+      # };
     };
     shellAliases = {
       # With line numbers
@@ -69,7 +90,9 @@ in {
   };
 
   programs = {
-    home-manager = { enable = true; };
+    home-manager = {
+      enable = true;
+    };
 
     ssh = {
       enable = true;
@@ -110,8 +133,7 @@ in {
     '';
     discocss = {
       enable = false;
-      css = ''
-        @import url("https://raw.githubusercontent.com/YottaGitHub/Nord-Glasscord/master/nord-glasscord.theme.css");'';
+      css = ''@import url("https://raw.githubusercontent.com/YottaGitHub/Nord-Glasscord/master/nord-glasscord.theme.css");'';
     };
   };
 }

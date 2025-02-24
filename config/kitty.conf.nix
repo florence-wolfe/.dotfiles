@@ -1,12 +1,12 @@
 { ... }: {
   programs.kitty = {
-    enable = true;
+    enable = false;
     font = {
       name = "IntoneMono Nerd Font Mono";
       size = 20;
     };
     shellIntegration.enableZshIntegration = true;
-    theme = "Catppuccin-Mocha";
+    themeFile = "Catppuccin-Mocha";
     settings = { macos_option_as_alt = "left"; };
   };
 }

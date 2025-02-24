@@ -4,4 +4,4 @@ choco install Containers -source windowsfeatures
 choco install Microsoft-Windows-Subsystem-Linux -source windowsfeatures
 
 # Avoid clash with builtin function
-Boxstarter.WinConfig\Install-WindowsUpdate -getUpdatesFromMS -acceptEula
+# Boxstarter.WinConfig\Install-WindowsUpdate -getUpdatesFromMS -acceptEula

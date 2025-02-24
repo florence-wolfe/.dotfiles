@@ -1,7 +1,7 @@
 return {
   {
     "gregorias/coerce.nvim",
-    config = function()
+    config = function(opts)
       local coerce = require("coerce")
       local case_m = require("coerce.case")
       local cases = {
@@ -39,6 +39,11 @@ return {
 
       coerce.setup({
         cases = cases,
+        default_mode_keymap_prefixes = {
+          normal_mode = "cr",
+          motion_mode = "gC",
+          visual_mode = "gC",
+        },
       })
     end,
   },

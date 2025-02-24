@@ -1,6 +1,11 @@
+# First things first, update choco and box-starter
+choco upgrade chocolatey
+choco upgrade boxstarter
 # OS Settings
-Set-ExplorerOptions -showHiddenFilesFoldersDrives -showProtectedOSFiles -showFileExtensions
-Enable-RemoteDesktop
+#
+#
+Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtensions
+# Enable-RemoteDesktop
 
 # Set environment variables
 $dotfilesRepo = "https://github.com/florence-wolfe/.dotfiles"

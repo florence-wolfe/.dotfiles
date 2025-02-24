@@ -22,8 +22,8 @@
           syntax-theme = "Catppuccin-mocha";
         };
       };
-      userEmail = "florencejrrobert+github@gmail.com";
-      userName = "Flo Robert";
+      userEmail = "florencewolfe@pm.me";
+      userName = "Flo Wolfe";
       extraConfig = {
         core = { editor = "nvr --remote-wait-silent"; };
         init = { defaultBranch = "main"; };
@@ -44,7 +44,7 @@
         git = {
           paging = {
             colorArg = "always";
-            pager = "${pkgs.delta}/bin/delta --paging=never";
+            pager = "${pkgs.delta}/bin/delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
             useConfig = false;
           };
         };

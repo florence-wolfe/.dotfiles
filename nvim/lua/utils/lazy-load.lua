@@ -1,4 +1,5 @@
 local function generate_import_entries(path)
+  path = path or "lua/plugins"
   local entries = {}
 
   -- get the Neovim configuration directory
@@ -50,4 +51,3 @@ return {
   generate_import_entries = generate_import_entries,
   ignore_patterns = ignore_patterns,
 }
-

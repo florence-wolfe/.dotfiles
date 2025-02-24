@@ -1,8 +1,9 @@
 return {
   {
     "Almo7aya/openingh.nvim",
+    enabled = false,
     keys = {
-      { "<leader>go", "<cmd>OpenInGHFile<cr>", desc = "Open file in GH" },
+      { "<leader>gO", "<cmd>OpenInGHFile<cr>", desc = "Open file in GH" },
     },
     config = true,
   },

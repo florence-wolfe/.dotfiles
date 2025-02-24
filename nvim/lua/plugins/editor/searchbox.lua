@@ -40,6 +40,7 @@ return {
       {
         "<leader>r",
         function()
+          local current_word = vim.fn.expand("<cword>")
           require("searchbox").replace({
             confirm = "menu",
             visual_mode = true,
@@ -47,6 +48,7 @@ return {
             case_sensitive = false,
             -- stylua-ignore
             modified = ":C\\v",
+            default_value = current_word,
           })
         end,
         mode = "x",

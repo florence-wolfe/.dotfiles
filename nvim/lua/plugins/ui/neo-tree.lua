@@ -24,9 +24,6 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     enabled = true,
-    dependencies = {
-      { "nvim-telescope/telescope.nvim" },
-    },
     keys = {
       {
         "<leader>e",
@@ -94,16 +91,16 @@ return {
         window = {
           mappings = {
             ["/"] = "noop",
-            ["gf"] = function(state)
-              require("telescope.builtin").find_files({
-                cwd = get_current_directory(state),
-              })
-            end,
-            ["gr"] = function(state)
-              require("telescope.builtin").live_grep({
-                cwd = get_current_directory(state),
-              })
-            end,
+            -- ["gf"] = function(state)
+            --   require("telescope.builtin").find_files({
+            --     cwd = get_current_directory(state),
+            --   })
+            -- end,
+            -- ["gr"] = function(state)
+            --   require("telescope.builtin").live_grep({
+            --     cwd = get_current_directory(state),
+            --   })
+            -- end,
             ["c"] = {
               "copy",
               config = {

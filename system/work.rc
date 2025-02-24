@@ -32,4 +32,3 @@ export DEVELOPER_NAME=florence-robert
 export REMOTE_PRIVATE_KEY_FILE=$HOME/.ssh/id_ed25519_work
 export RIPPLING_BACKEND=$HOME/projects/rippling-main
 export REMOTE_IP=10.203.8.221
-export DOCKER_HOST=unix:///var/run/docker.sock

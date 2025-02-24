@@ -1,15 +1,16 @@
+choco feature enable -n=allowGlobalConfirmation
 # Applications
-choco install adobereader
-choco install googlechrome
-choco install zoom
-choco install malwarebytes
-choco install googledrive
-choco install spotify
-choco install messenger
-choco install discord
-choco install everything
-choco install lenovo-thinkvantage-system-update
-choco install steam
-choco install bitwarden
-choco install wezterm
-choco install espanso
+
+choco upgrade adobereader
+choco upgrade googlechrome
+choco upgrade zoom
+choco upgrade googledrive
+choco upgrade spotify
+choco upgrade messenger
+choco upgrade discord
+choco upgrade everything
+choco upgrade lenovo-thinkvantage-system-update
+choco upgrade steam
+choco upgrade bitwarden
+choco upgrade wezterm
+# choco upgrade espanso

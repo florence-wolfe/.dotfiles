@@ -16,13 +16,28 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-colors, homeage, darwin, ... }:
-    let commonModules = [ ];
-    in {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nix-colors,
+      homeage,
+      darwin,
+      ghostty,
+      ...
+    }:
+    let
+      commonModules = [ ];
+    in
+    {
       darwinConfigurations = {
-        "frank@franks-MacBook-Pro" = darwin.lib.darwinSystem {
+        "frank@flos-MacBook-Pro" = darwin.lib.darwinSystem {
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
             config.allowUnfree = true;
@@ -34,10 +49,14 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.frank = { ... }: {
-                imports = commonModules ++ [ ./modules/darwin/home.nix ];
+              home-manager.users.frank =
+                { ... }:
+                {
+                  imports = commonModules ++ [ ./modules/darwin/home.nix ];
+                };
+              home-manager.extraSpecialArgs = {
+                inherit nix-colors homeage ghostty;
               };
-              home-manager.extraSpecialArgs = { inherit nix-colors homeage; };
             }
           ];
         };
@@ -49,7 +68,9 @@
             config.allowUnfree = true;
           };
           modules = commonModules ++ [ ./modules/home/wsl.nix ];
-          extraSpecialArgs = { inherit nix-colors homeage; };
+          extraSpecialArgs = {
+            inherit nix-colors homeage ghostty;
+          };
         };
         "flo.wolfe@DS720plus" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
@@ -57,7 +78,9 @@
             config.allowUnfree = true;
           };
           modules = commonModules ++ [ ./modules/home/nas.nix ];
-          extraSpecialArgs = { inherit nix-colors homeage; };
+          extraSpecialArgs = {
+            inherit nix-colors homeage ghostty;
+          };
         };
       };
     };

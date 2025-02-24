@@ -1,13 +1,7 @@
-local utils = require("utils")
-local colorscheme = require("utils.colorscheme")
-
 return {
   {
     "akinsho/toggleterm.nvim",
     cmd = "ToggleTerm",
-    init = function()
-      utils.create_keymap_group("<leader>t", "+terminal")
-    end,
     opts = {
       size = 20,
       start_in_insert = true,
@@ -16,7 +10,6 @@ return {
       close_on_exit = true,
       auto_scroll = true,
       shade_terminals = false,
-      highlights = colorscheme.get("toggleterm"),
     },
     keys = {
       { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle Term (float)" },
