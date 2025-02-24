@@ -10,8 +10,8 @@ function Set-Profile-Command
   if (-not $profileContent -or $profileContent -notmatch [regex]::Escape($check))
   {
     Write-Host "Adding $Tag command to profile."
-    Add-Content $PROFILE "`n$check"
-    Add-Content $PROFILE "`n$Command"
+    Add-Content -Path $PROFILE -Value "`n$check"
+    Add-Content -Path $PROFILE -Value "`n$Command"
   } else
   {
     Write-Host "Command already exists in profile."
