@@ -37,7 +37,7 @@
     in
     {
       darwinConfigurations = {
-        "frank@franks-MacBook-Pro" = darwin.lib.darwinSystem {
+        "frank@flos-MacBook-Pro" = darwin.lib.darwinSystem {
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
             config.allowUnfree = true;
