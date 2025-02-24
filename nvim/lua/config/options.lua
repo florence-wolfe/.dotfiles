@@ -1,5 +1,5 @@
-vim.g.lazyvim_python_lsp = "basedpyright"
-vim.g.lazyvim_picker = "snacks"
+vim.g.lazyvim_python_lsp = "pyright"
+vim.g.lazyvim_picker = "fzf"
 local python3_host_prog = vim.fn.expand("~") .. ".cde/lde/.vanilla-venv/bin/python"
 print(python3_host_prog)
 vim.g.python3_host_prog = python3_host_prog
