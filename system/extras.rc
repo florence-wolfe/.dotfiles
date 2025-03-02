@@ -16,3 +16,13 @@ _paste() {
 if [ -f "$HOME/.ssh/config.bak" ]; then
     mv "$HOME/.ssh/config.bak" "$HOME/.ssh/config"
 fi
+
+brewPrefix=
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+	brewPrefix="/home/linuxbrew/.linuxbrew/bin"
+else
+	brewPrefix="~/.linuxbrew/bin"
+fi
+if [ -f "''${brewPrefix}/brew" ]; then
+	PATH="''${brewPrefix}":$PATH ${cfg.onActivation.brewBundleCmd}
+fi

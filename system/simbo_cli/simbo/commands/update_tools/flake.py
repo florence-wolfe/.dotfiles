@@ -1,6 +1,6 @@
 import rich_click as click
 from halo import Halo
-from simbo.utils import get_os
+from simbo.utils import get_os 
 from simbo.utils.constants import DOTFILES_PATH, SYSTEMS, PROFILE
 from simbo.commands.command_utils import (
     run_command,
@@ -42,5 +42,5 @@ def update_flake(spinner: Halo, backup: bool = False):
         run_process(
             f'home-manager switch --flake "{DOTFILES_PATH}#{PROFILE}"' + backup_command
         )
-        update_environment()
+    update_environment()
     spinner.succeed(text="Flake generation has been updated.")

@@ -2,7 +2,7 @@ import subprocess
 from enum import StrEnum
 from typing import Callable
 from halo import Halo
-from simbo.utils import with_bash
+from simbo.utils import with_bash, log
 
 
 class Platform(StrEnum):
@@ -38,3 +38,4 @@ def run_process_async(command: str, *args, **kwargs):
 
 def update_environment():
     run_process(command="source ~/.profile")
+    log(text="Sourced .profile to apply changes.", level="success")
