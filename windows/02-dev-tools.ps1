@@ -4,7 +4,7 @@ Install-Scoop-Modules
 choco upgrade git -y
 choco upgrade gzip
 choco upgrade starship
-Set-Profile-Command -Tag "starship" -Command "$(Invoke-Expression (&starship init powershell))"
+Set-Profile-Command -Tag "starship" -Command "Invoke-Expression (&starship init powershell)"
 choco upgrade nvm
 Install-Node-LTS
 
@@ -13,6 +13,7 @@ choco upgrade jq
 choco upgrade zoxide
 Set-Profile-Command -Tag "zoxide" -Command "$(zoxide init powershell | Out-String)"
 
+choco upgrade uv
 choco upgrade python
 # choco install rustup.intall
 choco upgrade tree-sitter -y

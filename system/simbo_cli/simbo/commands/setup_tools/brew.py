@@ -11,7 +11,7 @@ def brew():
 
 
 def setup_brew(spinner: Halo):
-    log("Checking if Homebrew is installed.")
+    log(text="Checking if Homebrew is installed.", level="info")
     spinner.start()
     if check_exists("brew"):
         spinner.succeed(text="Homebrew is already installed.")

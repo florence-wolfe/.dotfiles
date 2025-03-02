@@ -34,7 +34,7 @@ def setup_nix(spinner: Halo, install_method: str):
 
 
 def check_and_install_nix(spinner: Halo, install_method: str):
-    log("Checking if Nix is already installed.")
+    log(text="Checking if Nix is already installed.", level="info")
     if check_exists("nix"):
         spinner.succeed(text="Nix is already installed.")
     else:
@@ -55,7 +55,7 @@ def install_nix(spinner: Halo, install_method: str):
 
 
 def check_and_enable_flakes(spinner: Halo):
-    log("Checking if flakes support is enabled.")
+    log(text="Checking if flakes support is enabled.", level="info")
     spinner.start()
     if get_is_flakes_configured():
         spinner.succeed(text="Nix with flakes support is already enabled.")

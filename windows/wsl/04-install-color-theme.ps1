@@ -32,22 +32,39 @@ $settings = Get-Content -Path $jsonPath | ConvertFrom-Json
 $mochaScheme = Invoke-RestMethod -Uri $mochaSchemeUrl
 $mochaTheme = Invoke-RestMethod -Uri $mochaThemeUrl
 
+
 # Check if the theme is already installed
 if ($settings.schemes.name -notcontains $mochaScheme.name)
 {
 
   # Add the mocha scheme and theme to the settings
   $settings.schemes += $mochaScheme
-  $settings.themes += $mochaTheme
-
-  # Set the mocha theme as the default for all profiles
-  $settings.profiles.defaults.colorScheme = $mochaScheme.name
-
-  # Write the modified JSON back to the file
-  $settings | ConvertTo-Json -Depth 100 | Set-Content -Path $jsonPath
-
   Write-Host "$($mochaScheme.name) theme installed and set as the default."
 } else
 {
-  Write-Host "$($mochaScheme.name) is already installed."
+  Write-Host "$($mochaScheme.name) is already in the schemes."
 }
+
+if ($settings.themes.name -notcontains $mochaScheme.name)
+{
+  # Add the mocha theme to the list of profiles
+  $settings.themes += $mochaTheme
+  Write-Host "$($mochaScheme.name) theme added to the list of profiles."
+} else
+{
+  Write-Host "$($mochaScheme.name) is already in the list of profiles."
+}
+
+# Check if theme is already the default
+if ($settings.profiles.defaults.colorScheme -eq $mochaScheme.name)
+{
+  Write-Host "$($mochaScheme.name) is already the default theme."
+} else
+{
+  # Set the mocha theme as the default for all profiles
+  $settings.profiles.defaults.colorScheme = $mochaScheme.name
+  Write-Host "$($mochaScheme.name) set as the default theme."
+}
+
+# Write the modified JSON back to the file
+$settings | ConvertTo-Json -Depth 100 | Set-Content -Path $jsonPath

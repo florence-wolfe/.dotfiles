@@ -10,9 +10,12 @@ class Platform(StrEnum):
     macos = "Darwin"
     windows = "Windows"
 
+
 def get_platform():
     import platform
+
     return platform.system()
+
 
 def run_command(command: Callable[[Halo], None], error_message: str):
     with Halo() as spinner:
@@ -23,8 +26,10 @@ def run_command(command: Callable[[Halo], None], error_message: str):
             spinner.fail(text=f"{error_message}: {e}")
 
 
-def run_process(command: str, *args, **kwargs):
-    return subprocess.run(with_bash(command), shell=True, *args, **kwargs)
+def run_process(command: str, use_bash: bool = True, *args, **kwargs):
+    if use_bash:
+        command = with_bash(command)
+    return subprocess.run(command, shell=True, *args, **kwargs)
 
 
 def run_process_async(command: str, *args, **kwargs):

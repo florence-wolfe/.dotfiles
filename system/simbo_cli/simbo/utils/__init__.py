@@ -34,7 +34,9 @@ GLYPHS = {
 }
 
 
-def log(text: str, level: Literal["info", "success", "warning", "error"] = "info"):
+def log(text: str, level: Literal["info", "success", "warning", "error"]):
+    if not level:
+        level = "info"
     [glyph, color] = GLYPHS[level]
     styled_glyph = click.style(glyph, fg=color)
-    click.echo(f"{styled_glyph} {text}")
+    click.echo(f"{styled_glyph}  {text}")

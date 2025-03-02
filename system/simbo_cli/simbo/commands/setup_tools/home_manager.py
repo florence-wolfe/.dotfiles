@@ -23,7 +23,7 @@ def home_manager():
 
 def setup_home_manager(spinner: Halo):
     os, command = get_os_and_command()
-    log(f"Checking if Home Manager for {os} is already installed.")
+    log(text=f"Checking if Home Manager for {os} is already installed.", level="info")
 
     if check_exists(command):
         spinner.succeed(text=f"Home Manager for {os} is already installed.")
@@ -38,7 +38,7 @@ def setup_home_manager(spinner: Halo):
     run_process("nix-channel --update")
     run_process("nix-shell '<home-manager>' -A install")
 
-    log("Building activation package for Home Manager profile.")
+    log(text="Building activation package for Home Manager profile.", level="info")
     run_process(
         f'nix build --no-link "{DOTFILES_PATH}#homeConfigurations."{PROFILE}".activationPackage"'
     )

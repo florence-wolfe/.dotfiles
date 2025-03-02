@@ -17,7 +17,7 @@ def secrets():
 
 
 def setup_secrets_management(spinner: Halo):
-    log("Setting up secrets management.")
+    log(text="Setting up secrets management.", level="info")
     login_to_secrets_management(spinner=spinner)
     update_secrets(spinner=spinner)
 

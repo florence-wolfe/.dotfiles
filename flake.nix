@@ -37,7 +37,7 @@
     in
     {
       darwinConfigurations = {
-        "frank@flos-MacBook-Pro" = darwin.lib.darwinSystem {
+        "flo@flos-MacBook-Pro" = darwin.lib.darwinSystem {
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
             config.allowUnfree = true;
@@ -49,7 +49,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.frank =
+              home-manager.users.flo =
                 { ... }:
                 {
                   imports = commonModules ++ [ ./modules/darwin/home.nix ];
@@ -62,7 +62,7 @@
         };
       };
       homeConfigurations = {
-        "frank@LAPTOP-OTHG7ALT" = home-manager.lib.homeManagerConfiguration {
+        "flo@LAPTOP-OTHG7ALT" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;

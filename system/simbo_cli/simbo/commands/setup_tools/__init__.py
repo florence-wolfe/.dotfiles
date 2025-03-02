@@ -12,9 +12,7 @@ def setup():
     pass
 
 
-if get_platform() != Platform.windows:
-    setup.add_command(nix)
-    setup.add_command(home_manager)
-    setup.add_command(brew)
-
+setup.add_command(nix)
+setup.add_command(home_manager)
+setup.add_command(brew)
 setup.add_command(secrets)

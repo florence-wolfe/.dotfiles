@@ -1,8 +1,8 @@
 { pkgs, lib, ... }: rec {
-  users.users.frank.home = "/Users/frank";
+  users.users.flo.home = "/Users/flo";
   environment = {
     loginShell = "zsh";
-    systemPath = [ "${users.users.frank.home}/" ];
+    systemPath = [ "${users.users.flo.home}/" ];
   };
   security.pam.enableSudoTouchIdAuth = true;
   homebrew = {

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  username = "frank";
+  username = "flo";
   checkDirScript = pkgs.writeShellScript "check-ssh-dir" ''
     #!/usr/bin/env bash
     if [[ $(pwd) == *rippling* ]]; then
@@ -55,7 +55,7 @@ in
        eval "$(/opt/homebrew/bin/brew shellenv)"
       fi
       export PATH=$PATH:/run/current-system/sw/bin
-      export PATH=$PATH:/etc/profiles/per-user/frank/bin
+      export PATH=$PATH:/etc/profiles/per-user/flo/bin
       export PATH=$PATH:/usr/local/bin
       # work.rc
       ${builtins.readFile ../../system/work.rc};
