@@ -1,6 +1,16 @@
+import os
 import shutil
 from typing import Literal
 import rich_click as click
+
+
+def touch(path):
+    basedir = os.path.dirname(path)
+    if not os.path.exists(basedir):
+        os.makedirs(basedir)
+
+    with open(path, "a"):
+        os.utime(path, None)
 
 
 def with_bash(command: str) -> str:

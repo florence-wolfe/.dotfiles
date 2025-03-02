@@ -48,12 +48,9 @@ in
       pkgs.jetbrains-mono
       pkgs.intel-one-mono
       pkgs.iosevka
-      (pkgs.nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "DroidSansMono"
-        ];
-      })
+      pkgs.nerd-fonts.intone-mono
+      pkgs.nerd-fonts.fira-code
+      pkgs.nerd-fonts.droid-sans-mono
       pkgs.bun
       pkgs.nixfmt-rfc-style
       pkgs.deadnix
@@ -65,6 +62,9 @@ in
       pkgs.viu
       pkgs.lazydocker
       pkgs.ranger
+      pkgs.uv
+      pkgs.unzip
+      pkgs.python314
       # Re-enable once we know how to install this for darwin
       # ghostty.packages."${pkgs.system}".default
     ];

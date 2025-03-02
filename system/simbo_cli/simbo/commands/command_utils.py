@@ -34,3 +34,7 @@ def run_process(command: str, use_bash: bool = True, *args, **kwargs):
 
 def run_process_async(command: str, *args, **kwargs):
     return subprocess.Popen(with_bash(command), shell=True, *args, **kwargs)
+
+
+def update_environment():
+    run_process(command="source ~/.profile")

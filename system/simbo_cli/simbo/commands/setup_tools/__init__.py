@@ -6,6 +6,7 @@ from .brew import brew
 from .secrets import secrets
 
 
+#TODO: Enable reinstall
 @click.group()
 def setup():
     """Lists the available setup tools."""

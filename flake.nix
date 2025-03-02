@@ -62,7 +62,7 @@
         };
       };
       homeConfigurations = {
-        "flo@LAPTOP-OTHG7ALT" = home-manager.lib.homeManagerConfiguration {
+        "flo@DESKTOP-VAKDGVR" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;

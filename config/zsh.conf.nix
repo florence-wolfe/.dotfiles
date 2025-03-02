@@ -19,8 +19,8 @@
       };
       oh-my-zsh = { enable = true; };
       initExtra = ''
-        # secrets
-        source $HOME/.dotfiles/secrets/.env
+        # conditionally ues secrets
+        [[ -f $HOME/.dotfiles/secrets/.env ]] && source $HOME/.dotfiles/secrets/.env
       '';
     };
   };

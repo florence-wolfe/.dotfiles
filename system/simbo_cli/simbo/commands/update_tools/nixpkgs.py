@@ -28,6 +28,11 @@ def update_nixpkgs_channel(spinner: Halo):
 
 
 def update_nixpkgs_flake_inputs(spinner: Halo):
-    spinner.start(text="Updating nixpkgs flake inputs.")
-    run_process("nix flake update")
-    spinner.succeed(text="Nixpkgs flake inputs have been updated.")
+    try:
+        spinner.start(text="Updating nixpkgs flake inputs.")
+        # TODO: Change to home dir
+        run_process("nix flake update")
+        spinner.succeed(text="Nixpkgs flake inputs have been updated.")
+    except Exception as e:
+        spinner.fail(text=f"Failed to update Nixpkgs flake inputs: {e}")
+        

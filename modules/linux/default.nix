@@ -2,14 +2,11 @@
   imports = [ ../home/common.nix ../custom/homebrew.nix ];
   homebrew = {
     enable = true;
-    taps = [{ name = "hashicorp/tap"; }];
     brews = [
       {
         name = "neovim";
         args = [ "HEAD" ];
       }
-      { name = "terraform"; }
-      { name = "vault"; }
     ];
   };
 
@@ -18,10 +15,6 @@
       source = config.lib.file.mkOutOfStoreSymlink
         "${config.home.homeDirectory}/.dotfiles/nvim";
       recursive = true;
-    };
-    ".vault.yml" = {
-      source = config.lib.file.mkOutOfStoreSymlink
-        "${config.home.homeDirectory}/.dotfiles/system/vault.yml";
     };
   };
   services = {

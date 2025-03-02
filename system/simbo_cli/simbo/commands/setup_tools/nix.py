@@ -1,8 +1,8 @@
 import rich_click as click
 import os
 from halo import Halo
-from simbo.utils import check_exists, log
-from simbo.commands.command_utils import run_command, run_process
+from simbo.utils import check_exists, log, touch
+from simbo.commands.command_utils import run_command, run_process, update_environment
 
 NIX_CONF_PATH = os.path.expanduser("~/.config/nix/nix.conf")
 NIX_FLAKES_CONFIG = "experimental-features = nix-command flakes"
@@ -30,11 +30,14 @@ def nix(install_method: str):
 
 def setup_nix(spinner: Halo, install_method: str):
     check_and_install_nix(spinner, install_method)
+    update_environment()
     check_and_enable_flakes(spinner)
+    update_environment()
 
 
 def check_and_install_nix(spinner: Halo, install_method: str):
     log(text="Checking if Nix is already installed.", level="info")
+    # TODO Capture STDIN
     if check_exists("nix"):
         spinner.succeed(text="Nix is already installed.")
     else:
@@ -66,7 +69,8 @@ def check_and_enable_flakes(spinner: Halo):
 
 
 def get_is_flakes_configured() -> bool:
-    if os.path.exists(NIX_CONF_PATH):
+    conf_exists = os.path.exists(NIX_CONF_PATH)
+    if conf_exists:
         # File exists, now open it and search for the text
         with open(NIX_CONF_PATH, "r") as file:
             # Read the content of the file
@@ -82,6 +86,7 @@ def get_is_flakes_configured() -> bool:
 
 def configure_flakes(spinner: Halo):
     spinner.start(text="Enabling Nix with flakes support.")
+    touch(NIX_CONF_PATH)
     with open(NIX_CONF_PATH, "w") as file:
         file.write(NIX_FLAKES_CONFIG)
     spinner.succeed(text="Flakes support has been enabled.")

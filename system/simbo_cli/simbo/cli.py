@@ -6,6 +6,7 @@ from .commands.setup_tools import setup
 from .commands.update_tools import update
 from .commands.edit_tools import edit
 
+
 @click.group()
 def cli():
     """
@@ -13,35 +14,21 @@ def cli():
 
     This tool helps manage system configurations across Windows, Linux, and macOS.
     """
-    # Ensure Windows initialization command is always available on Windows
-    if get_os() == SYSTEMS.WINDOWS and not is_windows_initialized():
-        from simbo.commands.setup_tools.windows import windows
-
-        # setup.commands = [windows]
-        # update.commands = []
-        # edit.commands = []
-        setup.commands = {}
-        setup.add_command(windows)
-    elif get_os() == SYSTEMS.WINDOWS and is_windows_initialized():
-        setup.commands = {}
-        edit.commands = {}
-        update.commands = {}
-        log(text="Please run `simbo` from `wsl` to continue.", level="warning")
 
 
 if get_os() == SYSTEMS.WINDOWS and not is_windows_initialized():
     from simbo.commands.setup_tools.windows import windows
 
-    # setup.commands = [windows]
-    # update.commands = []
-    # edit.commands = []
     setup.commands = {}
     setup.add_command(windows)
 elif get_os() == SYSTEMS.WINDOWS and is_windows_initialized():
     setup.commands = {}
     edit.commands = {}
     update.commands = {}
-    log(text="Windows is initialized. Please run `simbo` from `wsl` to continue.", level="warning")
+    log(
+        text="Windows is initialized. Please run `simbo` from `wsl` to continue.",
+        level="warning",
+    )
 else:
     cli.add_command(setup)
     cli.add_command(update)
