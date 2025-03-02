@@ -19,3 +19,4 @@ This is my personal development environment setup stuff. It has my dotfiles, con
   - [generating a new ssh key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
   - [add the ssh key to gh using gh cli](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux&tool=cli)
 > Note: run `gh help` so that it triggers an internal user data migration so that the login part works properly. [home-manager#4744](https://github.com/nix-community/home-manager/issues/4744)
+5. Setup rustup with `rustup default stable`

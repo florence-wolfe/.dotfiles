@@ -1,4 +1,5 @@
 import subprocess
+import os
 from enum import StrEnum
 from typing import Callable
 from halo import Halo
@@ -27,9 +28,8 @@ def run_command(command: Callable[[Halo], None], error_message: str):
 
 
 def run_process(command: str, use_bash: bool = True, *args, **kwargs):
-    if use_bash:
-        command = with_bash(command)
-    return subprocess.run(command, shell=True, *args, **kwargs)
+    executable = os.environ.get("SHELL", "sh")
+    return subprocess.run(command, shell=True, executable=executable, *args, **kwargs)
 
 
 def run_process_async(command: str, *args, **kwargs):
@@ -37,5 +37,4 @@ def run_process_async(command: str, *args, **kwargs):
 
 
 def update_environment():
-    run_process(command="source ~/.profile")
-    log(text="Sourced .profile to apply changes.", level="success")
+    log(text="Source .profile to apply changes.", level="success")

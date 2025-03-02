@@ -36,7 +36,6 @@ in
       ACTIVE_SHELL = "zsh";
       EDITOR = "nvim";
       VISUAL = "nvim";
-      TERM = "wezterm";
     };
     stateVersion = "22.11";
     sessionPath = [ "$HOME/.local/bin" ];
@@ -64,7 +63,8 @@ in
       pkgs.ranger
       pkgs.uv
       pkgs.unzip
-      pkgs.python314
+      pkgs.python314Full
+      pkgs.rustup
       # Re-enable once we know how to install this for darwin
       # ghostty.packages."${pkgs.system}".default
     ];
