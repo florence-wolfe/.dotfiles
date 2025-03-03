@@ -1,6 +1,7 @@
 return {
   {
     "rasulomaroff/reactive.nvim",
+    enabled = false,
     opts = {
       load = { "catppuccin-mocha-cursor", "catppuccin-mocha-cursorline" },
       builtin = {

@@ -1,5 +1,5 @@
 vim.g.lazyvim_python_lsp = "pyright"
-vim.g.lazyvim_picker = "fzf"
+vim.g.lazyvim_picker = "snacks"
 if string.match(vim.fn.getcwd(), "rippling-main") then
   local python3_host_prog = vim.fn.expand("~") .. ".cde/lde/.vanilla-venv/bin/python"
   vim.g.python3_host_prog = python3_host_prog

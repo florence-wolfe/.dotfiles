@@ -1,6 +1,5 @@
 return {
   "folke/snacks.nvim",
-  --[[ enabled = false,
   ---@type snacks.Config
   opts = {
     explorer = {
@@ -13,5 +12,5 @@ return {
         },
       },
     },
-  }, ]]
+  },
 }
