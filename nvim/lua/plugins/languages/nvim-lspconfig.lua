@@ -64,6 +64,34 @@ return {
           basedpyright = {
             analysis = {
               diagnosticMode = "openFilesOnly",
+              useLibraryCodeForTypes = true,
+              typeCheckingMode = "basic",
+              indexing = true,
+              autoSearchPaths = true,
+              maxAnalaysisTimeInSeconds = 30,
+              autoImportCompletions = true,
+              logLevel = "Error",
+              inlayHints = {
+                variableTypes = false,
+                callArgumentNames = false,
+                functionReturnTypes = false,
+              },
+            },
+            disableTaggedHints = true,
+          },
+        },
+      },
+      pyright = {
+        settings = {
+          pyright = {
+            analysis = {
+              diagnosticMode = "openFilesOnly",
+              useLibraryCodeForTypes = true,
+              typeCheckingMode = "basic",
+              indexing = true,
+              autoSearchPaths = true,
+              maxAnalaysisTimeInSeconds = 30,
+              autoImportCompletions = true,
               logLevel = "Error",
               inlayHints = {
                 variableTypes = false,
