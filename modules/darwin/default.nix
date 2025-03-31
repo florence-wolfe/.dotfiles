@@ -1,13 +1,18 @@
-{ pkgs, lib, ... }: rec {
+{ pkgs, lib, ... }:
+rec {
   users.users.flo.home = "/Users/flo";
   environment = {
-    loginShell = "zsh";
     systemPath = [ "${users.users.flo.home}/" ];
   };
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
+  # Hardcoding for now since I only have 1 darwin device and this is the recommended approach;
+  ids.gids.nixbld = 30000;
   homebrew = {
     enable = true;
-    taps = [ { name = "homebrew/cask-versions"; } { name = "hashicorp/tap"; } ];
+    taps = [
+      { name = "homebrew/cask-versions"; }
+      { name = "hashicorp/tap"; }
+    ];
 
     casks = [
       { name = "keycastr"; }
@@ -29,13 +34,14 @@
       { name = "vault"; }
     ];
   };
-  services = { nix-daemon.enable = true; };
   system.defaults.finder = {
     AppleShowAllExtensions = true;
     AppleShowAllFiles = true;
     ShowPathbar = true;
     ShowStatusBar = true;
   };
-  system.keyboard = { enableKeyMapping = true; };
+  system.keyboard = {
+    enableKeyMapping = true;
+  };
   system.stateVersion = 5;
 }

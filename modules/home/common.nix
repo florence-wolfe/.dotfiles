@@ -15,9 +15,6 @@ in
   lib = {
     inherit utils weztermConfig;
   };
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
   imports = [
     nix-colors.homeManagerModule
     homeage.homeManagerModules.homeage
