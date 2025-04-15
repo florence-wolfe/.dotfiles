@@ -72,6 +72,11 @@ in
       ".profile" = {
         source = ../../system/.profile;
       };
+      ".config/direnv" = {
+        source = ../../system/direnv;
+        recursive = true;
+      };
+
       # "secrets" = {
       #   source = config.lib.file.mkOutOfStoreSymlink
       #     "${config.home.homeDirectory}/.dotfiles/secrets";
@@ -118,7 +123,7 @@ in
     rbw = {
       enable = true;
       settings = {
-        email = "frankie.robert@gmail.com";
+        email = "florencewolfe@pm.me";
         base_url = "https://bitwarden.simbojimbo.com";
       };
     };

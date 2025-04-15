@@ -20,7 +20,7 @@
           },
           "to": [
             {
-              "shell_command": "/etc/profiles/per-user/frankrobert/bin/spt pb -t"
+              "shell_command": "/etc/profiles/per-user/flo/bin/spt pb -t"
             }
           ],
           "type": "basic"
@@ -46,7 +46,7 @@
           },
           "to": [
             {
-              "shell_command": "/etc/profiles/per-user/frankrobert/bin/spt pb -p"
+              "shell_command": "/etc/profiles/per-user/flo/bin/spt pb -p"
             }
           ],
           "type": "basic"
@@ -72,7 +72,7 @@
           },
           "to": [
             {
-              "shell_command": "/etc/profiles/per-user/frankrobert/bin/spt pb -n"
+              "shell_command": "/etc/profiles/per-user/flo/bin/spt pb -n"
             }
           ],
           "type": "basic"

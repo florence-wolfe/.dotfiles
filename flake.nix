@@ -22,7 +22,7 @@
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       home-manager,
@@ -37,7 +37,7 @@
     in
     {
       darwinConfigurations = {
-        "flo@flos-MacBook-Pro" = darwin.lib.darwinSystem {
+        "flos-MacBook-Pro" = darwin.lib.darwinSystem {
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
             config.allowUnfree = true;
