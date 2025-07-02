@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   programs = {
     starship = {
       enable = true;
@@ -7,7 +8,7 @@
       # Configuration written to ~/.config/starship.toml
       settings = {
         character = {
-          success_symbol = "[➜](bold #${config.colorScheme.palette.base0B})";
+          success_symbol = "[🌸❥](bold #${config.colorScheme.palette.base0F})";
           error_symbol = "[x](bold #${config.colorScheme.palette.base08})";
         };
         username = {
@@ -21,11 +22,16 @@
           style = "bold #${config.colorScheme.palette.base0F}";
           disabled = false;
         };
-        continuation_prompt =
-          "[▶](bold #${config.colorScheme.palette.base09}) ";
-        cmake = { disabled = true; };
-        aws = { disabled = true; };
-        swift = { disabled = true; };
+        continuation_prompt = "[▶](bold #${config.colorScheme.palette.base09}) ";
+        cmake = {
+          disabled = true;
+        };
+        aws = {
+          disabled = true;
+        };
+        swift = {
+          disabled = true;
+        };
       };
     };
   };

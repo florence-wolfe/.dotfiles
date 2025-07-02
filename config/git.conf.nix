@@ -25,7 +25,7 @@
       userEmail = "florencewolfe@pm.me";
       userName = "Flo Wolfe";
       extraConfig = {
-        core = { editor = "nvr --remote-wait-silent"; };
+        core = { editor = "nvim -f"; };
         init = { defaultBranch = "main"; };
         advice = { addIgnoredFile = false; };
         push = { default = "current"; };

@@ -62,6 +62,7 @@ in
       pkgs.unzip
       pkgs.python314Full
       pkgs.rustup
+      pkgs.radare2
       # Re-enable once we know how to install this for darwin
       # ghostty.packages."${pkgs.system}".default
     ];

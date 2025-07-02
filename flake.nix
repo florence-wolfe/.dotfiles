@@ -55,7 +55,11 @@
                   imports = commonModules ++ [ ./modules/darwin/home.nix ];
                 };
               home-manager.extraSpecialArgs = {
-                inherit nix-colors homeage ghostty;
+                inherit
+                  nix-colors
+                  homeage
+                  ghostty
+                  ;
               };
             }
           ];
@@ -69,7 +73,11 @@
           };
           modules = commonModules ++ [ ./modules/home/wsl.nix ];
           extraSpecialArgs = {
-            inherit nix-colors homeage ghostty;
+            inherit
+              nix-colors
+              homeage
+              ghostty
+              ;
           };
         };
         "flo.wolfe@DS720plus" = home-manager.lib.homeManagerConfiguration {
@@ -79,7 +87,11 @@
           };
           modules = commonModules ++ [ ./modules/home/nas.nix ];
           extraSpecialArgs = {
-            inherit nix-colors homeage ghostty;
+            inherit
+              nix-colors
+              homeage
+              ghostty
+              ;
           };
         };
       };

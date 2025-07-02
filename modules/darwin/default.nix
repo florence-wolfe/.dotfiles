@@ -4,7 +4,10 @@ rec {
   environment = {
     systemPath = [ "${users.users.flo.home}/" ];
   };
-  security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local = {
+    enable = true;
+    touchIdAuth = true;
+  };
   # Hardcoding for now since I only have 1 darwin device and this is the recommended approach;
   ids.gids.nixbld = 30000;
   homebrew = {
@@ -18,7 +21,6 @@ rec {
       { name = "keycastr"; }
       # { name = "wezterm-nightly"; }
       { name = "MonitorControl"; }
-      { name = "flameshot"; }
       { name = "raycast"; }
       { name = "rectangle"; }
     ];
@@ -32,6 +34,7 @@ rec {
       { name = "pyenv"; }
       { name = "terraform"; }
       { name = "vault"; }
+      { name = "spicetify-cli"; }
     ];
   };
   system.defaults.finder = {
