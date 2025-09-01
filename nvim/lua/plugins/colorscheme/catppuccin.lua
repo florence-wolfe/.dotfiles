@@ -7,6 +7,7 @@ return {
     priority = 1000,
     branch = "main",
     opts = {
+      auto_integrations = true,
       flavour = "mocha", -- latte, frappe, macchiato, mocha
       custom_highlights = function(colors)
         return {

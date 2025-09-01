@@ -58,7 +58,7 @@ in
       export PATH=$PATH:/etc/profiles/per-user/flo/bin
       export PATH=$PATH:/usr/local/bin
       # work.rc
-      ${builtins.readFile ../../system/work.rc};
+      ${builtins.readFile ../../system/work.rc}
     '';
     # https://seansantry.com/development/2022/12/14/split-git-nix/
     ssh = {

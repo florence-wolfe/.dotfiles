@@ -32,3 +32,19 @@ export DEVELOPER_NAME=florence-robert
 export REMOTE_PRIVATE_KEY_FILE=$HOME/.ssh/id_ed25519_work
 export RIPPLING_BACKEND=$HOME/projects/rippling-main
 export REMOTE_IP=10.203.8.221
+
+# CLAUDE SSO
+
+# AWS SSO and Claude Code Bedrock Configuration
+export CLAUDE_CODE_USE_BEDROCK=1
+export AWS_REGION=us-west-2
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS=4096
+export CLAUDE_TIMEOUT=30000
+export DISABLE_AUTOUPDATER=1
+
+# Optional: Specific model ARN (can also be set in Claude settings)
+# export ANTHROPIC_MODEL='arn:aws:bedrock:us-west-2::foundation-model/anthropic.claude-3-5-sonnet-20241022-v2:0'
+
+# Optional: Alias to make terminal use easier
+alias -- claude-sso='~/bin/claude-sso'
+

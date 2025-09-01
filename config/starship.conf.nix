@@ -7,6 +7,7 @@
       enableFishIntegration = true;
       # Configuration written to ~/.config/starship.toml
       settings = {
+        command_timeout = 36000;
         character = {
           success_symbol = "[🌸❥](bold #${config.colorScheme.palette.base0F})";
           error_symbol = "[x](bold #${config.colorScheme.palette.base08})";
