@@ -50,7 +50,9 @@ return {
           globals = { "vim" },
         },
       },
-      vtsls = {
+      tsgo = {},
+      vtsls = false,
+      --[[ vtsls = {
         settings = {
           typescript = {
             tsserver = {
@@ -58,7 +60,7 @@ return {
             },
           },
         },
-      },
+      }, ]]
       basedpyright = {
         settings = {
           basedpyright = {

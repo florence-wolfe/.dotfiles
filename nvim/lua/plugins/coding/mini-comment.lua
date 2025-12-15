@@ -5,7 +5,7 @@ end
 
 return {
   {
-    "echasnovski/mini.comment",
+    "nvim-mini/mini.comment",
     enabled = false,
     keys = {
       {
