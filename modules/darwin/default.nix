@@ -13,13 +13,11 @@ rec {
   homebrew = {
     enable = true;
     taps = [
-      { name = "homebrew/cask-versions"; }
       { name = "hashicorp/tap"; }
     ];
 
     casks = [
       { name = "keycastr"; }
-      # { name = "wezterm-nightly"; }
       { name = "MonitorControl"; }
       { name = "raycast"; }
       { name = "rectangle"; }

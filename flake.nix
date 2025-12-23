@@ -64,6 +64,36 @@
             }
           ];
         };
+	"flo" = darwin.lib.darwinSystem {
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            config.allowUnfree = true;
+            config.allowUnsupportedSystem = true;
+          };
+          modules = [
+	          ({ ... }: {
+              nix.enable = false;
+            })
+            ./modules/darwin
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.flo =
+                { ... }:
+                {
+                  imports = commonModules ++ [ ./modules/darwin/home.nix ];
+                };
+              home-manager.extraSpecialArgs = {
+                inherit
+                  nix-colors
+                  homeage
+                  ghostty
+                  ;
+              };
+            }
+          ];
+        };
       };
       homeConfigurations = {
         "flo@DESKTOP-VAKDGVR" = home-manager.lib.homeManagerConfiguration {
