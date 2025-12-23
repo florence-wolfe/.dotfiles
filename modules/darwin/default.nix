@@ -21,9 +21,11 @@ rec {
       { name = "MonitorControl"; }
       { name = "raycast"; }
       { name = "rectangle"; }
+      { name = "claude-code"; }
     ];
     brews = [
       { name = "nvm"; }
+      { name = "codex"; }
       {
         name = "neovim";
         args = [ "HEAD" ];
