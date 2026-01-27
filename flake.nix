@@ -64,7 +64,7 @@
             }
           ];
         };
-	"flo" = darwin.lib.darwinSystem {
+	    "flo" = darwin.lib.darwinSystem {
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
             config.allowUnfree = true;

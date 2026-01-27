@@ -21,6 +21,8 @@ rec {
       { name = "MonitorControl"; }
       { name = "raycast"; }
       { name = "rectangle"; }
+      { name = "claude-code@latest"; }
+      { name = "ghostty"; }
     ];
     brews = [
       { name = "nvm"; }
@@ -31,8 +33,6 @@ rec {
       { name = "xz"; }
       { name = "pyenv"; }
       { name = "terraform"; }
-      { name = "vault"; }
-      { name = "spicetify-cli"; }
     ];
   };
   system.defaults.finder = {

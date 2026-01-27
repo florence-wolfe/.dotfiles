@@ -3,7 +3,6 @@
   pkgs,
   nix-colors,
   homeage,
-  ghostty,
   lib,
   ...
 }:
@@ -25,6 +24,7 @@ in
     ../../config/starship.conf.nix
     ../../config/tools.conf.nix
     ../../config/zsh.conf.nix
+    ../work.nix
   ];
   colorScheme = nix-colors.colorSchemes."catppuccin-mocha";
 
@@ -62,8 +62,6 @@ in
       pkgs.unzip
       pkgs.rustup
       pkgs.radare2
-      # Re-enable once we know how to install this for darwin
-      # ghostty.packages."${pkgs.system}".default
     ];
     file = {
       ".local/bin/cb" = {
