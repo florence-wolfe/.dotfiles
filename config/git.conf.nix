@@ -8,6 +8,9 @@
         pushf =
           "!git push origin $(git branch --show-current) --force-with-lease";
       };
+      lfs = {
+        enable = true;
+      };
       delta = {
         enable = true;
         options = {

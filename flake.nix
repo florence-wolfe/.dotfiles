@@ -13,11 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin = {
-      url = "github:nix-darwin/nix-darwin";
+      # Pinned to the release branch matching nixpkgs 25.05 (master tracks the
+      # next unstable and errors on a version mismatch). This branch still has
+      # `system.primaryUser`, which we require.
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
     };
   };
 
@@ -29,7 +29,6 @@
       nix-colors,
       homeage,
       darwin,
-      ghostty,
       ...
     }:
     let
@@ -49,6 +48,9 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              # Move any pre-existing dotfiles (e.g. ~/.zshrc) aside instead of
+              # aborting activation when home-manager wants to manage them.
+              home-manager.backupFileExtension = "backup";
               home-manager.users.flo =
                 { ... }:
                 {
@@ -58,7 +60,6 @@
                 inherit
                   nix-colors
                   homeage
-                  ghostty
                   ;
               };
             }
@@ -79,6 +80,9 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              # Move any pre-existing dotfiles (e.g. ~/.zshrc) aside instead of
+              # aborting activation when home-manager wants to manage them.
+              home-manager.backupFileExtension = "backup";
               home-manager.users.flo =
                 { ... }:
                 {
@@ -88,7 +92,6 @@
                 inherit
                   nix-colors
                   homeage
-                  ghostty
                   ;
               };
             }
@@ -106,7 +109,6 @@
             inherit
               nix-colors
               homeage
-              ghostty
               ;
           };
         };
@@ -120,7 +122,6 @@
             inherit
               nix-colors
               homeage
-              ghostty
               ;
           };
         };

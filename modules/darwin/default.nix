@@ -1,6 +1,10 @@
 { pkgs, lib, ... }:
 rec {
   users.users.flo.home = "/Users/flo";
+  # Required by nix-darwin so user-scoped activation (Homebrew, user defaults)
+  # runs as this user. Without it, `brew bundle` runs as root under
+  # `sudo darwin-rebuild switch` and Homebrew aborts.
+  system.primaryUser = "flo";
   environment = {
     systemPath = [ "${users.users.flo.home}/" ];
   };
