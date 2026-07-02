@@ -2,14 +2,6 @@
 
 let
   username = "flo";
-  checkDirScript = pkgs.writeShellScript "check-ssh-dir" ''
-    #!/usr/bin/env bash
-    if [[ $(pwd) == *rippling* ]]; then
-      echo "IdentityFile ~/.ssh/id_ed25519_work"
-    else
-      echo "IdentityFile ~/.ssh/id_ed25519_personal"
-    fi
-  '';
 in
 {
   imports = [ ../home/common.nix ];
@@ -63,9 +55,6 @@ in
     # https://seansantry.com/development/2022/12/14/split-git-nix/
     ssh = {
       matchBlocks = {
-        "rippling" = {
-          match = ''exec "${checkDirScript}"'';
-        };
         "*" = {
           extraOptions = {
             AddKeysToAgent = "yes";
@@ -82,21 +71,6 @@ in
           sshCommand = "ssh -i ~/.ssh/id_ed25519_personal";
         };
       };
-      includes = [
-        {
-          contents = {
-            user = {
-              email = "frobert@rippling.com";
-            };
-
-            core = {
-              sshCommand = "ssh -i ~/.ssh/id_ed25519_work";
-            };
-          };
-
-          condition = "hasconfig:remote.*.url:git@github.com:Rippling/*";
-        }
-      ];
     };
   };
 }
