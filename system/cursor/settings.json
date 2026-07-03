@@ -1,0 +1,12 @@
+{
+  "workbench.iconTheme": "catppuccin-mocha",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  "git.confirmSync": false,
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "claudeCode.preferredLocation": "sidebar",
+  "git.replaceTagsWhenPull": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "window.autoDetectColorScheme": false
+}

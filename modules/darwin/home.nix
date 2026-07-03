@@ -34,6 +34,17 @@ in
     file.".config/ghostty/config" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/ghostty.conf";
     };
+    # Cursor — macOS config paths; out-of-store symlinks so edits made in
+    # Cursor's settings UI land back in the repo.
+    file."Library/Application Support/Cursor/User/settings.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/cursor/settings.json";
+    };
+    file."Library/Application Support/Cursor/User/keybindings.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/cursor/keybindings.json";
+    };
+    file.".cursor/mcp.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/cursor/mcp.json";
+    };
   };
 
   fonts.fontconfig.enable = true;

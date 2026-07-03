@@ -74,6 +74,17 @@ in
         source = ../../system/direnv;
         recursive = true;
       };
+      # Claude Code (Claire) — out-of-store symlinks so Claude Code can write
+      # back to these files and the changes land in the repo.
+      ".claude/CLAUDE.md" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/claude/CLAUDE.md";
+      };
+      ".claude/settings.json" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/claude/settings.json";
+      };
+      ".claude/statusline-command.sh" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/claude/statusline-command.sh";
+      };
 
       # "secrets" = {
       #   source = config.lib.file.mkOutOfStoreSymlink

@@ -1,0 +1,54 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pid=$$; while true; do t=$(ps -o tty= -p $pid 2>/dev/null | tr -d ' '); [ -n \"$t\" ] && [ \"$t\" != \"??\" ] && printf '\\033]9;Claire ⚧ needs your attention\\a' > \"/dev/$t\" && break; ppid=$(ps -o ppid= -p $pid 2>/dev/null | tr -d ' '); [ \"$ppid\" = \"1\" ] || [ -z \"$ppid\" ] && break; pid=$ppid; done"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "codex@openai-codex": true,
+    "ghostty-notify@thejustinwalsh": false,
+    "vercel@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "thejustinwalsh": {
+      "source": {
+        "source": "github",
+        "repo": "thejustinwalsh/claude-ghostty-notify"
+      }
+    },
+    "chrome-devtools-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
+    }
+  },
+  "companyAnnouncements": [
+    "⚧ Claire is online — trans rights are human rights. 🏳️‍⚧️",
+    "⚧ Welcome back to Claire ⚧",
+    "⚧ Claire ⚧ — light blue, pink & white all the way down"
+  ],
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "model": "claude-fable-5[1m]"
+}
