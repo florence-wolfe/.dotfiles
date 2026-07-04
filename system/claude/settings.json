@@ -21,7 +21,8 @@
     "codex@openai-codex": true,
     "ghostty-notify@thejustinwalsh": false,
     "vercel@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "stripe@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {

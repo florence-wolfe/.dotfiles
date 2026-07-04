@@ -7,6 +7,7 @@
   "claudeCode.preferredLocation": "sidebar",
   "git.replaceTagsWhenPull": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.fontFamily": "Intone Mono, Menlo, Monaco, 'Courier New', monospace",
   "diffEditor.ignoreTrimWhitespace": false,
   "window.autoDetectColorScheme": false
 }
