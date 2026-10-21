@@ -1,0 +1,29 @@
+{
+  "name": "Claire ⚧",
+  "base": "dark",
+  "overrides": {
+    "claude": "#F5A9B8",
+    "claudeShimmer": "#FFD1E0",
+    "briefLabelClaude": "#F5A9B8",
+    "briefLabelYou": "#5BCEFA",
+    "promptBorder": "#5BCEFA",
+    "promptBorderShimmer": "#83F6FF",
+    "planMode": "#F5A9B8",
+    "autoAccept": "#FFFFFF",
+    "permission": "#5BCEFA",
+    "permissionShimmer": "#83F6FF",
+    "suggestion": "#5BCEFA",
+    "ide": "#5BCEFA",
+    "remember": "#F5A9B8",
+    "inactive": "#9AA8B0",
+    "inactiveShimmer": "#C2D0D8",
+    "subtle": "#4A565E",
+    "rate_limit_fill": "#F5A9B8",
+    "rate_limit_empty": "#70565D",
+    "userMessageBackground": "#303840",
+    "userMessageBackgroundHover": "#3E4852",
+    "memoryBackgroundColor": "#40343A",
+    "selectionBg": "#1F5A75",
+    "clawd_body": "#F5A9B8"
+  }
+}

@@ -1,4 +1,9 @@
 {
+  "model": "opus",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "hooks": {
     "Notification": [
       {
@@ -51,5 +56,7 @@
   ],
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "model": "claude-fable-5[1m]"
+  "theme": "custom:claire:claire",
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
 }

@@ -43,4 +43,4 @@ if [ -n "$used" ]; then
   ctx_part=" ${PNK}ctx:$(printf '%.0f' "$used")%${RST}"
 fi
 
-printf "%s" "${mark} ${claire} ${BLU}${model}${RST} ${PNK}${dir}${RST}${branch_part}${lines_part}${ctx_part}${rate_part}"
+printf "%s\n%s" "${mark} ${claire} ${BLU}${model}${RST}${lines_part}${ctx_part}${rate_part}" "${PNK}${dir}${RST}${branch_part}"

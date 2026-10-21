@@ -85,6 +85,9 @@ in
       ".claude/statusline-command.sh" = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/claude/statusline-command.sh";
       };
+      ".claude/skills/claire" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/system/claude/skills/claire";
+      };
 
       # "secrets" = {
       #   source = config.lib.file.mkOutOfStoreSymlink
